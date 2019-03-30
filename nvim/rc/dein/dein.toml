@@ -1,0 +1,63 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'taigacute/space-vim-theme'
+hook_add = 'let g:space_vim_plugin_hi_groups = 1'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add='source ~/.config/nvim/rc/plugins/lightline.vim'
+
+[[plugins]]
+repo = 'mengelbrecht/lightline-bufferline'
+hook_add='source ~/.config/nvim/rc/plugins/lightline.vim'
+
+[[plugins]]
+repo = 'taigacute/spaceline.vim'
+
+#[[plugins]]
+#repo = 'bling/vim-airline'
+#hook_add='source ~/.config/nvim/rc/plugins/vim-airline.vim'
+
+#[[plugins]]
+#repo = 'vim-airline/vim-airline-themes'
+#hook_add = '''
+#let g:airline_theme='wombat'
+#'''
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --all'
+merged = '0'
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+hook_add = 'source ~/.config/nvim/rc/plugins/fzf.vim'
+
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+[[plugins]]
+repo = 'mhinz/vim-startify'
+depends = 'vim-devicons'
+hook_add ='source ~/.config/nvim/rc/plugins/startify.vim'
+hook_post_source = '''
+function! StartifyEntryFormat()
+    return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+endfunction
+'''
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+build = 'yarn install'
+hook_add = 'source ~/.config/nvim/rc/plugins/coc.vim'
