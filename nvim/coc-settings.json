@@ -2,10 +2,11 @@
     "suggest.triggerAfterInsertEnter": true,
     "suggest.timeout": 500,
     "suggest.noselect": false,
-	"suggest.preferCompleteThanJumpPlaceholder": false,
     "suggest.detailField":"abbr",
     "suggest.snippetIndicator": "🌟",
     "suggest.triggerCompletionWait": 50,
+    "suggest.echodocSupport": true,
+    "coc.preferences.formatOnType": true,
 	"diagnostic.errorSign": "😡",
 	"diagnostic.warningSign": "🤔",
     //tslint
