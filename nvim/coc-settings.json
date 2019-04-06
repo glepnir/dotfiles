@@ -8,6 +8,7 @@
     "suggest.echodocSupport": true,
     "coc.preferences.formatOnType": true,
 	"diagnostic.errorSign": "😡",
+    "diagnostic.displayByAle": true,
 	"diagnostic.warningSign": "🤔",
     //tslint
     "tslint.autoFixOnSave": true,
@@ -21,24 +22,33 @@
     "eslint.autoFix": true,
     "eslint.autoFixOnSave": true,
     "languageserver": {
-    "golang": {
-      "command": "go-langserver",
-      "filetypes": ["go"],
-      "initializationOptions": {
-        "gocodeCompletionEnabled": true,
-        "diagnosticsEnabled": true,
-        "lintTool": "golint"
-      }
-    },
-    "dockerfile": {
-      "command": "docker-langserver",
-      "filetypes": ["dockerfile"],
-      "args": ["--stdio"]
-    },
-    "efm": {
-      "command": "efm-langserver",
-      "args": [],
-      "filetypes": ["vim", "eruby", "markdown"]
+        "golang": {
+            "command": "go-langserver",
+            "filetypes": [
+                "go"
+            ],
+            "initializationOptions": {
+                "gocodeCompletionEnabled": true,
+                "diagnosticsEnabled": true,
+                "lintTool": "golint"
+            }
+        },
+        "dockerfile": {
+            "command": "docker-langserver",
+            "filetypes": [
+                "dockerfile"
+            ],
+            "args": [
+                "--stdio"
+            ]
+        },
+        "efm": {
+            "command": "efm-langserver",
+            "args": [],
+            "filetypes": [
+                "vim",
+                "markdown"
+            ]
+        }
     }
-  }
 }

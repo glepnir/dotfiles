@@ -73,7 +73,6 @@ if dein#tap('nerdtree')
         "nnoremap <leader>f :NERDTreeFind <CR>
 endif
 
-
 if dein#tap('vim-go')
      autocmd MyAutoCmd FileType go
                     \  nmap <Leader>gov <Plug>(go-def-vertical)
@@ -112,16 +111,6 @@ endif
 
 if dein#tap('dash.vim')
         nnoremap <silent><leader>d :Dash<CR>
-endif
-
-if dein#tap('vim-bookmarks')
-	nmap <leader>bc <Plug>BookmarkClear
-	nmap <leader>bx <Plug>BookmarkClearAll
-	nmap <leader>ba <Plug>BookmarkShowAll
-	nmap <leader>bn <Plug>BookmarkNext
-	nmap <leader>bp <Plug>BookmarkPrev
-	nmap <leader>bm <Plug>BookmarkToggle
-	nmap <leader>bi <Plug>BookmarkAnnotate
 endif
 
 if dein#tap('vim-expand-region')
