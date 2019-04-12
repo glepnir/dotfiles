@@ -1,4 +1,11 @@
 [[plugins]]
+repo = 'mg979/vim-visual-multi'
+on_ft = ['go','vim','python','html']
+hook_add = '''
+let g:VM_leader = '<Space>' 
+'''
+
+[[plugins]]
 repo = 'honza/dockerfile.vim'
 on_ft = 'Dockerfile'
 
@@ -86,10 +93,6 @@ repo = 'bps/vim-textobj-python'
 depends = 'vim-textobj-user'
 on_map = { ox ='<Plug>'}
 
-[[plugins]]
-repo = 'terryma/vim-multiple-cursors'
-on_map = {v = '<C-n>'}
-hook_add = 'source ~/.config/nvim/rc/plugins/vim-mulitiple-cursor.vim'
 
 [[plugins]]
 repo ='terryma/vim-expand-region'

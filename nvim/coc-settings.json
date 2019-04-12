@@ -8,7 +8,7 @@
     "suggest.echodocSupport": true,
     "coc.preferences.formatOnType": true,
 	"diagnostic.errorSign": "😡",
-    "diagnostic.displayByAle": true,
+    "diagnostic.displayByAle": false,
 	"diagnostic.warningSign": "🤔",
     //tslint
     "tslint.autoFixOnSave": true,
@@ -23,15 +23,17 @@
     "eslint.autoFixOnSave": true,
     "languageserver": {
         "golang": {
-            "command": "go-langserver",
+            "command": "gopls",
+            "args": [],
+            "rootPatterns": [
+                "go.mod",
+                ".vim/",
+                ".git/",
+                ".hg/"
+            ],
             "filetypes": [
                 "go"
-            ],
-            "initializationOptions": {
-                "gocodeCompletionEnabled": true,
-                "diagnosticsEnabled": true,
-                "lintTool": "golint"
-            }
+            ]
         },
         "dockerfile": {
             "command": "docker-langserver",
