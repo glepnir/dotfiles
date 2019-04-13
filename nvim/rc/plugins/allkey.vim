@@ -105,6 +105,9 @@ if dein#tap('vim-mundo')
     nnoremap <silent> <leader>m :MundoToggle<CR>
 endif
 
+if dein#tap('vim-startify')
+    nnoremap <silent> <leader>s :Startify<CR>
+endif
 
 if dein#tap('vim-quickrun')
     nnoremap <silent> <localleader>r :QuickRun<CR>

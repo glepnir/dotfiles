@@ -7,41 +7,12 @@ hook_add = 'let g:space_vim_plugin_hi_groups = 1'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+depends = 'vim-devicons'
 hook_add='source ~/.config/nvim/rc/plugins/lightline.vim'
 
 [[plugins]]
 repo = 'mengelbrecht/lightline-bufferline'
 hook_add='source ~/.config/nvim/rc/plugins/lightline.vim'
-
-[[plugins]]
-repo = 'taigacute/spaceline.vim'
-
-[[plugins]]
-repo = 'tpope/vim-fugitive'
-
-[[plugins]]
-repo = 'junegunn/fzf'
-build = './install --all'
-merged = '0'
-
-[[plugins]]
-repo = 'junegunn/fzf.vim'
-depends = 'fzf'
-hook_add = 'source ~/.config/nvim/rc/plugins/fzf.vim'
-
-
-[[plugins]]
-repo = 'ryanoasis/vim-devicons'
-
-[[plugins]]
-repo = 'mhinz/vim-startify'
-depends = 'vim-devicons'
-hook_add ='source ~/.config/nvim/rc/plugins/startify.vim'
-hook_post_source = '''
-function! StartifyEntryFormat()
-    return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
-endfunction
-'''
 
 [[plugins]]
 repo = 'honza/vim-snippets'
