@@ -1,8 +1,37 @@
 [[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+[[plugins]]
+repo = 'mhinz/vim-startify'
+on_cmd = ['Startify']
+depends = 'vim-devicons'
+hook_add ='source ~/.config/nvim/rc/plugins/startify.vim'
+hook_post_source = '''
+function! StartifyEntryFormat()
+    return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+endfunction
+'''
+
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --all'
+merged = '0'
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+on_cmd =['Colors','Rg','Buffers']
+hook_add = 'source ~/.config/nvim/rc/plugins/fzf.vim'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+on_path ='.*'
+
+[[plugins]]
 repo = 'mg979/vim-visual-multi'
-on_ft = ['go','vim','python','html']
+on_map = {n='<C-n>'}
 hook_add = '''
-let g:VM_leader = '<Space>' 
+let g:VM_leader = '<Space>'
 '''
 
 [[plugins]]
@@ -153,8 +182,10 @@ hook_add = '''
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 on_path = ".*"
-hook_add = 'source ~/.config/nvim/rc/plugins/vim-gitgutter.vim'
-
+hook_source='''
+let g:gitgutter_map_keys = 0
+let g:gitgutter_sh = $SHELL
+'''
 
 [[plugins]]
 repo = 'majutsushi/tagbar'

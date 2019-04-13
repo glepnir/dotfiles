@@ -23,6 +23,7 @@ let g:which_key_map = {
       \ 'n' : 'Cancelhighlight',
       \ 'w' : 'Save',
       \ 'h' : 'Tabpre',
+      \ 's' : 'Startify',
       \ 'l' : 'Tabnext',
       \ 'SPC' : {
             \ 'name' : '+Easymotion',
