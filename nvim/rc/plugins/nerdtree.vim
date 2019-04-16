@@ -18,6 +18,3 @@ let g:nerdtreeindicatormapcustom = {
         \ 'ignored'   : '☒',
         \ "unknown"   : "?"
         \ }
-
-
-
