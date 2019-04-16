@@ -6,8 +6,8 @@ set confirm             " 在处理未保存或只读文件的时候，弹出确
 set splitbelow
 set bsdir=buffer        " 设定文件浏览器目录为当前目录
 if has('vim_starting')
-	set encoding=utf-8
-	scriptencoding utf-8
+	set encoding=UTF-8
+	scriptencoding UTF-8
 endif
 set laststatus=0
 set showtabline=2
@@ -67,6 +67,10 @@ set matchtime=1     " Tenths of a second to show the matching paren
 set cpoptions-=m    " showmatch will wait 0.5s or until a char is typed
 set grepprg=rg\ --vimgrep\ $*
 set wildignore+=*.so,*~,*/.git/*,*/.svn/*,*/.DS_Store,*/tmp/*
+
+if has('conceal')
+	set conceallevel=3 concealcursor=niv
+endif
 
 " FastFold
 " Credits: https://github.com/Shougo/shougo-s-github

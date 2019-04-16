@@ -1,9 +1,9 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-[[plugins]]
-repo = 'taigacute/space-vim-theme'
-hook_add = 'let g:space_vim_plugin_hi_groups = 1'
+#[[plugins]]
+#repo = 'taigacute/space-vim-theme'
+#hook_add = 'let g:space_vim_plugin_hi_groups = 1'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
@@ -14,6 +14,7 @@ hook_add='source ~/.config/nvim/rc/plugins/lightline.vim'
 repo = 'mengelbrecht/lightline-bufferline'
 hook_add='source ~/.config/nvim/rc/plugins/lightline.vim'
 
+
 [[plugins]]
 repo = 'honza/vim-snippets'
 
@@ -22,6 +23,8 @@ repo = 'neoclide/coc.nvim'
 merge = 0
 build = 'yarn install --frozen-lockfile'
 hook_add = 'source ~/.config/nvim/rc/plugins/coc.vim'
+hook_source = '''
+'''
 
 #[[plugins]]
 #repo = 'bling/vim-airline'
