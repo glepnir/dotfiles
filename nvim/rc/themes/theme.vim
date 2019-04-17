@@ -13,6 +13,8 @@ set background=dark
 "colorscheme space_vim_theme
 "colorscheme PaperColor
 colorscheme gruvbox8_hard
+"let g:gruvbox_filetype_hi_groups = 1
+"let g:gruvbox_plugins_hi_groups = 0
 
 hi Whitespace ctermfg=96 guifg=#725972 guibg=NONE ctermbg=NONE
 hi NeomakeVirtualtextError ctermfg=124 guifg=#af0000 guibg=NONE ctermbg=NONE
@@ -42,5 +44,4 @@ highlight GitGutterAdd ctermfg=22 guifg=#006000 ctermbg=NONE guibg=NONE
 highlight GitGutterChange ctermfg=58 guifg=#5F6000 ctermbg=NONE guibg=NONE
 highlight GitGutterDelete ctermfg=52 guifg=#600000 ctermbg=NONE guibg=NONE
 highlight GitGutterChangeDelete ctermfg=52 guifg=#600000 ctermbg=NONE guibg=NONE
-
 "au TextChangedI * GitGutter
