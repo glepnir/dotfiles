@@ -29,7 +29,7 @@ autocmd MyAutoCmd TabLeave * if &ft == 'defx' | wincmd w | endif
 " Define mappings
 autocmd MyAutoCmd FileType defx do WinEnter | call s:defx_my_settings()
 function! s:defx_my_settings() abort
-	nnoremap <silent><buffer><expr> <CR> <sid>defx_toggle_tree()
+    nnoremap <silent><buffer><expr> <CR> <sid>Defx_toggle_tree()
 	nnoremap <silent><buffer><expr> l     defx#do_action('drop')
 	nnoremap <silent><buffer><expr> s    defx#do_action('open', 'botright vsplit')
 	nnoremap <silent><buffer><expr> sv    defx#do_action('open', 'split')
@@ -72,7 +72,7 @@ function! s:defx_my_settings() abort
 	nnoremap <silent><buffer><expr>w   defx#do_action('call', 'DefxToggleWidth')
 endfunction
 
-function s:defx_toggle_tree() abort
+function! s:Defx_toggle_tree() abort
   if defx#is_directory()
     return defx#do_action('open_or_close_tree')
   endif
