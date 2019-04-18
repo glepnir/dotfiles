@@ -162,7 +162,7 @@ persistent_logging: false
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Colors (Dracula)
+# Colors (Tomorrow Night Bright)
 colors:
   # Default colors
   primary:
@@ -205,7 +205,7 @@ colors:
     cyan:    '0x8be9fd'
     white:   '0xbfbfbf'
 
-   # Bright colors
+  # Bright colors
   bright:
     black:   '0x575b70'
     red:     '0xff6e67'
@@ -215,6 +215,7 @@ colors:
     magenta: '0xff92d0'
     cyan:    '0x9aedfe'
     white:   '0xe6e6e6'
+
   # Dim colors
   #
   # If the dim colors are not set, they will be calculated automatically based
