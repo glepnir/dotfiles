@@ -9,7 +9,7 @@ augroup MyAutoCmd
     autocmd FileType css setlocal equalprg=csstidy\ -\ --silent=true
 
 	autocmd FileType yaml.docker-compose setlocal expandtab
-    autocmd FileType go let b:coc_root_patterns = ["go.mod", ".vim/", ".git/", ".hg/"]
+    autocmd FileType go let b:coc_pairs_disabled = ['<']
 
 	" https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
 	autocmd FileType css,javascript,jsx,javascript.jsx

@@ -35,7 +35,7 @@ function! s:defx_my_settings() abort
 	nnoremap <silent><buffer><expr> sv    defx#do_action('open', 'split')
 	nnoremap <silent><buffer><expr> K     defx#do_action('new_directory')
 	nnoremap <silent><buffer><expr> N     defx#do_action('new_multiple_files')
-	nnoremap <silent><buffer><expr> dd    defx#do_action('remove_trash')
+	nnoremap <silent><buffer><expr> dd    defx#do_action('remove')
 	nnoremap <silent><buffer><expr> r     defx#do_action('rename')
 	nnoremap <silent><buffer><expr> x     defx#do_action('execute_system')
 	nnoremap <silent><buffer><expr> .     defx#do_action('toggle_ignored_files')
