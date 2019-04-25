@@ -13,8 +13,6 @@ set background=dark
 "colorscheme space_vim_theme
 "colorscheme PaperColor
 colorscheme gruvbox8_hard
-"let g:gruvbox_filetype_hi_groups = 1
-"let g:gruvbox_plugin_hi_groups = 1
 
 hi Whitespace ctermfg=96 guifg=#725972 guibg=NONE ctermbg=NONE
 hi NeomakeVirtualtextError ctermfg=124 guifg=#af0000 guibg=NONE ctermbg=NONE
@@ -23,12 +21,12 @@ hi NeomakeVirtualtextError ctermfg=124 guifg=#af0000 guibg=NONE ctermbg=NONE
 "hi EndOfBuffer ctermfg=234 ctermbg=NONE guifg=#1c1c1c guibg=NONE guisp=NONE cterm=NONE gui=NONE
 
 "Pmenu Colors
+" ---------------------------------------------------------
 "hi PMenu guifg=#875fd7 guibg=#262626 guisp=#262626 gui=NONE ctermfg=98 ctermbg=235 cterm=NONE
 "hi PMenuSel guifg=#d0d0d0 guibg=#875fd7 guisp=#875fd7 gui=NONE ctermfg=252 ctermbg=98 cterm=NONE
 hi PMenuSel ctermfg=252 ctermbg=106 guifg=#d0d0d0 guibg=#859900 guisp=#859900 cterm=NONE gui=NONE
 "hi PMenuSbar guifg=#e2e4e5 guibg=#262626 guisp=#262626 gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
 "hi PMenuThumb guifg=#875fd7 guibg=#875fd7 guisp=#875fd7 gui=NONE ctermfg=98 ctermbg=98 cterm=NONE
-
 "hi Normal guibg=NONE ctermbg=NONE
 "hi LineNr ctermbg=NONE guibg=NONE
 
@@ -45,7 +43,7 @@ highlight GitGutterChange ctermfg=58 guifg=#5F6000 ctermbg=NONE guibg=NONE
 highlight GitGutterDelete ctermfg=52 guifg=#600000 ctermbg=NONE guibg=NONE
 highlight GitGutterChangeDelete ctermfg=52 guifg=#600000 ctermbg=NONE guibg=NONE
 "au TextChangedI * GitGutter
-"
+
 " Plugin: Defx icons and highlights {{{
 " ---------------------------------------------------------
 let g:defx_git#indicators = {
@@ -67,3 +65,4 @@ hi Defx_git_Modified  ctermfg=9  guifg=#cc6666
 hi Defx_git_Unmerged  ctermfg=14 guifg=#8abeb7
 hi Defx_git_Deleted   ctermfg=13 guifg=#b294bb
 hi Defx_git_Staged    ctermfg=10 guifg=#b5bd68
+
