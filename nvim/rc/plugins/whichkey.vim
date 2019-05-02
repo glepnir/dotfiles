@@ -12,6 +12,7 @@ let g:which_key_map = {
       \ '9' : 'Buffer-9'      ,
       \ '0' : 'Buffer-10'      ,
       \ 'e' : 'Defx' ,
+      \ 'd' : 'Dash' ,
       \ 'G' : 'Goyo' ,
       \ 'f' : {
             \ 'name' : '+FzfCommand',
@@ -21,11 +22,8 @@ let g:which_key_map = {
             \ 'w' : 'SearchExpendWord',
             \ },
       \ 'm' : 'OpenMundo' ,
-      \ 'n' : 'Cancelhighlight',
       \ 'w' : 'Save',
-      \ 'h' : 'Tabpre',
       \ 's' : 'Startify',
-      \ 'l' : 'Tabnext',
       \ 'SPC' : {
             \ 'name' : '+Easymotion',
             \ 'w' : 'Easymotion-w',
@@ -36,17 +34,8 @@ let g:which_key_map = {
             \ 'name' : '+NerdCommenter',
             \ },
       \ 'g' : {
-            \ 'name' : '+Go Easygit',
+            \ 'name' : '+Vim-Go',
             \ 'r'    : 'GoRename',
-            \ 'a'    : 'Gadd',
-            \ 'd'    : 'Gdiff',
-            \ 'D'    : 'Gdiff',
-            \ 'c'    : 'Gcommit',
-            \ 'b'    : 'Gblame',
-            \ 'B'    : 'Gbrowse',
-            \ 'S'    : 'Gstatus',
-            \ 'p'    : 'Gpush',
-            \ 'm'    : 'GitMessenger',
             \ 'o ': {
                 \ 'name':'+GoTool',
                 \ 'i'   :'GoInfo',
@@ -73,11 +62,26 @@ let g:which_key_localmap ={
               \ 'r'    : 'CocResume',
               \ 's'    : 'CocIsymbols',
               \ },
-      \ 'g'    : 'TagbarToggle',
       \ 'b'    : 'Bufferlist',
-      \ 't'    : 'TodoApp',
+      \ 't'    : 'Tagbar',
       \ 'r'    : 'QuickRun',
-      \ 'd'    : 'TodoDone',
+      \ 'd'    : {
+                \'name':'+Todo',
+                \ 't' : 'Todolist',
+                \ 'a' : 'TodoAdd',
+                \ 'd' : 'TodoDone',
+                \},
+      \ 'g'  :{
+                \'name':'+ Easygit',
+                \ 'a'    : 'Gadd',
+                \ 'd'    : 'Gdiff',
+                \ 'c'    : 'Gcommit',
+                \ 'b'    : 'Gblame',
+                \ 'B'    : 'Gbrowse',
+                \ 'S'    : 'Gstatus',
+                \ 'p'    : 'Gpush',
+                \ 'm'    : 'GitMessenger',
+                \}
       \ }
 
 let g:which_key_rsbgmap = {

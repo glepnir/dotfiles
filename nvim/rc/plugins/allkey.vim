@@ -1,8 +1,9 @@
 "Plugin key settings
 
 if dein#tap('denite.nvim')
-        nnoremap <silent><localLeader>t  :Denite todo<CR>"
-        nnoremap <silent><localLeader>d  :Denite todo:done<CR>"
+        nnoremap <silent><localLeader>dt  :Denite todo<CR>
+        nnoremap <silent><localLeader>da  :TodoAdd
+        nnoremap <silent><localLeader>dd  :Denite todo:done<CR>
 endif
 
 if dein#tap('coc.nvim')
@@ -63,7 +64,6 @@ endif
 if dein#tap('vim-easy-align')
     " Start interactive EasyAlign in visual mode (e.g. vipga)
     xmap ga <Plug>(EasyAlign)
-
     " Start interactive EasyAlign for a motion/text object (e.g. gaip)
     nmap ga <Plug>(EasyAlign)
 endif
@@ -87,18 +87,18 @@ if dein#tap('vim-go')
 endif
 
 if dein#tap('vim-easygit')
-	nnoremap <silent> <leader>ga :Gadd<CR>
-	nnoremap <silent> <leader>gd :Gdiff<CR>
-	nnoremap <silent> <leader>gD :Gdiffoff<CR>
-	nnoremap <silent> <leader>gc :Gcommit<CR>
-	nnoremap <silent> <leader>gb :Gblame<CR>
-	nnoremap <silent> <leader>gB :Gbrowse<CR>
-	nnoremap <silent> <leader>gS :Gstatus<CR>
-	nnoremap <silent> <leader>gp :Gpush<CR>
+	nnoremap <silent> <localleader>ga :Gadd<CR>
+	nnoremap <silent> <localleader>gd :Gdiff<CR>
+	nnoremap <silent> <localleader>gD :Gdiffoff<CR>
+	nnoremap <silent> <localleader>gc :Gcommit<CR>
+	nnoremap <silent> <localleader>gb :Gblame<CR>
+	nnoremap <silent> <localleader>gB :Gbrowse<CR>
+	nnoremap <silent> <localleader>gS :Gstatus<CR>
+	nnoremap <silent> <localleader>gp :Gpush<CR>
 endif
 
 if dein#tap('git-messenger.vim')
-    nmap <Leader>gm <Plug>(git-messenger)
+    nmap <localleader>gm  <Plug>(git-messenger)
 endif
 
 if dein#tap('vim-mundo')
@@ -139,7 +139,7 @@ if dein#tap('splitjoin.vim')
 endif
 
 if dein#tap('tagbar')
-        nnoremap <silent><localleader>g :TagbarToggle<CR>
+        nnoremap <silent><localleader>t :TagbarToggle<CR>
 endif
 
 if dein#tap('ale')
