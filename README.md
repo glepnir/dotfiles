@@ -16,3 +16,9 @@ tmux-256color|tmux with 256 colors,
 set -g default-terminal 'tmux-256color'
 set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
 ```
+# Install Tmux
+安装tmux插件管理 tpm
+```
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+安装tmux插件 `prefix` + I
