@@ -9,7 +9,7 @@ inoremap <C-a> <Home>
 inoremap <expr><C-e> pumvisible() ? "\<C-e>" : "\<End>"
 
 " command line alias
-cnoremap w!! w !sudo tee % >/dev/null
+"cnoremap w!! w !sudo tee % >/dev/null
 cnoremap <C-p> <Up>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
