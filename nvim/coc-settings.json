@@ -25,18 +25,14 @@
     //golang
     "languageserver": {
         "golang": {
-            "command": "gopls",
-            "args": [],
-            "rootPatterns": [
-                "go.mod",
-                ".vim/",
-                ".git/",
-                ".hg/"
-            ],
-            "filetypes": [
-                "go"
-            ]
-        },
+      "command": "go-langserver",
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "gocodeCompletionEnabled": true,
+        "diagnosticsEnabled": true,
+        "lintTool": "golint"
+      }
+    },
         "dockerfile": {
                 "command": "docker-langserver",
                 "filetypes": [
