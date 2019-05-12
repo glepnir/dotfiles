@@ -14,7 +14,6 @@ export PATH="/Users/pendragon/neovim/bin:$PATH"
 
 source $(dirname $(gem which colorls))/tab_complete.sh 
 
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias vi="nvim"
@@ -22,6 +21,7 @@ alias vim="vim"
 alias lc='colorls -lA --sd'
 alias es="/Applications/Emacs.app/Contents/MacOS/Emacs "
 alias emacs='emacs'
+alias reload="source ~/.zshrc"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -47,6 +47,7 @@ if [[ -d "${ZPLUG_HOME}" ]]; then
   source "${ZPLUG_HOME}/init.zsh"
 fi
 zplug 'plugins/git', from:oh-my-zsh, if:'which git'
+zplug "plugins/autojump", from:oh-my-zsh, defer:2
 zplug 'romkatv/powerlevel10k', use:powerlevel10k.zsh-theme
 zplug 'zsh-users/zsh-autosuggestions'
 zplug 'zsh-users/zsh-completions', defer:2
@@ -134,3 +135,18 @@ POWERLEVEL9K_FOLDER_ICON=''
 POWERLEVEL9K_STATUS_VERBOSE=true
 POWERLEVEL9K_STATUS_CROSS=true
 
+# zsh-syntax-highlighting
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[path]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[path_pathseparator]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[function]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=yellow'
+ZSH_HIGHLIGHT_STYLES[redirection]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=cyan,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=green,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=magenta,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=yellow,bold'
