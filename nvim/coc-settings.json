@@ -6,7 +6,6 @@
     "suggest.snippetIndicator": "🌟",
     "suggest.triggerCompletionWait": 100,
     "suggest.echodocSupport": true,
-    "coc.preferences.formatOnType": true,
     "diagnostic.signOffset": 9999999,
 	"diagnostic.errorSign": "●",
 	"diagnostic.warningSign": "●",
@@ -14,6 +13,7 @@
     "diagnostic.refreshOnInsertMode": true,
     //tslint
     "tslint.autoFixOnSave": true,
+    //prettier
     "prettier.eslintIntegration": true,
     "prettier.tslintIntegration": true,
     "prettier.stylelintIntegration": true,
