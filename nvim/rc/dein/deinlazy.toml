@@ -83,7 +83,7 @@ on_source = ['denite.nvim']
 
 [[plugins]]
 repo = 'scrooloose/nerdcommenter'
-on_ft =['vim','json','go','html','js','jsx','py','css','less','tmpl','toml','xml','sql']
+on_ft =['vim','json','go','html','javascript','javascript.jsx','py','css','less','tmpl','toml','xml','sql']
 
 [[plugins]]
 repo = 'sbdchd/neoformat'
@@ -198,6 +198,11 @@ on_cmd = 'Defx'
 hook_source = 'source ~/.config/nvim/rc/plugins/defx.vim'
 
 [[plugins]]
+repo = 'kristijanhusak/defx-git'
+on_source='defx.nvim'
+hook_source = 'source ~/.config/nvim/rc/plugins/defx-git.vim'
+
+[[plugins]]
 repo = 'kristijanhusak/defx-icons'
 on_source = 'defx.nvim'
 
@@ -206,6 +211,13 @@ repo = 'airblade/vim-gitgutter'
 on_path = ".*"
 hook_source='''
 source ~/.config/nvim/rc/plugins/vim-gitgutter.vim
+'''
+
+[[plugins]]
+repo = 'liuchengxu/vista.vim'
+on_cmd =['Vista','Vista!','Vista!!']
+hook_source='''
+source ~/.config/nvim/rc/plugins/vista.vim
 '''
 
 [[plugins]]
