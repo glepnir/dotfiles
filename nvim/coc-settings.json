@@ -6,14 +6,30 @@
     "suggest.snippetIndicator": "🌟",
     "suggest.triggerCompletionWait": 100,
     "suggest.echodocSupport": true,
+    //diagnostic
     "diagnostic.signOffset": 9999999,
 	"diagnostic.errorSign": "●",
 	"diagnostic.warningSign": "●",
     "diagnostic.displayByAle": false,
     "diagnostic.refreshOnInsertMode": true,
+    //git
+    "git.enableGutters": true,
+    "git.addedSign.hlGroup": "GitGutterAdd",
+    "git.changedSign.hlGroup": "GitGutterChange",
+    "git.removedSign.hlGroup": "GitGutterDelete",
+    "git.topRemovedSign.hlGroup": "GitGutterDelete",
+    "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+    "git.addedSign.text":"▎",
+    "git.changedSign.text":"▎",
+    "git.removedSign.text":"▏",
+    "git.topRemovedSign.text": "▔",
+    "git.changeRemovedSign.text": "▋",
+    //Snippet
+    "coc.preferences.snippetStatusText": "Ⓢ ",
     //tslint
     "tslint.autoFixOnSave": true,
     //prettier
+    "prettier.statusItemText": "ⓟ ",
     "prettier.eslintIntegration": true,
     "prettier.tslintIntegration": true,
     "prettier.stylelintIntegration": true,
@@ -29,13 +45,7 @@
     "languageserver": {
             "golang": {
                 "command": "gopls",
-                "args": [],
-                "rootPatterns": [
-                    "go.mod",
-                    ".vim/",
-                    ".git/",
-                    ".hg/"
-                ],
+                "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
                 "filetypes": [
                     "go"
                 ]
