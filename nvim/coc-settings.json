@@ -29,6 +29,7 @@
     //tslint
     "tslint.autoFixOnSave": true,
     //prettier
+    "coc.preferences.formatOnSaveFiletypes": ["css","markdown"],
     "prettier.statusItemText": "ⓟ ",
     "prettier.eslintIntegration": true,
     "prettier.tslintIntegration": true,
