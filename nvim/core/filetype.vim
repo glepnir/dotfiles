@@ -1,5 +1,5 @@
 " Reload vim config automatically
-execute 'autocmd MyAutoCmd BufWritePost '.$VIMPATH.'/rc/*,vimrc nested'
+execute 'autocmd MyAutoCmd BufWritePost '.$VIMPATH.'/core/*,vimrc nested'
 	\ .' source $MYVIMRC | redraw | silent doautocmd ColorScheme'
 
 augroup MyAutoCmd
@@ -9,7 +9,8 @@ augroup MyAutoCmd
     autocmd FileType css setlocal equalprg=csstidy\ -\ --silent=true
     autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
     autocmd BufWritePre *.js,*.jsx,*.less,*.css,*.html Neoformat
-	autocmd FileType yaml.docker-compose setlocal expandtab
+	autocmd BufNewFile,BufRead *.toml,Gopkg.lock,Cargo.lock,*/.cargo/config,*/.cargo/credentials,Pipfile setf tomlutocmd FileType yaml.docker-compose setlocal expandtab
+    autocmd BufNewFile,BufRead *.toml,Gopkg.lock,Cargo.lock,*/.cargo/config,*/.cargo/credentials,Pipfile setf toml
     autocmd FileType go let b:coc_pairs_disabled = ['<']
 
     autocmd InsertLeave,TextChanged,FocusLost *.go silent! wall
