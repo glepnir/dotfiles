@@ -8,8 +8,8 @@ gaps_left="4"
 gaps_right="4"
 gaps_inner="4"
 
-focused_border_color="2d74da"
-preselect_border_color="808080"
+focused_border_color="808080"
+preselect_border_color="2d74da"
 
 # ====== Core settings =========================
 
@@ -21,11 +21,11 @@ chunkc core::hotload 1
 
 chunkc set global_desktop_mode           bsp
 
-chunkc set global_desktop_offset_top     8
-chunkc set global_desktop_offset_bottom  8
-chunkc set global_desktop_offset_left    8
-chunkc set global_desktop_offset_right   8
-chunkc set global_desktop_offset_gap     8
+chunkc set global_desktop_offset_top     "${gaps_top}"
+chunkc set global_desktop_offset_bottom  "${gaps_bottom}"
+chunkc set global_desktop_offset_left    "${gaps_left}"
+chunkc set global_desktop_offset_right   "${gaps_right}"
+chunkc set global_desktop_offset_gap     "${gaps_inner}"
 
 chunkc set desktop_padding_step_size     10.0
 chunkc set desktop_gap_step_size         5.0
