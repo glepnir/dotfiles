@@ -75,6 +75,7 @@ let g:which_key_map = {
 let g:which_key_localmap ={
       \ 'name' : '+LocalLeaderKey'  ,
       \ 't'    : 'Tagbar',
+      \ 'e'    : 'OpenNerdtree',
       \ 'v'    : 'Vista',
       \ 'r'    : 'QuickRun',
       \ 'm'    : 'DeniteMenu',

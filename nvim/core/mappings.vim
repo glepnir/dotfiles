@@ -46,10 +46,10 @@ vnoremap j gj
 vnoremap k gk
 
 "tabline operation
-nmap <leader>tn :tabnew<cr>
-nmap <leader>te :tabedit
-nmap <leader>tc :tabclose<cr>
-nmap <leader>tm :tabmove
+noremap <leader>tn :tabnew<cr>
+noremap <leader>te :tabedit
+noremap <leader>tc :tabclose<cr>
+noremap <leader>tm :tabmove
 
 "yank to end
 nnoremap Y y$

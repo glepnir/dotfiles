@@ -4,14 +4,16 @@ let g:dein#install_progress_type = 'echo'
 let g:dein#enable_notification = 1
 let g:dein#install_progress_type = 'title'
 let g:dein#install_log_filename = '~/.tmp/dein.log'
+let g:dein#auto_recache = 1
 
-" Constants
-let s:is_sudo = $SUDO_USER !=# '' && $USER !=# $SUDO_USER
 
 let $CACHE = expand('~/.cache')
 let s:path = expand('$CACHE/dein')
 let s:plugins_path = expand('$VIMPATH/core/dein/plugins.yaml')
 let s:user_plugins_path = expand('$VIMPATH/core/local/local_plugins.yaml')
+
+" Constants
+let s:is_sudo = $SUDO_USER !=# '' && $USER !=# $SUDO_USER
 
 function! s:dein_check_ruby() abort
 	call system("ruby -e 'require \"json\"; require \"yaml\"'")
@@ -58,26 +60,6 @@ endpython
 	unlet g:denite_plugins
 endfunction
 
-function! s:source_file(path, ...) abort
-	let use_global = get(a:000, 0, ! has('vim_starting'))
-	let abspath = resolve(expand($VIMPATH.'/config/'.a:path))
-	if ! use_global
-		execute 'source' fnameescape(abspath)
-		return
-	endif
-
-	let content = map(readfile(abspath),
-		\ "substitute(v:val, '^\\W*\\zsset\\ze\\W', 'setglobal', '')")
-	let tempfile = tempname()
-	try
-		call writefile(content, tempfile)
-		execute printf('source %s', fnameescape(tempfile))
-	finally
-		if filereadable(tempfile)
-			call delete(tempfile)
-		endif
-	endtry
-endfunction
 
 function! s:check_file_notnull(filename)abort
        let  content = readfile(a:filename)
@@ -105,8 +87,8 @@ if dein#load_state(s:path)
         endtry
     call dein#end()
     if ! s:is_sudo
-       call dein#save_state()
-    endif
+		call dein#save_state()
+	endif
     if dein#check_install()
          " Installation check.
        call dein#install()
