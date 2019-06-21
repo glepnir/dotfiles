@@ -213,6 +213,7 @@ endif
 
 if dein#tap('vista.vim')
         nnoremap <silent><localleader>v :Vista!!<CR>
+        nnoremap <silent><leader>fv     :Vista finder coc<CR>
 endif
 
 if dein#tap('tagbar')
@@ -236,6 +237,14 @@ if dein#tap('vim-which-key')
 		nnoremap <silent>[              :<c-u>WhichKey  '['<CR>
 		nnoremap <silent>]              :<c-u>WhichKey  ']'<CR>
 endif
+
+if dein#tap('vim-smartchr')
+    augroup MyAutoCmd
+        autocmd FileType go inoremap <buffer><expr> ;
+            \ smartchr#loop(':=',';')
+    augroup end
+endif
+
 
 if dein#tap('vim-operator-surround')
         map <silent>sa <Plug>(operator-surround-append)
@@ -264,8 +273,3 @@ if dein#tap('bps/vim-textobj-python')
         omap iF <Plug>(textobj-python-function-i)
 endif
 
-"if dein#tap('nerdtree')
-        ""nerdtree
-        "nnoremap <silent><leader>e :NERDTreeToggle <CR>
-        ""nnoremap <leader>f :NERDTreeFind <CR>
-"endif
