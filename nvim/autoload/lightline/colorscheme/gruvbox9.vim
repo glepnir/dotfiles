@@ -8,7 +8,7 @@ let s:red     = [ '#cc241d', 124 ]
 let s:red1     = [ '#9d0006', 88 ]
 let s:green   = [ '#98971a', 106 ]
 let s:yellow  = [ '#d79921', 172 ]
-let s:light_yellow  = [ '#d79921', 214 ]
+let s:light_yellow  = [ '#ffd700', 220 ]
 let s:blue = [ '#458588', 66 ]
 let s:blue1 = [ '#0087d7', 32 ]
 let s:purple   = [ '#b16286', 132 ]
@@ -30,8 +30,6 @@ let s:fg2 = [ '#d5c4a1', 250 ]
 let s:fg3 = [ '#bdae93', 248 ]
 let s:fg4 = [ '#a89984', 246 ]
 
-
-
 let s:p = {'normal':{}, 'inactive':{}, 'insert':{}, 'replace':{}, 'visual':{}, 'tabline':{}, 'terminal':{}}
   let s:p.normal.left = [ [ s:bg0, s:green, 'bold' ], [ s:fg4, s:bg3] ,[s:fg3,s:bg4],[s:fg3,s:bg3]]
   let s:p.normal.right = [ [ s:bg0, s:green ], [ s:bg0, s:fg4 ],[ s:bg0, s:bg4 ] ,[s:red,s:bg1],[s:blue1,s:bg1],[s:orange,s:bg1]]
@@ -39,8 +37,8 @@ let s:p = {'normal':{}, 'inactive':{}, 'insert':{}, 'replace':{}, 'visual':{}, '
   let s:p.inactive.right = [ [ s:bg4, s:bg1 ], [ s:bg4, s:bg1 ] ]
   let s:p.inactive.left =  [ [ s:bg4, s:bg1 ], [ s:bg4, s:bg1 ] ]
   let s:p.inactive.middle = [ [ s:bg4, s:bg1 ] ]
-  let s:p.insert.left = [ [ s:bg0, s:blue, 'bold'], [ s:fg4, s:bg3],[ s:fg3, s:bg4] ,[s:fg3,s:bg3]]
-  let s:p.insert.right = [ [ s:bg0, s:blue ], [ s:bg0, s:fg4 ],[ s:bg0, s:bg4 ] ,[s:red,s:bg1],[s:blue1,s:bg1],[s:orange,s:bg1]]
+  let s:p.insert.left = [ [ s:bg0, s:yellow, 'bold'], [ s:fg4, s:bg3],[ s:fg3, s:bg4] ,[s:fg3,s:bg3]]
+  let s:p.insert.right = [ [ s:bg0, s:yellow ], [ s:bg0, s:fg4 ],[ s:bg0, s:bg4 ] ,[s:red,s:bg1],[s:blue1,s:bg1],[s:orange,s:bg1]]
   let s:p.insert.middle = [ [ s:fg4, s:bg1 ] ]
   let s:p.terminal.left = [ [ s:bg0, s:green, 'bold' ], [ s:fg1, s:bg2 ] ]
   let s:p.terminal.right = [ [ s:bg0, s:green ], [ s:fg1, s:bg2 ] ]
@@ -53,10 +51,13 @@ let s:p = {'normal':{}, 'inactive':{}, 'insert':{}, 'replace':{}, 'visual':{}, '
 
   let s:p.visual.middle = [ [ s:fg4, s:bg1 ] ]
   let s:p.tabline.left = [ [ s:fg4, s:bg1 ] ]
-  let s:p.tabline.tabsel = [ [ s:bg0, s:green ] ]
+  let s:p.tabline.tabsel = [ [ s:bg0, s:yellow ] ]
   let s:p.tabline.middle = [ [ s:bg0, s:bg0 ] ]
   let s:p.tabline.right = [ [ s:bg0, s:orange ] ]
   let s:p.normal.error = [ [ s:bg0, s:orange ] ]
   let s:p.normal.warning = [ [ s:bg2, s:yellow ] ]
+
+
+
 
 let g:lightline#colorscheme#gruvbox9#palette = lightline#colorscheme#flatten(s:p)

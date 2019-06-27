@@ -30,8 +30,7 @@
         "file": "\uf723",
         "folder": "\uf114",
         "snippet": "\ue60b",
-        "typeParameter": "\uf728",
-        "default": "\uf29c"
+        "typeParameter": "\uf728", "default": "\uf29c"
     },
     //diagnostic
     "diagnostic.signOffset": 9999999,
@@ -74,13 +73,6 @@
     "eslint.autoFixOnSave": true,
     //golang
     "languageserver": {
-            "golang": {
-                "command": "gopls",
-                "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-                "filetypes": [
-                    "go"
-                ]
-            },
         "dockerfile": {
                 "command": "docker-langserver",
                 "filetypes": [
