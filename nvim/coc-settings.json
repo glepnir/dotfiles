@@ -40,6 +40,7 @@
     "diagnostic.refreshOnInsertMode": true,
     //git
     "git.enableGutters": true,
+    "git.branchCharacter":"\uf408",
     "git.addGlameToBufferVar": true,
     "git.addGlameToVirtualText": true,
     "git.virtualTextPrefix": " ❯❯❯ ",
@@ -73,6 +74,13 @@
     "eslint.autoFixOnSave": true,
     //golang
     "languageserver": {
+            "golang": {
+                "command": "gopls",
+                "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+                "filetypes": [
+                    "go"
+                ]
+            },
         "dockerfile": {
                 "command": "docker-langserver",
                 "filetypes": [

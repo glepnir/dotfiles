@@ -113,15 +113,11 @@ endif
 
 
 if dein#tap('vim-go')
-     autocmd MyAutoCmd FileType go
-                    \  nmap <Leader>gov <Plug>(go-def-vertical)
-                    \ | nmap <Leader>goi <Plug>(go-info)
-                    \ | nmap <Leader>god <Plug>(go-doc)
-                    \ | nmap <leader>gor <Plug>(go-run)
-                    \ | nmap <leader>gob <Plug>(go-build)
-                    \ | nmap <leader>got <Plug>(go-test)
-                    \ | nmap <leader>goc <Plug>(go-coverage)
-                    \ | nmap <Leader>gr  <Plug>(go-rename)
+	 nnoremap <silent> <leader>gi :GoImpl<CR>
+	 nnoremap <silent> <Leader>gd :GoDescribe<CR>
+	 nnoremap <silent> <Leader>gc :GoCallees<CR>
+	 nnoremap <silent> <Leader>gC :GoCallers<CR>
+	 nnoremap <silent> <Leader>gs :GoCallstack<CR>
 endif
 
 if dein#tap('vim-easygit')
@@ -149,21 +145,21 @@ if dein#tap('accelerated-jk')
 endif
 
 if dein#tap('caw.vim')
-    function! InitCaw() abort
-    if !&l:modifiable
-      silent! nunmap <buffer> gc
-      silent! xunmap <buffer> gc
-      silent! nunmap <buffer> gcc
-      silent! xunmap <buffer> gcc
-    else
-      nmap <buffer> gc <Plug>(caw:prefix)
-      xmap <buffer> gc <Plug>(caw:prefix)
-      nmap <buffer> gcc <Plug>(caw:hatpos:toggle)
-      xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
-    endif
-  endfunction
-  autocmd MyAutoCmd FileType * call InitCaw()
-  call InitCaw()
+	function! InitCaw() abort
+		if !&l:modifiable
+			silent! nunmap <buffer> gc
+			silent! xunmap <buffer> gc
+			silent! nunmap <buffer> gcc
+			silent! xunmap <buffer> gcc
+		else
+			nmap <buffer> gc <Plug>(caw:prefix)
+			xmap <buffer> gc <Plug>(caw:prefix)
+			nmap <buffer> gcc <Plug>(caw:hatpos:toggle)
+			xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
+		endif
+	endfunction
+	autocmd MyAutoCmd FileType * call InitCaw()
+	call InitCaw()
 endif
 
 
