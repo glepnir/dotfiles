@@ -56,8 +56,9 @@
     "git.changeRemovedSign.text": "▋",
     //Snippet
     "coc.preferences.snippetStatusText": "Ⓢ ",
-    //tslint
-    "tslint.autoFixOnSave": true,
+    //CocList
+    "list.source.files.defaultOptions": ["--auto-preview"],
+    "list.source.outline.defaultOptions": ["--auto-preview"],
     //prettier
     "coc.preferences.formatOnSaveFiletypes": ["css","markdown"],
     "prettier.statusItemText": "ⓟ ",

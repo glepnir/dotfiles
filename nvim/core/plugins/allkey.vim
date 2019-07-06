@@ -83,9 +83,6 @@ if dein#tap('coc.nvim')
         " float window scroll
 		nnoremap <expr><C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
 		nnoremap <expr><C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
-        nmap <silent> <TAB> <Plug>(coc-range-select)
-        xmap <silent> <TAB> <Plug>(coc-range-select)
-        xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
 endif
 
 function! s:show_documentation()
@@ -243,9 +240,12 @@ if dein#tap('vim-which-key')
 endif
 
 if dein#tap('vim-smartchr')
+    inoremap <expr> , smartchr#one_of(', ', ',')
     augroup MyAutoCmd
         autocmd FileType go inoremap <buffer><expr> ;
             \ smartchr#loop(':=',';')
+        autocmd FileType go inoremap <buffer> <expr> .
+          \ smartchr#loop('.', '->', '<-','...')
     augroup end
 endif
 
