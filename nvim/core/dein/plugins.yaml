@@ -5,11 +5,6 @@
 - repo: Shougo/dein.vim
 - repo: honza/vim-snippets
 
-# - repo: itchyny/lightline.vim
-#   depends: vim-devicons
-#   hook_add: source  $VIMPATH/core/plugins/lightline.vim
-# - repo: mengelbrecht/lightline-bufferline
-#   hook_add: source  $VIMPATH/core/plugins/lightline.vim
 #}}}
 
 # Core Plugins{{{
@@ -30,8 +25,6 @@
   hook_source: |
         source  $VIMPATH/core/plugins/denite.vim
         source  $VIMPATH/core/plugins/denite_menu.vim
-
-- { repo: chemzqm/denite-git, on_source: denite.nvim }
 
 - repo: raghur/fruzzy
   on_source: denite.nvim
@@ -153,7 +146,7 @@
 - repo: junegunn/fzf.vim
   depends: fzf
   on_cmd: [Colors,Rg,Buffers]
-  hook_add: source  $VIMPATH/core/plugins/fzf.vim
+  hook_source: source  $VIMPATH/core/plugins/fzf.vim
 
 # }}}
 
@@ -291,4 +284,9 @@
 # - repo: rhysd/vim-operator-surround
 #   depends: [vim-operator-user, vim-textobj-multiblock]
 #   on_map:  { vnx : <Plug> }
+# - repo: itchyny/lightline.vim
+#   depends: vim-devicons
+#   hook_add: source  $VIMPATH/core/plugins/lightline.vim
+# - repo: mengelbrecht/lightline-bufferline
+#   hook_add: source  $VIMPATH/core/plugins/lightline.vim
 # }}}
