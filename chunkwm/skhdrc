@@ -1,6 +1,9 @@
 # opens iTerm2
 alt - return : "${HOME}"/.config/chunkwm/scripts/open_iterm2.sh
 
+# opens Alacritty
+# lctrl - return : "${HOME}"/.config/chunkwm/scripts/open_alacritty.sh
+
 # Show system statistics
 fn + lalt - 1 : "${HOME}"/.config/chunkwm/scripts/show_cpu.sh
 fn + lalt - 2 : "${HOME}"/.config/chunkwm/scripts/show_mem.sh
