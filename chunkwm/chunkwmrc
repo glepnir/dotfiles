@@ -8,8 +8,8 @@ gaps_left="4"
 gaps_right="4"
 gaps_inner="4"
 
-focused_border_color="808080"
-preselect_border_color="2d74da"
+focused_border_color="2d74da"
+preselect_border_color="808080"
 
 # ====== Core settings =========================
 
