@@ -1,7 +1,7 @@
 # dotfiles
 
 my personal dotfiles mac
-![imgae](https://github.com/taigacute/dotfiles/img/desktop.png)
+![imgae](https://github.com/taigacute/dotfiles/blob/master/img/desktop.png)
 
 # tmux 斜体支持
 
