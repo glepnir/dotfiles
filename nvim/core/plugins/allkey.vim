@@ -240,7 +240,7 @@ if dein#tap('vim-which-key')
 endif
 
 if dein#tap('vim-smartchr')
-    inoremap <expr> , smartchr#one_of(', ', ',')
+    inoremap <expr> , smartchr#one_of(',', ',')
     augroup MyAutoCmd
         autocmd FileType go inoremap <buffer><expr> ;
             \ smartchr#loop(':=',';')

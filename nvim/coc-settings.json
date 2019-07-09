@@ -2,7 +2,7 @@
     "suggest.triggerAfterInsertEnter": false,
     "suggest.timeout": 500,
     "suggest.noselect": false,
-    "suggest.detailField":"preview",
+    "suggest.detailField":"abbr",
     "suggest.snippetIndicator": "🌟",
     "suggest.triggerCompletionWait": 100,
     "suggest.echodocSupport": true,

@@ -49,7 +49,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
-  decorations: full
+  decorations: none
 
   # Startup Mode (changes require restart)
   #
@@ -175,6 +175,7 @@ colors:
      # Default colors
   primary:
     background: '#292B2E'
+    # background: '0x181818'
     foreground: '0xd8d8d8'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
