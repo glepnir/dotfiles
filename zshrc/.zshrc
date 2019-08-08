@@ -1,33 +1,17 @@
-export ZSH="/Users/pendragon/.oh-my-zsh"
-
-source $ZSH/oh-my-zsh.sh
-
-# environment PATH
-export GOPATH=/Users/pendragon/workstation
-export GO111MODULE="on"
-export PATH=$PATH:/Users/pendragon/workstation/bin
-export PATH=$PATH:/Users/pendragon/npm-global/bin
-export PATH=$PATH:/Users/pendragon/yarn-global/bin
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:/Users/pendragon/.cargo/bin
-export PATH="/Users/pendragon/neovim/bin:$PATH"
-
 source $(dirname $(gem which colorls))/tab_complete.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# alias f="ranger"
-alias f="vifm"
+alias f="ranger"
+# alias v="vifm"
 alias vi="nvim"
 alias vim="vim"
 alias lc='colorls -lA --sd'
 alias es="/Applications/Emacs.app/Contents/MacOS/Emacs "
 alias emacs='emacs'
 alias reload="source ~/.zshrc"
+alias emacs="/Applications/Emacs\ 2.app/Contents/MacOS/Emacs -nw"
 
-export EDITOR="nvim"
-export GIT_EDITOR="nvim"
-export REACT_EDITOR="nvim"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
