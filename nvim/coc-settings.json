@@ -67,8 +67,17 @@
     "prettier.stylelintIntegration": true,
     //emmet
     "emmet.includeLanguages": {"vue-html": "html", "javascript": "javascriptreact"},
+    //imselect
+    "imselect.enableStatusItem": false,
+    //multiple curssors
+    "cursors.nextKey": "<C-n>",
+    "cursors.previousKey": "<C-p>",
+    "cursors.cancelKey": "<esc>",
     //python
     "python.autoComplete.addBrackets": true,
+    //coc-template
+    "template.email": "%pegasuslevel233@gmail.com%",
+    "template.username": "%taigacute%",
     // eslint
     "eslint.filetypes": ["javascript", "javascript.jsx", "javascriptreact"],
     "eslint.autoFix": true,
@@ -78,6 +87,7 @@
             "golang": {
                 "command": "gopls",
                 "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+                "trace.server": "verbose",
                 "filetypes": [
                     "go"
                 ]

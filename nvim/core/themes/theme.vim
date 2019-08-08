@@ -17,6 +17,7 @@ let g:gruvbox_plugin_hi_groups = 1
 " let g:gruvbox_transp_bg = 1
 let g:gruvbox_italicize_strings = 0
 colorscheme  gruvbox9_hard
+" colorscheme  solarized8_flat
 
 " let g:space_vim_transp_bg = 1
 " colorscheme space_vim_theme
@@ -36,8 +37,9 @@ highlight! link pythonIndentError NONE
 " ---------------------------------------------------------
 hi PMenuSel ctermfg=252 ctermbg=106 guifg=#d0d0d0 guibg=#859900 guisp=#859900 cterm=NONE gui=NONE
 
-"coc highlight setting
+"coc setting
 " ---------------------------------------------------------
+hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 hi default CocHighlightText  guibg=#725972 ctermbg=96
 hi CocWarningSign  ctermfg=32 ctermbg=NONE guifg=#0087d7 guibg=NONE
 
@@ -63,6 +65,20 @@ highlight def link Defx_filename_3_Unmerged Label
 " buftabline highlight
 " ---------------------------------------------------------
 highlight BufTabLineCurrent ctermbg=96 guibg=#5d4d7a
+
+" buftabline highlight
+" ---------------------------------------------------------
+highlight  gitInfoRepotitle    guibg=NONE guisp=NONE gui=bold cterm=bold
+highlight  gitInfoHeadtitle   guibg=NONE guisp=NONE gui=bold cterm=bold
+highlight  gitInfoUpstreamtitle  guibg=NONE guisp=NONE gui=bold cterm=bold
+highlight  gitInfoPushtitle   guibg=NONE guisp=NONE gui=bold cterm=bold
+highlight  gitCommitModetitle  guibg=NONE guisp=NONE gui=bold cterm=bold
+
+highlight  gitSectionsStaged guifg=#0087d7 guibg=NONE guisp=NONE gui=bold cterm=bold
+highlight  gitSectionsUnstaged guifg=#0087d7 guibg=NONE guisp=NONE gui=bold cterm=bold
+highlight  gitSectionsCommitMsg guifg=#0087d7 guibg=NONE guisp=NONE gui=bold cterm=bold
+highlight  gitSectionsCommitStash  guifg=#0087d7 guibg=NONE guisp=NONE gui=bold cterm=bold
+highlight  gitSectionsRecentCommit guifg=#0087d7 guibg=NONE guisp=NONE gui=bold cterm=bold
 
 "GetColorSynatxGroup
 " ---------------------------------------------------------

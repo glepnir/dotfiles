@@ -1,37 +1,35 @@
 "Plugin key settings
 
 if dein#tap('denite.nvim')
-        nnoremap <silent><localLeader>da  :TodoAdd 
         nnoremap <silent><LocalLeader>m :<C-u>Denite menu<CR>
-
         noremap zl :<C-u>call <SID>my_denite_outline(&filetype)<CR>
         noremap zL :<C-u>call <SID>my_denite_decls(&filetype)<CR>
         noremap zT :<C-u>call <SID>my_denite_file_rec_goroot()<CR>
 
-        nnoremap <silent> <LocalLeader>gl :<C-u>Denite gitlog:all<CR>
-	    nnoremap <silent> <LocalLeader>gh :<C-u>Denite gitbranch<CR>
+        nnoremap <silent> <Leader>gl :<C-u>Denite gitlog:all<CR>
+	    nnoremap <silent> <Leader>gh :<C-u>Denite gitbranch<CR>
+        function! s:my_denite_outline(filetype) abort
+        execute 'Denite' a:filetype ==# 'go' ? "decls:'%:p'" : 'outline'
+        endfunction
+        function! s:my_denite_decls(filetype) abort
+        if a:filetype ==# 'go'
+            Denite decls
+        else
+            call denite#util#print_error('decls does not support filetypes except go')
+        endif
+        endfunction
+        function! s:my_denite_file_rec_goroot() abort
+        if !executable('go')
+            call denite#util#print_error('`go` executable not found')
+            return
+        endif
+        let out = system('go env | grep ''^GOROOT='' | cut -d\" -f2')
+        let goroot = substitute(out, '\n', '', '')
+        call denite#start(
+                \ [{'name': 'file/rec', 'args': [goroot]}],
+                \ {'input': '.go'})
+        endfunction
 endif
-function! s:my_denite_outline(filetype) abort
-  execute 'Denite' a:filetype ==# 'go' ? "decls:'%:p'" : 'outline'
-endfunction
-function! s:my_denite_decls(filetype) abort
-  if a:filetype ==# 'go'
-    Denite decls
-  else
-    call denite#util#print_error('decls does not support filetypes except go')
-  endif
-endfunction
-function! s:my_denite_file_rec_goroot() abort
-  if !executable('go')
-    call denite#util#print_error('`go` executable not found')
-    return
-  endif
-  let out = system('go env | grep ''^GOROOT='' | cut -d\" -f2')
-  let goroot = substitute(out, '\n', '', '')
-  call denite#start(
-        \ [{'name': 'file/rec', 'args': [goroot]}],
-        \ {'input': '.go'})
-endfunction
 
 if dein#tap('coc.nvim')
         " Using CocList
@@ -79,19 +77,28 @@ if dein#tap('coc.nvim')
         nmap ]g <Plug>(coc-git-nextchunk)
         " show chunk diff at current position
         nmap gs <Plug>(coc-git-chunkinfo)
+        " show commit contains current position
+        nmap gm <Plug>(coc-git-commit)
         nnoremap <silent> <leader>cg  :<C-u>CocList --normal gstatus<CR>
         " float window scroll
 		nnoremap <expr><C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
 		nnoremap <expr><C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
-endif
+        " multiple cursors session
+        nmap <silent> <C-c> <Plug>(coc-cursors-position)
+        nmap <silent> <C-d> <Plug>(coc-cursors-word)
+        xmap <silent> <C-d> <Plug>(coc-cursors-range)
+        nnoremap <silent> <leader>cm ::CocSearch -w 
+        " use normal command like `<leader>xi(`
+        nmap <leader>x  <Plug>(coc-cursors-operator)
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+        function! s:show_documentation()
+            if (index(['vim','help'], &filetype) >= 0)
+                execute 'h '.expand('<cword>')
+            else
+                call CocAction('doHover')
+            endif
+        endfunction
+endif
 
 if dein#tap('fzf.vim')
         nnoremap <silent> <leader>fc :Colors<CR>
@@ -110,22 +117,29 @@ endif
 
 
 if dein#tap('vim-go')
-	 nnoremap <silent> <leader>gi :GoImpl<CR>
-	 nnoremap <silent> <Leader>gd :GoDescribe<CR>
-	 nnoremap <silent> <Leader>gc :GoCallees<CR>
-	 nnoremap <silent> <Leader>gC :GoCallers<CR>
-	 nnoremap <silent> <Leader>gs :GoCallstack<CR>
+	 nnoremap <silent> <LocalLeader>gi :GoImpl<CR>
+	 nnoremap <silent> <LocalLeader>gd :GoDescribe<CR>
+	 nnoremap <silent> <LocalLeader>gc :GoCallees<CR>
+	 nnoremap <silent> <LocalLeader>gC :GoCallers<CR>
+	 nnoremap <silent> <LocalLeader>gs :GoCallstack<CR>
 endif
 
 if dein#tap('vim-easygit')
-	nnoremap <silent> <localleader>gd :Gdiff<CR>
-	nnoremap <silent> <localleader>gc :Gcommit<CR>
-	nnoremap <silent> <localleader>gb :Gblame<CR>
-	nnoremap <silent> <localleader>gB :Gbrowse<CR>
-	nnoremap <silent> <localleader>gS :Gstatus<CR>
-	nnoremap <silent> <localleader>gp :Gpush<CR>
+	nnoremap <silent> <Leader>gd :Gdiff<CR>
+	nnoremap <silent> <Leader>gc :Gcommit<CR>
+	nnoremap <silent> <Leader>gb :Gblame<CR>
+	nnoremap <silent> <Leader>gB :Gbrowse<CR>
+	nnoremap <silent> <Leader>gS :Gstatus<CR>
+	" nnoremap <silent> <localleader>gp :Gpush<CR>
 endif
 
+if dein#tap('magit.vim')
+	nnoremap <silent> mg :Magit<CR>
+endif
+
+if dein#tap('gina.vim')
+	nnoremap <silent><Leader>gp :Gina push<CR>
+endif
 
 if dein#tap('vim-mundo')
     nnoremap <silent> <leader>m :MundoToggle<CR>
@@ -178,15 +192,11 @@ endif
 
 if dein#tap('defx.nvim')
         nnoremap <silent> <Leader>e
-                \ :<C-u>Defx -resume -toggle -buffer-name=tab`tabpagenr()`<CR>
-        "nnoremap <silent> <LocalLeader>a
-				"\ :<C-u>Defx -resume -buffer-name=tab`tabpagenr()` -search=`expand('%:p')`<CR>
+               \ :<C-u>Defx -resume -toggle -buffer-name=tab`tabpagenr()`<CR>
+         nnoremap <silent> <Leader>F
+				\ :<C-u>Defx -resume -toggle -search=`expand('%:p')` `getcwd()`<CR>
 endif
 
-if dein#tap('nerdtree')
-        "nerdtree
-        nnoremap <silent><localleader>e :NERDTreeToggle <CR>
-endif
 
 if dein#tap('vim-startify')
     nnoremap <silent> <leader>s :Startify<CR>
@@ -274,6 +284,23 @@ if dein#tap('vim-sandwich')
      xmap as <Plug>(textobj-sandwich-query-a)
 endif
 
+if dein#tap('actionmenu.nvim')
+    nmap <silent> <LocalLeader>s :call ActionMenuCodeActions()<CR>
+    let s:code_actions = []
+
+func! ActionMenuCodeActions() abort
+  let s:code_actions = CocAction('codeActions')
+  let l:menu_items = map(copy(s:code_actions), { index, item -> item['title'] })
+  call actionmenu#open(l:menu_items, 'ActionMenuCodeActionsCallback')
+endfunc
+
+func! ActionMenuCodeActionsCallback(index, item) abort
+  if a:index >= 0
+    let l:selected_code_action = s:code_actions[a:index]
+    let l:response = CocAction('doCodeAction', l:selected_code_action)
+  endif
+endfunc
+endif
 
 if dein#tap('vim-operator-replace')
 	xmap p <Plug>(operator-replace)
@@ -285,13 +312,3 @@ if dein#tap('vim-textobj-multiblock')
 	xmap <silent> ab <Plug>(textobj-multiblock-a)
 	xmap <silent> ib <Plug>(textobj-multiblock-i)
 endif
-
-
-" if dein#tap('vim-operator-surround')
-"         map <silent>sa <Plug>(operator-surround-append)
-"         map <silent>sd <Plug>(operator-surround-delete)
-"         map <silent>sr <Plug>(operator-surround-replace)
-"         nmap <silent>saa <Plug>(operator-surround-append)<Plug>(textobj-multiblock-i)
-"         nmap <silent>sdd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
-"         nmap <silent>srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
-" endif
