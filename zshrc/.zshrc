@@ -7,10 +7,10 @@ alias f="ranger"
 alias vi="nvim"
 alias vim="vim"
 alias lc='colorls -lA --sd'
-alias es="/Applications/Emacs.app/Contents/MacOS/Emacs "
-alias emacs='emacs'
+alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs "
 alias reload="source ~/.zshrc"
-alias emacs="/Applications/Emacs\ 2.app/Contents/MacOS/Emacs -nw"
+# alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
+# alias emacs="/usr/local/Cellar/emacs-mac/emacs-26.2-z-mac-7.6/Emacs.app"
 
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -60,30 +60,6 @@ if zplug check 'zsh-users/zsh-autosuggestions'; then
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 fi
 
-# theme conifg
-#POWERLEVEL9K_CUSTOM_WIFI_SIGNAL="zsh_wifi_signal"
-POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_BACKGROUND="white"
-POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_FOREGROUND="black"
-
-zsh_wifi_signal(){
-        local output=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I)
-        local airport=$(echo $output | grep 'AirPort' | awk -F': ' '{print $2}')
-
-        if [ "$airport" = "Off" ]; then
-                local color='%F{black}'
-                echo -n "%{$color%}Wifi Off"
-        else
-                local ssid=$(echo $output | grep ' SSID' | awk -F': ' '{print $2}')
-                local speed=$(echo $output | grep 'lastTxRate' | awk -F': ' '{print $2}')
-                local color='%F{black}'
-
-                [[ $speed -gt 100 ]] && color='%F{black}'
-                [[ $speed -lt 50 ]] && color='%F{red}'
-
-                echo -n "%{$color%}$speed Mbps \uf1eb%{%f%}" # removed char not in my PowerLine font
-        fi
-}
-
 # zsh-syntax-highlighting
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
@@ -100,22 +76,81 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=green,bold'
 ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=magenta,bold'
 ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=yellow,bold'
 
-# zsh theme
-POWERLEVEL9K_MODE='nerdfont-complete'
-#POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-#POWERLEVEL9K_SHORTEN_DELIMITER=""
-#POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+# zsh-theme
+
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+
+# LEFT_PROMPT
+# ===========================================================
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon battery ram time newline dir_joined)
 POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=''
+POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=' '
+POWERLEVEL9K_WHITESPACE_BETWEEN_LEFT_SEGMENTS=''
+
+# status
+# POWERLEVEL9K_STATUS_VERBOSE=false
+
+# os_icon custom
+POWERLEVEL9K_OS_ICON_BACKGROUND='none'
+POWERLEVEL9K_OS_ICON_FOREGROUND='004'
+
+# battery
+POWERLEVEL9K_BATTERY_LOW_BACKGROUND='none'
+POWERLEVEL9K_BATTERY_LOW_FOREGROUND='001'
+POWERLEVEL9K_BATTERY_CHARGING_BACKGROUND='none'
+POWERLEVEL9K_BATTERY_CHARGING_FOREGROUND='076'
+POWERLEVEL9K_BATTERY_CHARGED_BACKGROUND='none'
+POWERLEVEL9K_BATTERY_CHARGED_FOREGROUND='076'
+POWERLEVEL9K_BATTERY_DISCONNECTED_BACKGROUND='none'
+POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND='003'
+POWERLEVEL9K_BATTERY_LOW_THRESHOLD=15
+POWERLEVEL9K_BATTERY_VERBOSE=false
+POWERLEVEL9K_BATTERY_STAGES=''
+
+# time
+# POWERLEVEL9K_TIME_FORMAT="%D{%d.%m.%y %H:%M:%S}"
+POWERLEVEL9K_TIME_ICON=''
+POWERLEVEL9K_TIME_BACKGROUND='none'
+POWERLEVEL9K_TIME_FOREGROUND='006'
+
+# ram
+POWERLEVEL9K_RAM_ICON=''
+POWERLEVEL9K_RAM_BACKGROUND='none'
+POWERLEVEL9K_RAM_FOREGROUND='006'
+
+# dir
+POWERLEVEL9K_SHORTEN_DELIMITER=''
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=7
+# POWERLEVEL9K_SHORTEN_STRATEGY='truncate_to_first_and_last'
+
+POWERLEVEL9K_ETC_ICON=''
+POWERLEVEL9K_FOLDER_ICON=''
+POWERLEVEL9K_HOME_ICON=''
+POWERLEVEL9K_HOME_SUB_ICON=''
+
+POWERLEVEL9K_DIR_ETC_BACKGROUND='none'
+POWERLEVEL9K_DIR_ETC_FOREGROUND='005'
+POWERLEVEL9K_DIR_HOME_BACKGROUND='none'
+POWERLEVEL9K_DIR_HOME_FOREGROUND='004'
+POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='none'
+POWERLEVEL9K_DIR_DEFAULT_FOREGROUND='005'
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='none'
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='004'
+
+# customization
+# POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=''
+
+# RIGHT_PROMP
+# ===========================================================
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs)
 POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=''
-POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=''
-POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR=''
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%F{blue}\u256D\u2500%F{white}"
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{blue}\u2570\uf460%F{white} "
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator dir dir_writable_joined)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time
-                                    vcs background_jobs_joined time_joined)
+POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR=' '
+POWERLEVEL9K_WHITESPACE_BETWEEN_RIGHT_SEGMENTS=''
+
 # vcs
+POWERLEVEL9K_SHOW_CHANGESET=true
+POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
+
 POWERLEVEL9K_VCS_CLEAN_BACKGROUND='none'
 POWERLEVEL9K_VCS_CLEAN_FOREGROUND='076'
 POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='none'
@@ -123,23 +158,6 @@ POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='005'
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='none'
 POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='003'
 
-POWERLEVEL9K_DIR_HOME_BACKGROUND="clear"
-POWERLEVEL9K_DIR_HOME_FOREGROUND="blue"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="clear"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="blue"
-POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_BACKGROUND="clear"
-POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND="red"
-POWERLEVEL9K_DIR_DEFAULT_BACKGROUND="clear"
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
-POWERLEVEL9K_ROOT_INDICATOR_BACKGROUND="red"
-POWERLEVEL9K_ROOT_INDICATOR_FOREGROUND="white"
-POWERLEVEL9K_STATUS_OK_BACKGROUND="clear"
-POWERLEVEL9K_STATUS_OK_FOREGROUND="green"
-POWERLEVEL9K_STATUS_ERROR_BACKGROUND="clear"
-POWERLEVEL9K_STATUS_ERROR_FOREGROUND="red"
-POWERLEVEL9K_TIME_BACKGROUND="clear"
-POWERLEVEL9K_TIME_FOREGROUND="cyan"
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND='clear'
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='magenta'
-POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND='clear'
-POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND='green'
+POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-remotebranch git-tagname)
+
+POWERLEVEL9K_MODE='nerdfont-complete'

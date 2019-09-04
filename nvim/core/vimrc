@@ -16,9 +16,9 @@ endif
 let $DATA_PATH = g:etc#cache_path
 
 
-" Set augroup
 augroup MyAutoCmd
 	autocmd!
+	autocmd CursorHold *? syntax sync minlines=300
 augroup END
 
 " Disable vim distribution plugins
@@ -57,7 +57,7 @@ if has('vim_starting')
 	xnoremap ;        <Nop>
 	nnoremap m        <Nop>
 	xnoremap m        <Nop>
-		if ! has('nvim') && has('pythonx')
+   if ! has('nvim') && has('pythonx')
 		if has('python3')
 			set pyxversion=3
 		elseif has('python')
@@ -81,7 +81,10 @@ call etc#util#source_file('core/plugins/allkey.vim')
 call etc#util#source_file('core/general.vim')
 call etc#util#source_file('core/filetype.vim')
 call etc#util#source_file('core/mappings.vim')
-call etc#util#source_file('core/themes/theme.vim')
+
+" Initialize user favorite colorscheme
+call theme#init()
+call etc#util#source_file('core/color.vim')
 
 function! s:check_custom_settings(filename)abort
        let  content = readfile(a:filename)
