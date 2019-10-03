@@ -1,0 +1,16 @@
+alias f="ranger"
+# alias v="vifm"
+alias vi="nvim"
+alias vim="vim"
+alias lc='colorls -lA --sd'
+alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
+alias reload="source ~/.zshrc"
+alias es="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+alias ~="cd ~" # `cd` is probably faster to type though
+alias -- -="cd -"

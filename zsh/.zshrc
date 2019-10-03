@@ -2,16 +2,10 @@ source $(dirname $(gem which colorls))/tab_complete.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-alias f="ranger"
-# alias v="vifm"
-alias vi="nvim"
-alias vim="vim"
-alias lc='colorls -lA --sd'
-alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs "
-alias reload="source ~/.zshrc"
-# alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
-# alias emacs="/usr/local/Cellar/emacs-mac/emacs-26.2-z-mac-7.6/Emacs.app"
-
+# Load dotfiles
+for file in $dotfiles/zsh/.{alias}; do
+	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
