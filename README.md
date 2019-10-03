@@ -1,6 +1,11 @@
 # dotfiles
+
 my personal dotfiles mac
 
-neovim config : [ThinkVim](https://github.com/hardcoreplayers/ThinkVim)  
+<div align="center">
+<img src="https://raw.githubusercontent.com/taigacute/dotfiles/master/img/mac.png" width="500" height="400">
+</div>
 
-emacs config  : [Boom Emacs](https://github.com/hardcoreplayers/boom)
+neovim config : [ThinkVim](https://github.com/hardcoreplayers/ThinkVim)
+
+emacs config : [Boom Emacs](https://github.com/hardcoreplayers/boom)
