@@ -1,0 +1,27 @@
+manjaro install mysql
+
+sudo pacman -S mysql
+
+initialize mysql
+
+sudo mysqld --initialize --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+
+then will generate a root password like
+```
+A temporary password is generated for root@localhost: TeebGKOLT6!L
+
+```
+
+sudo systemctl start mysqld
+
+then connect the mysql
+
+mysql -u root -p
+
+then input the generate password
+
+edit the root password by a easy way use command
+
+```
+mysqladmin -u root -p password  xxxx(your new passowrd)
+```
