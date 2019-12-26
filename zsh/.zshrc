@@ -1,4 +1,3 @@
-source $(dirname $(gem which colorls))/tab_complete.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
