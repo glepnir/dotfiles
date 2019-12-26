@@ -1,38 +1,7 @@
 #!/usr/bin/env bash
 
-# Colors
-ESC_SEQ="\x1b["
-COL_RESET=$ESC_SEQ"39;49;00m"
-COL_RED=$ESC_SEQ"31;01m"
-COL_GREEN=$ESC_SEQ"32;01m"
-COL_YELLOW=$ESC_SEQ"33;01m"
-COL_BLUE=$ESC_SEQ"34;01m"
-COL_MAGENTA=$ESC_SEQ"35;01m"
-COL_CYAN=$ESC_SEQ"36;01m"
-
-function ok() {
-    echo -e "$COL_GREEN[ok]$COL_RESET "$1
-}
-
-function bot() {
-    echo -e "\n$COL_GREEN\[._.]/$COL_RESET - "$1
-}
-
-function running() {
-    echo -en "$COL_YELLOW ⇒ $COL_RESET"$1": "
-}
-
-function action() {
-    echo -e "\n$COL_YELLOW[action]:$COL_RESET\n ⇒ $1..."
-}
-
-function warn() {
-    echo -e "$COL_YELLOW[warning]$COL_RESET "$1
-}
-
-function error() {
-    echo -e "$COL_RED[error]$COL_RESET "$1
-}
+# include my library helpers for colorized echo and require_brew, etc
+source ./lib_script/lib_func.sh
 
 # ###########################################################
 # Install non-brew various tools (PRE-BREW Installs)
@@ -93,14 +62,98 @@ fi
 # Just to avoid a potential bug
 mkdir -p ~/Library/Caches/Homebrew/Formula
 brew doctor
-# skip those GUI clients, git command-line all the way
-require_brew git
-# update zsh to latest
-require_brew zsh
+
+# ###########################################################
+# Git Config
+# ###########################################################
+
+# # skip those GUI clients, git command-line all the way
+# require_brew git
+
+# bot "OK, now I am going to update the .gitconfig for your user info:"
+# grep 'user = GITHUBUSER' ./gitconf/.gitconfig > /dev/null 2>&1
+# if [[ $? = 0 ]]; then
+#     read -r -p "What is your git username? " githubuser
+
+#   fullname=`osascript -e "long user name of (system info)"`
+
+#   if [[ -n "$fullname" ]];then
+#     lastname=$(echo $fullname | awk '{print $2}');
+#     firstname=$(echo $fullname | awk '{print $1}');
+#   fi
+
+#   if [[ -z $lastname ]]; then
+#     lastname=`dscl . -read /Users/$(whoami) | grep LastName | sed "s/LastName: //"`
+#   fi
+#   if [[ -z $firstname ]]; then
+#     firstname=`dscl . -read /Users/$(whoami) | grep FirstName | sed "s/FirstName: //"`
+#   fi
+#   email=`dscl . -read /Users/$(whoami)  | grep EMailAddress | sed "s/EMailAddress: //"`
+
+#   if [[ ! "$firstname" ]]; then
+#     response='n'
+#   else
+#     echo  "I see that your full name is $COL_YELLOW$firstname $lastname$COL_RESET"
+#     read -r -p "Is this correct? [Y|n] " response
+#   fi
+
+#   if [[ $response =~ ^(no|n|N) ]]; then
+#     read -r -p "What is your first name? " firstname
+#     read -r -p "What is your last name? " lastname
+#   fi
+#   fullname="$firstname $lastname"
+
+#   bot "Great $fullname, "
+
+#   if [[ ! $email ]]; then
+#     response='n'
+#   else
+#     echo  "The best I can make out, your email address is $COL_YELLOW$email$COL_RESET"
+#     read -r -p "Is this correct? [Y|n] " response
+#   fi
+
+#   if [[ $response =~ ^(no|n|N) ]]; then
+#     read -r -p "What is your email? " email
+#     if [[ ! $email ]];then
+#       error "you must provide an email to configure .gitconfig"
+#       exit 1
+#     fi
+#   fi
+
+
+#   running "replacing items in .gitconfig with your info ($COL_YELLOW$fullname, $email, $githubuser$COL_RESET)"
+
+#   # test if gnu-sed or MacOS sed
+
+#   sed -i "s/GITHUBFULLNAME/$firstname $lastname/" ./gitconf/.gitconfig > /dev/null 2>&1 | true
+#   if [[ ${PIPESTATUS[0]} != 0 ]]; then
+#     echo
+#     running "looks like you are using MacOS sed rather than gnu-sed, accommodating"
+#     sed -i '' "s/GITHUBFULLNAME/$firstname $lastname/" ./git/.gitconfig
+#     sed -i '' 's/GITHUBEMAIL/'$email'/' ./gitconf/.gitconfig
+#     sed -i '' 's/GITHUBUSER/'$githubuser'/' ./gitconf/.gitconfig
+#     ok
+#   else
+#     echo
+#     bot "looks like you are already using gnu-sed. woot!"
+#     sed -i 's/GITHUBEMAIL/'$email'/' ./gitconf/.gitconfig
+#     sed -i 's/GITHUBUSER/'$githubuser'/' ./gitconf/.gitconfig
+#   fi
+# fi
+
+# ###########################################################
 # update ruby to latest
 # use versions of packages installed with homebrew
+# ###########################################################
+
 RUBY_CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl` --with-readline-dir=`brew --prefix readline` --with-libyaml-dir=`brew --prefix libyaml`"
 require_brew ruby
+
+# ###########################################################
+# Update zsh and install oh-my-zsh
+# ###########################################################
+
+require_brew zsh
 # set zsh as the user login shell
 CURRENTSHELL=$(dscl . -read /Users/$USER UserShell | awk '{print $2}')
 if [[ "$CURRENTSHELL" != "/usr/local/bin/zsh" ]]; then
@@ -111,70 +164,47 @@ if [[ "$CURRENTSHELL" != "/usr/local/bin/zsh" ]]; then
   ok
 fi
 
-bot "install tools..."
-brew install curl
-brew install wget
-brew install --HEAD yabai
- brew install koekeishiya/formulae/skhd
-brew install ranger
-brew install emacs-mac --with-natural-title-bar --with-spacemacs-icon
-ok
-
-
-
 # ###########################################################
-# install oh-my-zsh
+# symslink zsh config
 # ###########################################################
 
 bot "zsh setup"
+ZSHRC="$HOME/.zshrc"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-bot "creating symlinks for ranger..."
-action "ln -s  ./zsh/.zshenv $HOME/.zshenv
-        ln -s  ./zsh/.zshrc $HOME/.zshrc"
-ln -s  ./zsh/.zshenv $HOME/.zshenv
-ln -s  ./zsh/.zshrc $HOME/.zshrc
-ok
-
-# ###########################################################
-# install dotfiles
-# ###########################################################
-bot "creating symlinks for ranger..."
-action "ln -s ./ranger $HOME/.ranger"
-ln -s ./ranger $HOME/.ranger
-ok
-
-
-# ###########################################################
-# install thinkvim
-# ###########################################################
-
-bot "thinkvim install..."
-read -r -p "Do you want to install thinkvim now? [y|N] " response
-if [[ $response =~ (y|yes|Y) ]];then
-  bot "Installing neovim"
-  git clone https://github.com/hardcoreplayers/ThinkVim.git ~/.config/nvim
-  ok "Installed thinkvim plugins by open neovim"
-else
-  ok "skipped. Install by running :PluginInstall within vim"
+bot "creating symlinks for zsh config..."
+if [ ! -f "ZSHRC" ]; then
+  read -r -p "Seems like your zshrc file exist,do you want delete it? [y|N] " response
+  if [[ $response =~ (y|yes|Y) ]]; then
+    rm -rf $HOME/.zshrc
+    rm -rf $HOME/.zshenv
+    action "link zsh/.zshrc and zsh/.zshenv"
+    ln -s  $HOME/.dotfiles/zsh/.zshenv $HOME/.zshenv
+    ln -s  $HOME/.dotfiles/zsh/.zshrc $HOME/.zshrc
+    ok "When you restart terminal it will auto install zplug and plugins"
+  else
+    ok "skipped"
+  fi
 fi
 
+# bot "install tools..."
+# brew install curl
+# brew install wget
+# # brew install emacs-mac --with-natural-title-bar --with-spacemacs-icon
+# ok
+
 # ###########################################################
-# install eva-emacs
+# Install Gui Application
 # ###########################################################
 
-bot "Eva emacs install..."
-read -r -p "Do you want to install eva-emacs now? [y|N] " response
+read -r -p "Install google-chrome? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
-  bot "Installing eva-emacs"
-  git clone https://github.com/hardcoreplayers/eva-emacs.git ~/.emacs.d/
-  cd ~
-  cd .emacs.d
-  make
+  bot "Installing Google Chrome"
+  require_cask google-chrome
 else
-  ok "skipped install eva-emacs"
+  ok "skipped"
 fi
 
 
-brew update && brew upgrade && brew cleanup && brew cask cleanup
+brew update && brew upgrade && brew cleanup
 
 bot "All done"

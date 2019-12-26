@@ -1,0 +1,12 @@
+[user]
+  name = GITHUBFULLNAME
+  email = GITHUBEMAIL
+[github]
+  # https://github.com/blog/180-local-github-config
+  user = GITHUBUSER
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
