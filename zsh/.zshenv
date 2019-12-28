@@ -11,7 +11,7 @@ export ZSH="$HOME/.oh-my-zsh"
 source "$ZSH/oh-my-zsh.sh"
 
 # Go
-export GOPATH="$HOME/workstation"
+export GOPATH="$HOME/workspace"
 export GO111MODULE="on"
 export PATH=$PATH:$HOME/workstation/bin
 export PATH=$PATH:/usr/local/go/bin
