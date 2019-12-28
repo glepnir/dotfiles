@@ -3,6 +3,12 @@
 # include my library helpers for colorized echo and require_brew, etc
 source ./lib_script/lib_func.sh
 
+UserLocation=0
+read -r -p "Are you a Chinese user? [y|N] " response
+if [[ $response =~ (y|yes|Y) ]];then
+  UserLocation=1
+fi
+
 # ###########################################################
 # Install non-brew various tools (PRE-BREW Installs)
 # ###########################################################
@@ -146,11 +152,12 @@ brew doctor
 # use versions of packages installed with homebrew
 # ###########################################################
 
+bot "update ruby"
 RUBY_CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl` --with-readline-dir=`brew --prefix readline` --with-libyaml-dir=`brew --prefix libyaml`"
 require_brew ruby
 
 # ###########################################################
-# Update zsh and install oh-my-zsh
+bot "zsh setup"
 # ###########################################################
 
 require_brew zsh
@@ -164,14 +171,10 @@ if [[ "$CURRENTSHELL" != "/usr/local/bin/zsh" ]]; then
   ok
 fi
 
-# ###########################################################
 # symslink zsh config
-# ###########################################################
-
-bot "zsh setup"
 ZSHRC="$HOME/.zshrc"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-bot "creating symlinks for zsh config..."
+running "Configuring zsh"
 if [ ! -f "ZSHRC" ]; then
   read -r -p "Seems like your zshrc file exist,do you want delete it? [y|N] " response
   if [[ $response =~ (y|yes|Y) ]]; then
@@ -186,24 +189,85 @@ if [ ! -f "ZSHRC" ]; then
   fi
 fi
 
-# bot "install tools..."
-# brew install curl
-# brew install wget
+# ###########################################################
+bot " Install Develop Tools"
+# ###########################################################
+require_brew curl
+require_brew wget
+require_brew make
+require_brew ctags
+require_brew gnutls
+require_brew node
+require_brew yarn
+
+read -r -p "Are you a gopher? [y|N] " response
+if [[ $response =~ (y|yes|Y) ]];then
+  require_cask golang
+  go get golang.org/x/tools/gopls@latest
+  mkdir -p ~/workspace
+else
+  ok "skipped"
+fi
+
+read -r -p "Are you a vimer? [y|N] " response
+if [[ $response =~ (y|yes|Y) ]];then
+  require_brew neovim
+else
+  ok "skipped"
+fi
+
+read -r -p "Are you a emacser? [y|N] " response
+if [[ $response =~ (y|yes|Y) ]];then
+  brew tap daviderestivo/emacs-head
+  brew install emacs-head --HEAD --with-cocoa --with-imagemagick --with-jansson
+  ln -s /usr/local/opt/emacs-head/Emacs.app /Applications
+else
+  ok "skipped"
+fi
+
 # # brew install emacs-mac --with-natural-title-bar --with-spacemacs-icon
 # ok
 
 # ###########################################################
-# Install Gui Application
+bot " Install Gui Applications"
 # ###########################################################
 
-read -r -p "Install google-chrome? [y|N] " response
+read -r -p "Do you want install iterm2? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
-  bot "Installing Google Chrome"
+  require_cask iterm2
+else
+  ok "skipped"
+fi
+
+read -r -p "Do you want install google-chrome? [y|N] " response
+if [[ $response =~ (y|yes|Y) ]];then
   require_cask google-chrome
 else
   ok "skipped"
 fi
 
+read -r -p "Do you want install vscode? [y|N] " response
+if [[ $response =~ (y|yes|Y) ]];then
+  require_cask visual-studio-code
+else
+  ok "skipped"
+fi
+
+
+if [[ $UserLocation =~ 1 ]];then
+  read -r -p "Do you want install QQ? [y|N] " response
+  if [[ $response =~ (y|yes|Y) ]];then
+    require_cask visual-studio-code
+  else
+    ok "skipped"
+  fi
+  read -r -p "Do you want install wechat? [y|N] " response
+  if [[ $response =~ (y|yes|Y) ]];then
+    require_cask wechat
+  else
+    ok "skipped"
+  fi
+fi
 
 brew update && brew upgrade && brew cleanup
 
