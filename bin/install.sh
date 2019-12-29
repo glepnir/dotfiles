@@ -254,6 +254,12 @@ else
   ok "skipped"
 fi
 
+read -r -p "Do you want install postman? [y|N] " response
+if [[ $response =~ (y|yes|Y) ]];then
+  require_cask postman
+else
+  ok "skipped"
+fi
 
 if [[ $UserLocation =~ 1 ]];then
   read -r -p "Do you want install QQ? [y|N] " response
