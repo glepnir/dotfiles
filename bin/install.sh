@@ -69,90 +69,88 @@ fi
 mkdir -p ~/Library/Caches/Homebrew/Formula
 brew doctor
 
-# ###########################################################
-# Git Config
-# ###########################################################
+###########################################################
+Git Config
+###########################################################
 
-# # skip those GUI clients, git command-line all the way
-# require_brew git
+# skip those GUI clients, git command-line all the way
+require_brew git
 
-# bot "OK, now I am going to update the .gitconfig for your user info:"
-# grep 'user = GITHUBUSER' ./gitconf/.gitconfig > /dev/null 2>&1
-# if [[ $? = 0 ]]; then
-#     read -r -p "What is your git username? " githubuser
+bot "OK, now I am going to update the .gitconfig for your user info:"
+grep 'user = GITHUBUSER' ./gitconf/.gitconfig > /dev/null 2>&1
+if [[ $? = 0 ]]; then
+    read -r -p "What is your git username? " githubuser
 
-#   fullname=`osascript -e "long user name of (system info)"`
+  fullname=`osascript -e "long user name of (system info)"`
 
-#   if [[ -n "$fullname" ]];then
-#     lastname=$(echo $fullname | awk '{print $2}');
-#     firstname=$(echo $fullname | awk '{print $1}');
-#   fi
+  if [[ -n "$fullname" ]];then
+    lastname=$(echo $fullname | awk '{print $2}');
+    firstname=$(echo $fullname | awk '{print $1}');
+  fi
 
-#   if [[ -z $lastname ]]; then
-#     lastname=`dscl . -read /Users/$(whoami) | grep LastName | sed "s/LastName: //"`
-#   fi
-#   if [[ -z $firstname ]]; then
-#     firstname=`dscl . -read /Users/$(whoami) | grep FirstName | sed "s/FirstName: //"`
-#   fi
-#   email=`dscl . -read /Users/$(whoami)  | grep EMailAddress | sed "s/EMailAddress: //"`
+  if [[ -z $lastname ]]; then
+    lastname=`dscl . -read /Users/$(whoami) | grep LastName | sed "s/LastName: //"`
+  fi
+  if [[ -z $firstname ]]; then
+    firstname=`dscl . -read /Users/$(whoami) | grep FirstName | sed "s/FirstName: //"`
+  fi
+  email=`dscl . -read /Users/$(whoami)  | grep EMailAddress | sed "s/EMailAddress: //"`
 
-#   if [[ ! "$firstname" ]]; then
-#     response='n'
-#   else
-#     echo  "I see that your full name is $COL_YELLOW$firstname $lastname$COL_RESET"
-#     read -r -p "Is this correct? [Y|n] " response
-#   fi
+  if [[ ! "$firstname" ]]; then
+    response='n'
+  else
+    echo  "I see that your full name is $COL_YELLOW$firstname $lastname$COL_RESET"
+    read -r -p "Is this correct? [Y|n] " response
+  fi
 
-#   if [[ $response =~ ^(no|n|N) ]]; then
-#     read -r -p "What is your first name? " firstname
-#     read -r -p "What is your last name? " lastname
-#   fi
-#   fullname="$firstname $lastname"
+  if [[ $response =~ ^(no|n|N) ]]; then
+    read -r -p "What is your first name? " firstname
+    read -r -p "What is your last name? " lastname
+  fi
+  fullname="$firstname $lastname"
 
-#   bot "Great $fullname, "
+  bot "Great $fullname, "
 
-#   if [[ ! $email ]]; then
-#     response='n'
-#   else
-#     echo  "The best I can make out, your email address is $COL_YELLOW$email$COL_RESET"
-#     read -r -p "Is this correct? [Y|n] " response
-#   fi
+  if [[ ! $email ]]; then
+    response='n'
+  else
+    echo  "The best I can make out, your email address is $COL_YELLOW$email$COL_RESET"
+    read -r -p "Is this correct? [Y|n] " response
+  fi
 
-#   if [[ $response =~ ^(no|n|N) ]]; then
-#     read -r -p "What is your email? " email
-#     if [[ ! $email ]];then
-#       error "you must provide an email to configure .gitconfig"
-#       exit 1
-#     fi
-#   fi
+  if [[ $response =~ ^(no|n|N) ]]; then
+    read -r -p "What is your email? " email
+    if [[ ! $email ]];then
+      error "you must provide an email to configure .gitconfig"
+      exit 1
+    fi
+  fi
 
 
-#   running "replacing items in .gitconfig with your info ($COL_YELLOW$fullname, $email, $githubuser$COL_RESET)"
+  running "replacing items in .gitconfig with your info ($COL_YELLOW$fullname, $email, $githubuser$COL_RESET)"
 
-#   # test if gnu-sed or MacOS sed
+  # test if gnu-sed or MacOS sed
 
-#   sed -i "s/GITHUBFULLNAME/$firstname $lastname/" ./gitconf/.gitconfig > /dev/null 2>&1 | true
-#   if [[ ${PIPESTATUS[0]} != 0 ]]; then
-#     echo
-#     running "looks like you are using MacOS sed rather than gnu-sed, accommodating"
-#     sed -i '' "s/GITHUBFULLNAME/$firstname $lastname/" ./git/.gitconfig
-#     sed -i '' 's/GITHUBEMAIL/'$email'/' ./gitconf/.gitconfig
-#     sed -i '' 's/GITHUBUSER/'$githubuser'/' ./gitconf/.gitconfig
-#     ok
-#   else
-#     echo
-#     bot "looks like you are already using gnu-sed. woot!"
-#     sed -i 's/GITHUBEMAIL/'$email'/' ./gitconf/.gitconfig
-#     sed -i 's/GITHUBUSER/'$githubuser'/' ./gitconf/.gitconfig
-#   fi
-# fi
+  sed -i "s/GITHUBFULLNAME/$firstname $lastname/" ./gitconf/.gitconfig > /dev/null 2>&1 | true
+  if [[ ${PIPESTATUS[0]} != 0 ]]; then
+    echo
+    running "looks like you are using MacOS sed rather than gnu-sed, accommodating"
+    sed -i '' "s/GITHUBFULLNAME/$firstname $lastname/" ./git/.gitconfig
+    sed -i '' 's/GITHUBEMAIL/'$email'/' ./gitconf/.gitconfig
+    sed -i '' 's/GITHUBUSER/'$githubuser'/' ./gitconf/.gitconfig
+    ok
+  else
+    echo
+    bot "looks like you are already using gnu-sed. woot!"
+    sed -i 's/GITHUBEMAIL/'$email'/' ./gitconf/.gitconfig
+    sed -i 's/GITHUBUSER/'$githubuser'/' ./gitconf/.gitconfig
+  fi
+fi
 
-# ###########################################################
-# update ruby to latest
-# use versions of packages installed with homebrew
-# ###########################################################
-
+###########################################################
 bot "update ruby"
+###########################################################
+
 RUBY_CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl` --with-readline-dir=`brew --prefix readline` --with-libyaml-dir=`brew --prefix libyaml`"
 require_brew ruby
 
@@ -221,11 +219,14 @@ if [[ $response =~ (y|yes|Y) ]];then
   brew tap daviderestivo/emacs-head
   brew install emacs-head --HEAD --with-cocoa --with-imagemagick --with-jansson
   ln -s /usr/local/opt/emacs-head/Emacs.app /Applications
+  running "Configruation Emacs"
+  git clone https://github.com/hardcoreplayers/supremacs ~/.config/emacs
+  cd ~/.config/emacs
+  make
 else
   ok "skipped"
 fi
 
-# # brew install emacs-mac --with-natural-title-bar --with-spacemacs-icon
 # ok
 
 # ###########################################################
