@@ -198,24 +198,52 @@ require_brew gnutls
 require_brew node
 require_brew yarn
 
+read -r -p "Do you want to set npm and yarn global path? [y|N] " response
+if [[ $response =~ (y|yes|Y) ]];then
+  mkdir -p ~/.node_global/
+  mkdir -p ~/.yarn_global/
+  npm config set prefix "~/.node_global/"
+  yarn config set prefix "~/.yarn_global/"
+else
+  ok "skipped"
+fi
+
+if [[ $UserLocation =~ 1 ]];then
+  running "Config npm use taobao"
+  npm config set registry https://registry.npm.taobao.org
+fi
+
+running "Install Eslint"
+npm install -g eslint
+
 read -r -p "Are you a gopher? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
-  require_cask golang
-  go get golang.org/x/tools/gopls@latest
+  require_brew golang
   mkdir -p ~/workspace
+  # for chinese user use proxy to get golang package which on google server
+  export GO111MODULE="on"
+  export GOPATH="$HOME/workspace"
+  if [[ $UserLocation =~ 1 ]];then
+    export GOPROXY=https://goproxy.io
+  fi
+  go get golang.org/x/tools/gopls@latest
 else
   ok "skipped"
 fi
 
 read -r -p "Are you a vimer? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
+  bot "Install neovim"
   require_brew neovim
+  running "Configruation thinkvim"
+  git clone --depth=1 https://github.com/hardcoreplayers/thinkvim ~/.config/nvim
 else
   ok "skipped"
 fi
 
 read -r -p "Are you a emacser? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
+  bot "Install Emacs27"
   brew tap daviderestivo/emacs-head
   brew install emacs-head --HEAD --with-cocoa --with-imagemagick --with-jansson
   ln -s /usr/local/opt/emacs-head/Emacs.app /Applications
@@ -261,15 +289,22 @@ else
   ok "skipped"
 fi
 
+read -r -p "Do you want install Docker? [y|N] " response
+if [[ $response =~ (y|yes|Y) ]];then
+  require_cask docker
+else
+  ok "skipped"
+fi
+
 if [[ $UserLocation =~ 1 ]];then
-  read -r -p "Do you want install QQ? [y|N] " response
-  if [[ $response =~ (y|yes|Y) ]];then
-    require_cask visual-studio-code
+  read -r -p "Do you want install QQ? [y|N] " qqresponse
+  if [[ $qqresponse =~ (y|yes|Y) ]];then
+    require_cask qq
   else
     ok "skipped"
   fi
-  read -r -p "Do you want install wechat? [y|N] " response
-  if [[ $response =~ (y|yes|Y) ]];then
+  read -r -p "Do you want install wechat? [y|N] " wxresponse
+  if [[ $wxresponse =~ (y|yes|Y) ]];then
     require_cask wechat
   else
     ok "skipped"
