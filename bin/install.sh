@@ -77,7 +77,7 @@ Git Config
 require_brew git
 
 bot "OK, now I am going to update the .gitconfig for your user info:"
-grep 'user = GITHUBUSER' ./gitconf/.gitconfig > /dev/null 2>&1
+grep 'user = GITHUBUSER' ./homedir/git/.gitconfig > /dev/null 2>&1
 if [[ $? = 0 ]]; then
     read -r -p "What is your git username? " githubuser
 
@@ -131,19 +131,19 @@ if [[ $? = 0 ]]; then
 
   # test if gnu-sed or MacOS sed
 
-  sed -i "s/GITHUBFULLNAME/$firstname $lastname/" ./gitconf/.gitconfig > /dev/null 2>&1 | true
+  sed -i "s/GITHUBFULLNAME/$firstname $lastname/" ./homedir/git/.gitconfig > /dev/null 2>&1 | true
   if [[ ${PIPESTATUS[0]} != 0 ]]; then
     echo
     running "looks like you are using MacOS sed rather than gnu-sed, accommodating"
-    sed -i '' "s/GITHUBFULLNAME/$firstname $lastname/" ./git/.gitconfig
-    sed -i '' 's/GITHUBEMAIL/'$email'/' ./gitconf/.gitconfig
-    sed -i '' 's/GITHUBUSER/'$githubuser'/' ./gitconf/.gitconfig
+    sed -i '' "s/GITHUBFULLNAME/$firstname $lastname/" ./homedir/git/.gitconfig
+    sed -i '' 's/GITHUBEMAIL/'$email'/' ./homedir/git/.gitconfig
+    sed -i '' 's/GITHUBUSER/'$githubuser'/' ./homedir/git/.gitconfig
     ok
   else
     echo
     bot "looks like you are already using gnu-sed. woot!"
-    sed -i 's/GITHUBEMAIL/'$email'/' ./gitconf/.gitconfig
-    sed -i 's/GITHUBUSER/'$githubuser'/' ./gitconf/.gitconfig
+    sed -i 's/GITHUBEMAIL/'$email'/' ./homedir/git/.gitconfig
+    sed -i 's/GITHUBUSER/'$githubuser'/' ./homedir/git/.gitconfig
   fi
 fi
 
@@ -179,8 +179,8 @@ if [ ! -f "ZSHRC" ]; then
     rm -rf $HOME/.zshrc
     rm -rf $HOME/.zshenv
     action "link zsh/.zshrc and zsh/.zshenv"
-    ln -s  $HOME/.dotfiles/zsh/.zshenv $HOME/.zshenv
-    ln -s  $HOME/.dotfiles/zsh/.zshrc $HOME/.zshrc
+    ln -s  $HOME/.dotfiles/homedir/zsh/.zshenv $HOME/.zshenv
+    ln -s  $HOME/.dotfiles/homedir/zsh/.zshrc $HOME/.zshrc
     ok "When you restart terminal it will auto install zplug and plugins"
   else
     ok "skipped"
@@ -220,9 +220,20 @@ bot " Install Develop Tools"
 # ###########################################################
 require_brew curl
 require_brew wget
+require_brew ripgrep
 require_brew make
 require_brew ctags
 require_brew gnutls
+require_brew tmux
+
+action "link tmux conf"
+ln -s  $HOME/.dotfiles/homedir/tmux/.tmux.conf $HOME/.tmux.conf
+ok
+
+action "Install tpm"
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+ok "when you open tmux,you must type prefix `{default: Ctrl+space } + I` to install tmux plugins"
+
 require_brew node
 require_brew yarn
 
@@ -261,24 +272,14 @@ fi
 
 read -r -p "Are you a vimer? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
-  bot "Install neovim"
-  require_brew neovim
-  running "Configruation thinkvim"
-  git clone --depth=1 https://github.com/hardcoreplayers/thinkvim ~/.config/nvim
+  ./editor/neovim/install.sh
 else
   ok "skipped"
 fi
 
 read -r -p "Are you a emacser? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
-  bot "Install Emacs27"
-  brew tap daviderestivo/emacs-head
-  brew install emacs-head --HEAD --with-cocoa --with-imagemagick --with-jansson
-  ln -s /usr/local/opt/emacs-head/Emacs.app /Applications
-  running "Configruation Emacs"
-  git clone https://github.com/hardcoreplayers/supremacs ~/.config/emacs
-  cd ~/.config/emacs
-  make
+  ./editor/install.sh
 else
   ok "skipped"
 fi
@@ -296,7 +297,7 @@ else
   ok "skipped"
 fi
 running "Configuration iterm2 settings"
-open "./iterm2/itermcolors/gruvbox-dark.itermcolors";ok
+open "./terminals/iterm2/itermcolors/gruvbox-dark.itermcolors";ok
 defaults write com.googlecode.iterm2 "Normal Font" -string "Fura Code Regular Nerd Font Complete Mono";
 ok
 running "reading iterm settings"
