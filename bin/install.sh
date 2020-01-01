@@ -188,6 +188,34 @@ if [ ! -f "ZSHRC" ]; then
 fi
 
 # ###########################################################
+bot "Install fonts"
+# ###########################################################
+read -r -p "Install fonts? [y|N] " response
+if [[ $response =~ (y|yes|Y) ]];then
+  bot "installing fonts"
+  # need fontconfig to install/build fonts
+  require_brew fontconfig
+  ./fonts/install.sh
+  brew tap homebrew/cask-fonts
+  require_cask font-fontawesome
+  require_cask font-awesome-terminal-fonts
+  require_cask font-hack-nerd-font
+  require_cask font-codenewroman-nerd-font
+  require_cask font-codenewroman-nerd-font-mono
+  require_cask font-firacode-nerd-font
+  require_cask font-firacode-nerd-font-mono
+  require_cask font-inconsolata-dz-for-powerline
+  require_cask font-inconsolata-g-for-powerline
+  require_cask font-inconsolata-for-powerline
+  require_cask font-roboto-mono
+  require_cask font-roboto-mono-for-powerline
+  require_cask font-source-code-pro
+  require_cask font-sourcecodepro-nerd-font
+  require_cask font-sourcecodepro-nerd-font-mono
+  ok
+fi
+
+# ###########################################################
 bot " Install Develop Tools"
 # ###########################################################
 require_brew curl
@@ -267,6 +295,13 @@ if [[ $response =~ (y|yes|Y) ]];then
 else
   ok "skipped"
 fi
+running "Configuration iterm2 settings"
+open "./iterm2/itermcolors/gruvbox-dark.itermcolors";ok
+defaults write com.googlecode.iterm2 "Normal Font" -string "Fura Code Regular Nerd Font Complete Mono";
+ok
+running "reading iterm settings"
+defaults read -app iTerm > /dev/null 2>&1;
+ok
 
 read -r -p "Do you want install google-chrome? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
