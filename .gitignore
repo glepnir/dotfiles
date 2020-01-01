@@ -21,6 +21,7 @@ assets
 .org-id-locations
 *_archive
 places
+.DS_Store
 
 # flymake-mode
 *_flymake.*
