@@ -1,5 +1,4 @@
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Load dotfiles
 for file in $dotfiles/zsh/.{alias}; do
@@ -29,6 +28,12 @@ fi
 if [[ -d "${ZPLUG_HOME}" ]]; then
   source "${ZPLUG_HOME}/init.zsh"
 fi
+zplug "junegunn/fzf-bin", \
+    from:gh-r, \
+    as:command, \
+    rename-to:fzf, \
+    use:"*darwin*amd64*"
+
 zplug "plugins/git",               from:oh-my-zsh, if:"(( $+commands[git] ))"
 zplug "plugins/sudo",              from:oh-my-zsh, if:"(( $+commands[sudo] ))"
 zplug "plugins/golang",            from:oh-my-zsh, if:"(( $+commands[go] ))"
@@ -37,7 +42,7 @@ zplug "plugins/npm",               from:oh-my-zsh, if:"(( $+commands[npm] ))"
 zplug "plugins/docker",            from:oh-my-zsh, if:"(( $+commands[docker] ))"
 zplug "plugins/docker-compose",    from:oh-my-zsh, if:"(( $+commands[docker-compose] ))"
 
-zplug "plugins/autojump", from:oh-my-zsh, defer:2
+zplug "plugins/autojump", from:oh-my-zsh
 zplug 'romkatv/powerlevel10k', use:powerlevel10k.zsh-theme
 zplug 'zsh-users/zsh-autosuggestions'
 zplug 'zsh-users/zsh-completions', defer:2

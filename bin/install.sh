@@ -195,22 +195,18 @@ if [[ $response =~ (y|yes|Y) ]];then
   bot "installing fonts"
   # need fontconfig to install/build fonts
   require_brew fontconfig
-  ./fonts/install.sh
+  sh ./fonts/install.sh
   brew tap homebrew/cask-fonts
   require_cask font-fontawesome
   require_cask font-awesome-terminal-fonts
   require_cask font-hack-nerd-font
-  require_cask font-codenewroman-nerd-font
   require_cask font-codenewroman-nerd-font-mono
-  require_cask font-firacode-nerd-font
   require_cask font-firacode-nerd-font-mono
   require_cask font-inconsolata-dz-for-powerline
   require_cask font-inconsolata-g-for-powerline
   require_cask font-inconsolata-for-powerline
   require_cask font-roboto-mono
   require_cask font-roboto-mono-for-powerline
-  require_cask font-source-code-pro
-  require_cask font-sourcecodepro-nerd-font
   require_cask font-sourcecodepro-nerd-font-mono
   ok
 fi
@@ -221,6 +217,7 @@ bot " Install Develop Tools"
 require_brew curl
 require_brew wget
 require_brew ripgrep
+require_brew bat
 require_brew make
 require_brew ctags
 require_brew gnutls
@@ -272,14 +269,27 @@ fi
 
 read -r -p "Are you a vimer? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
-  ./editor/neovim/install.sh
+  # Install neovim and thinkvim config
+  bot "Install neovim"
+  require_brew neovim
+  running "Configruation thinkvim"
+  git clone --depth=1 https://github.com/hardcoreplayers/thinkvim ~/.config/nvim
+  ok
 else
   ok "skipped"
 fi
 
 read -r -p "Are you a emacser? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
-  ./editor/install.sh
+  # Install Emacs27 and supremacs config
+  bot "Install Emacs27"
+  brew tap daviderestivo/emacs-head
+  brew install emacs-head --HEAD --with-cocoa --with-imagemagick --with-jansson
+  ln -s /usr/local/opt/emacs-head/Emacs.app /Applications
+  running "Configruation Emacs"
+  git clone https://github.com/hardcoreplayers/supremacs ~/.config/emacs
+  cd ~/.config/emacs
+  make
 else
   ok "skipped"
 fi
@@ -298,7 +308,7 @@ else
 fi
 running "Configuration iterm2 settings"
 open "./terminals/iterm2/itermcolors/gruvbox-dark.itermcolors";ok
-defaults write com.googlecode.iterm2 "Normal Font" -string "Fura Code Regular Nerd Font Complete Mono";
+defaults write com.googlecode.iterm2 "Normal Font" -string "Monaco";
 ok
 running "reading iterm settings"
 defaults read -app iTerm > /dev/null 2>&1;
