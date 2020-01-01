@@ -1,5 +1,5 @@
 # -*- mode: gitignore; -*-
-/gitconf/
+/homedir/git/
 *~
 \#*\#
 /.emacs.desktop

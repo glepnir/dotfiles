@@ -5,14 +5,8 @@ powerline_fonts_dir=$( cd "$( dirname "$0" )" && pwd )
 
 find_command="find \"$powerline_fonts_dir\" \( -name '*.[o,t]tf' -or -name '*.pcf.gz' \) -type f -print0"
 
-if [[ `uname` == 'Darwin' ]]; then
-  # MacOS
-  font_dir="$HOME/Library/Fonts"
-else
-  # Linux
-  font_dir="$HOME/.local/share/fonts"
-  mkdir -p $font_dir
-fi
+# MacOS
+font_dir="$HOME/Library/Fonts"
 
 # Copy all fonts to user fonts directory
 echo "Copying fonts..."
