@@ -1,0 +1,26 @@
+[user]
+  name = GITHUBFULLNAME
+  email = GITHUBEMAIL
+[github]
+  # https://github.com/blog/180-local-github-config
+  user = GITHUBUSER
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[core]
+  excludesfile = ~/.gitignore
+  quotepath = false
+  # line endings
+  # force LF during add
+  autocrlf = input
+  # autocrlf = true # for windows to convert to CRLF on checkout and LF on add
+  # warn but allow line ending conversion to proceed
+  safecrlf = warn
+  # prevent crlf (then you will have to deal with the problem -- dos2unix, etc)
+  #safecrlf = true
+  editor = vim
+  #editor = subl -w
