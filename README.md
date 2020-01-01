@@ -3,7 +3,7 @@
 my personal dotfiles mac
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/taigacute/dotfiles/master/img/mac.png" width="800" height="400">
+<img src="https://raw.githubusercontent.com/taigacute/dotfiles/master/assets/screenshots/mac.png" width="800" height="400">
 </div>
 
 # Installation
