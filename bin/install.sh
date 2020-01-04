@@ -147,6 +147,20 @@ if [[ $? = 0 ]]; then
   fi
 fi
 
+
+running "link .gitconfig"
+if [ ! -f "$HOME/.gitconfig" ]; then
+  read -r -p "Seems like your gitconfig file exist,do you want delete it? [y|N] " response
+  if [[ $response =~ (y|yes|Y) ]]; then
+    rm -rf $HOME/.gitconfig
+    ln -s $HOME/.dotfiles/homedir/git/.gitconfig  $HOME/.gitconfig
+    ln -s $HOME/.dotfiles/homedir/git/.gitignore  $HOME/.gitignore
+    ok
+  else
+    ok "skipped"
+  fi
+fi
+
 ###########################################################
 bot "update ruby"
 ###########################################################
@@ -307,7 +321,7 @@ else
   ok "skipped"
 fi
 running "Configuration iterm2 settings"
-open "./terminals/iterm2/itermcolors/gruvbox-dark.itermcolors";ok
+open "$HOME/.dotfiles/terminals/iterm2/itermcolors/gruvbox-dark.itermcolors";ok
 defaults write com.googlecode.iterm2 "Normal Font" -string "Monaco";
 ok
 running "reading iterm settings"
@@ -331,13 +345,6 @@ fi
 read -r -p "Do you want install postman? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
   require_cask postman
-else
-  ok "skipped"
-fi
-
-read -r -p "Do you want install Docker? [y|N] " response
-if [[ $response =~ (y|yes|Y) ]];then
-  require_cask docker
 else
   ok "skipped"
 fi
