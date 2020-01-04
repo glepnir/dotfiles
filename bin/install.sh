@@ -229,7 +229,7 @@ ok
 
 action "Install tpm"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-ok "when you open tmux,you must type prefix `{default: Ctrl+space } + I` to install tmux plugins"
+ok "when you open tmux,you must type prefix {default: Ctrl+space } + I to install tmux plugins"
 
 require_brew node
 require_brew yarn
