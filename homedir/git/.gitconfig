@@ -1,9 +1,9 @@
 [user]
-  name = GITHUBFULLNAME
-  email = GITHUBEMAIL
+  name = stephen 
+  email = sawakitaeiji233@gmail.com
 [github]
   # https://github.com/blog/180-local-github-config
-  user = GITHUBUSER
+  user = taigacute
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
