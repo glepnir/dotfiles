@@ -147,9 +147,9 @@ if [[ $? = 0 ]]; then
   fi
 fi
 
-
+gitfile="$HOME/.gitconfig"
 running "link .gitconfig"
-if [ ! -f "$HOME/.gitconfig" ]; then
+if [ ! -f "gitfile" ]; then
   read -r -p "Seems like your gitconfig file exist,do you want delete it? [y|N] " response
   if [[ $response =~ (y|yes|Y) ]]; then
     rm -rf $HOME/.gitconfig
