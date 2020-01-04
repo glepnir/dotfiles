@@ -1,7 +1,19 @@
 
+# alias
+alias vi="nvim"
+alias vim="vim"
+alias reload="source ~/.zshrc"
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+alias ~="cd ~" # `cd` is probably faster to type though
+alias -- -="cd -"
 
 # Load dotfiles
-for file in $dotfiles/zsh/.{alias}; do
+for file in $dotfiles/homedir/zsh/.{alias}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 
@@ -64,6 +76,9 @@ if zplug check 'zsh-users/zsh-autosuggestions'; then
   # See https://github.com/zsh-users/zsh-autosuggestions/issues/182.
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 fi
+
+# load fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # zsh-syntax-highlighting
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
