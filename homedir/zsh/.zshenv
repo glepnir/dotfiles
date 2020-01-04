@@ -20,10 +20,6 @@ export PATH=$PATH:$HOME/workstation/bin
 export PATH=$PATH:/usr/local/go/bin
 export GOPROXY=https://goproxy.io
 
-# Node
-export PATH=$PATH:$HOME/.node_global/bin
-export PATH=$PATH:$HOME/.yarn_global/bin
-
 # Rust
 export PATH=$PATH:$HOME/.cargo/bin
 
