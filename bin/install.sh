@@ -251,15 +251,6 @@ ok "when you open tmux,you must type prefix {default: Ctrl+space } + I to instal
 require_brew node
 require_brew yarn
 
-read -r -p "Do you want to set npm and yarn global path? [y|N] " response
-if [[ $response =~ (y|yes|Y) ]];then
-  mkdir -p ~/.node_global/
-  mkdir -p ~/.yarn_global/
-  npm config set prefix "~/.node_global/"
-  yarn config set prefix "~/.yarn_global/"
-else
-  ok "skipped"
-fi
 
 if [[ $UserLocation =~ 1 ]];then
   running "Config npm use taobao"
