@@ -77,7 +77,23 @@ Git Config
 require_brew git
 
 bot "OK, now I am going to update the .gitconfig for your user info:"
-grep 'user = GITHUBUSER' ./homedir/git/.gitconfig > /dev/null 2>&1
+
+
+gitfile="$HOME/.gitconfig"
+running "link .gitconfig"
+if [ ! -f "gitfile" ]; then
+  read -r -p "Seems like your gitconfig file exist,do you want delete it? [y|N] " response
+  if [[ $response =~ (y|yes|Y) ]]; then
+    rm -rf $HOME/.gitconfig
+    action "cp /homedir/git/.gitconfig ~/.gitconfig"
+    sudo cp $HOME/.dotfiles/homedir/git/.gitconfig  $HOME/.gitconfig
+    ln -s $HOME/.dotfiles/homedir/git/.gitignore  $HOME/.gitignore
+    ok
+  else
+    ok "skipped"
+  fi
+fi
+grep 'user = GITHUBUSER'  $HOME/.gitconfig > /dev/null 2>&1
 if [[ $? = 0 ]]; then
     read -r -p "What is your git username? " githubuser
 
@@ -135,31 +151,18 @@ if [[ $? = 0 ]]; then
   if [[ ${PIPESTATUS[0]} != 0 ]]; then
     echo
     running "looks like you are using MacOS sed rather than gnu-sed, accommodating"
-    sed -i '' "s/GITHUBFULLNAME/$firstname $lastname/" ./homedir/git/.gitconfig
-    sed -i '' 's/GITHUBEMAIL/'$email'/' ./homedir/git/.gitconfig
-    sed -i '' 's/GITHUBUSER/'$githubuser'/' ./homedir/git/.gitconfig
+    sed -i '' "s/GITHUBFULLNAME/$firstname $lastname/"  $HOME/.gitconfig
+    sed -i '' 's/GITHUBEMAIL/'$email'/'  $HOME/.gitconfig
+    sed -i '' 's/GITHUBUSER/'$githubuser'/'  $HOME/.gitconfig
     ok
   else
     echo
     bot "looks like you are already using gnu-sed. woot!"
-    sed -i 's/GITHUBEMAIL/'$email'/' ./homedir/git/.gitconfig
-    sed -i 's/GITHUBUSER/'$githubuser'/' ./homedir/git/.gitconfig
+    sed -i 's/GITHUBEMAIL/'$email'/'  $HOME/.gitconfig
+    sed -i 's/GITHUBUSER/'$githubuser'/'  $HOME/.gitconfig
   fi
 fi
 
-gitfile="$HOME/.gitconfig"
-running "link .gitconfig"
-if [ ! -f "gitfile" ]; then
-  read -r -p "Seems like your gitconfig file exist,do you want delete it? [y|N] " response
-  if [[ $response =~ (y|yes|Y) ]]; then
-    rm -rf $HOME/.gitconfig
-    ln -s $HOME/.dotfiles/homedir/git/.gitconfig  $HOME/.gitconfig
-    ln -s $HOME/.dotfiles/homedir/git/.gitignore  $HOME/.gitignore
-    ok
-  else
-    ok "skipped"
-  fi
-fi
 
 ###########################################################
 bot "update ruby"
