@@ -239,6 +239,7 @@ require_brew make
 require_brew ctags
 require_brew gnutls
 require_brew tmux
+require_brew autojump
 
 action "link tmux conf"
 ln -s  $HOME/.dotfiles/homedir/tmux/.tmux.conf $HOME/.tmux.conf

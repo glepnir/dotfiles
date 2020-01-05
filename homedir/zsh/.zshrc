@@ -54,7 +54,7 @@ zplug "plugins/npm",               from:oh-my-zsh, if:"(( $+commands[npm] ))"
 zplug "plugins/docker",            from:oh-my-zsh, if:"(( $+commands[docker] ))"
 zplug "plugins/docker-compose",    from:oh-my-zsh, if:"(( $+commands[docker-compose] ))"
 
-zplug "plugins/autojump", from:oh-my-zsh
+zplug 'plugins/autojump', from:oh-my-zsh
 zplug 'romkatv/powerlevel10k', use:powerlevel10k.zsh-theme
 zplug 'zsh-users/zsh-autosuggestions'
 zplug 'zsh-users/zsh-completions', defer:2
