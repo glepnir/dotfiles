@@ -293,7 +293,7 @@ if [[ $response =~ (y|yes|Y) ]];then
   # Install Emacs27 and supremacs config
   bot "Install Emacs27"
   brew tap daviderestivo/emacs-head
-  brew install emacs-head --HEAD --with-cocoa --with-imagemagick --with-jansson
+  brew install emacs-head --HEAD --with-cocoa --with-imagemagick --with-jansson --with-retro-icon-gnu-head
   ln -s /usr/local/opt/emacs-head/Emacs.app /Applications
   running "Configruation Emacs"
   git clone https://github.com/hardcoreplayers/supremacs ~/.config/emacs

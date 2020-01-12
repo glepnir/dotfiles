@@ -2,6 +2,7 @@
 # alias
 alias vi="nvim"
 alias vim="vim"
+alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
 alias reload="source ~/.zshrc"
 
 alias ..="cd .."
@@ -12,10 +13,6 @@ alias ......="cd ../../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
-# Load dotfiles
-for file in $dotfiles/homedir/zsh/.{alias}; do
-	[ -r "$file" ] && [ -f "$file" ] && source "$file";
-done;
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
