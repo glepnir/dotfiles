@@ -252,6 +252,9 @@ ok "when you open tmux,you must type prefix {default: Ctrl+space } + I to instal
 require_brew node
 require_brew yarn
 
+action "Install create-react-app"
+npm install -g create-react-app
+ok
 
 if [[ $UserLocation =~ 1 ]];then
   running "Config npm use taobao"
@@ -299,6 +302,9 @@ if [[ $response =~ (y|yes|Y) ]];then
   git clone https://github.com/hardcoreplayers/supremacs ~/.config/emacs
   cd ~/.config/emacs
   make
+  running "Installing Lsp for emacs lsp-mode"
+  npm install -g vscode-html-languageserver-bin
+  npm install -g vscode-css-languageserver-bin
 else
   ok "skipped"
 fi
