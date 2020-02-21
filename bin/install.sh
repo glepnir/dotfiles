@@ -204,6 +204,9 @@ if [ ! -f "ZSHRC" ]; then
   fi
 fi
 
+running "Configuring editor"
+ln -s  $HOME/.dotfiles/homedir/editorconfig/.editorconfig $HOME/.editorconfig
+ok
 # ###########################################################
 bot "Install fonts"
 # ###########################################################
@@ -275,6 +278,7 @@ if [[ $response =~ (y|yes|Y) ]];then
     export GOPROXY=https://goproxy.io
   fi
   go get golang.org/x/tools/gopls@latest
+  go get -u github.com/go-delve/delve/cmd/dlv
 else
   ok "skipped"
 fi
@@ -293,6 +297,7 @@ fi
 
 read -r -p "Are you a emacser? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
+  brew install gpg
   # Install Emacs27 and supremacs config
   bot "Install Emacs27"
   brew tap daviderestivo/emacs-head
