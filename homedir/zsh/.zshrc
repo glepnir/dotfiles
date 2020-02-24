@@ -5,15 +5,6 @@ alias vim="vim"
 alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
 alias reload="source ~/.zshrc"
 
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ......="cd ../../../../.."
-alias ~="cd ~" # `cd` is probably faster to type though
-alias -- -="cd -"
-
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
