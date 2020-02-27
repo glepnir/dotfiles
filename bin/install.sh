@@ -298,6 +298,7 @@ fi
 read -r -p "Are you a emacser? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
   brew install gpg
+  brew install grip
   # Install Emacs27 and supremacs config
   bot "Install Emacs27"
   brew tap daviderestivo/emacs-head
