@@ -204,8 +204,10 @@ if [ ! -f "ZSHRC" ]; then
   fi
 fi
 
-running "Configuring editor"
-ln -s  $HOME/.dotfiles/homedir/editorconfig/.editorconfig $HOME/.editorconfig
+running "Install Mysql"
+brew install mysql
+brew services start mysql
+mysql_secure_installation
 ok
 # ###########################################################
 bot "Install fonts"
@@ -243,6 +245,7 @@ require_brew ctags
 require_brew gnutls
 require_brew tmux
 require_brew autojump
+brew install grip
 
 action "link tmux conf"
 ln -s  $HOME/.dotfiles/homedir/tmux/.tmux.conf $HOME/.tmux.conf
@@ -311,6 +314,9 @@ if [[ $response =~ (y|yes|Y) ]];then
   running "Installing Lsp for emacs lsp-mode"
   npm install -g vscode-html-languageserver-bin
   npm install -g vscode-css-languageserver-bin
+  npm i -g typescript
+  npm i -g typescript-language-server
+  pip3 install my_cookies
 else
   ok "skipped"
 fi

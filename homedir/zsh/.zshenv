@@ -3,9 +3,6 @@
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-# Neovim
-export PATH=$HOME/neovim/bin:$PATH
-
 # Zsh
 export ZSH="$HOME/.oh-my-zsh"
 source "$ZSH/oh-my-zsh.sh"
