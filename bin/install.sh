@@ -241,7 +241,7 @@ require_brew wget
 require_brew ripgrep
 require_brew bat
 require_brew make
-require_brew ctags
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 require_brew gnutls
 require_brew tmux
 require_brew autojump
