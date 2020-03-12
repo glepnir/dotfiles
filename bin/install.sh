@@ -12,7 +12,6 @@ fi
 # ###########################################################
 # Install non-brew various tools (PRE-BREW Installs)
 # ###########################################################
-
 bot "ensuring build/install tools are available"
 if ! xcode-select --print-path &> /dev/null; then
 
