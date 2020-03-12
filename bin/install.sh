@@ -315,6 +315,7 @@ if [[ $response =~ (y|yes|Y) ]];then
   npm install -g vscode-html-languageserver-bin
   npm install -g vscode-css-languageserver-bin
   npm i -g typescript
+  npm i -g prettier
   npm i -g typescript-language-server
   pip3 install my_cookies
 else
