@@ -329,6 +329,7 @@ if [[ $response =~ (y|yes|Y) ]];then
   running "Installing Lsp for emacs lsp-mode"
   npm install -g vscode-html-languageserver-bin
   npm install -g vscode-css-languageserver-bin
+  npm i -g bash-language-server
   npm i -g typescript
   npm i -g prettier
   npm i -g typescript-language-server
