@@ -18,7 +18,7 @@ export PATH=$PATH:/usr/local/go/bin
 export GOPROXY=https://goproxy.io
 
 # Rust
-export PATH=$PATH:$HOME/.cargo/bin
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # Editor
 export EDITOR="nvim"

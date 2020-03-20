@@ -203,6 +203,21 @@ if [ ! -f "ZSHRC" ]; then
   fi
 fi
 
+# ###########################################################
+bot "rust setup"
+# ###########################################################
+running "Install rust"
+curl https://sh.rustup.rs -sSf | sh
+rustup install nightly
+rustup default nightly
+rustup component add rls-preview --toolchain nightly
+rustup component add rust-analysis --toolchain nightly
+rustup component add rust-src --toolchain nightly
+cargo install rustsym racer
+
+# ###########################################################
+bot "mysql setup"
+# ###########################################################
 running "Install Mysql"
 brew install mysql
 brew services start mysql
