@@ -276,6 +276,14 @@ action "Install create-react-app"
 npm install -g create-react-app
 ok
 
+action "Install yabai and skhd"
+brew install yabai --HEAD
+brew install koekeishiya/formulae/skhd
+ln -s "${HOME}/.dotfiles/homedir/yabai/yabairc" "${HOME}/.yabairc"
+ln -s "${HOME}/.dotfiles/homedir/skhd/skhdrc" "${HOME}/.skhdrc"
+brew services start skhd
+brew services start koekeishiya/formulae/yabai
+
 if [[ $UserLocation =~ 1 ]];then
   running "Config npm use taobao"
   npm config set registry https://registry.npm.taobao.org
