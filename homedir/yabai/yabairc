@@ -1,14 +1,14 @@
 #!/usr/bin/env sh
 
-yabai -m config status_bar                      off
-yabai -m config status_bar_text_font            "Hasklug Nerd Font:Bold:12.0"
-yabai -m config status_bar_icon_font            "Hasklug Nerd Font:Bold:12.0"
-yabai -m config status_bar_background_color     0xff202020
-yabai -m config status_bar_foreground_color     0xffa8a8a8
-yabai -m config status_bar_space_icon_strip     "1️⃣ 🌈"  "2️⃣ 💬" "3️⃣ 🧰" "4️⃣ 🎧"  "5️⃣ 🦄" "6️⃣ 🎈"
-yabai -m config status_bar_power_icon_strip     🔋 ⚡
-yabai -m config status_bar_space_icon           x
-yabai -m config status_bar_clock_icon           🕒
+yabai -m config status_bar                   off
+yabai -m config status_bar_text_font         "Helvetica Neue:Bold:12.0"
+yabai -m config status_bar_icon_font         "FontAwesome:Regular:12.0"
+yabai -m config status_bar_background_color  0xff202020
+yabai -m config status_bar_foreground_color  0xffa8a8a8
+yabai -m config status_bar_space_icon_strip  I II III IV V VI VII VIII IX X
+yabai -m config status_bar_power_icon_strip   
+yabai -m config status_bar_space_icon        
+yabai -m config status_bar_clock_icon        
 
 # global settings
 yabai -m config mouse_follows_focus             off
@@ -33,11 +33,11 @@ yabai -m config mouse_action2                   resize
 
 # general space settings
 yabai -m config layout                          bsp
-yabai -m config top_padding                     0
-yabai -m config bottom_padding                  0
-yabai -m config left_padding                    0
-yabai -m config right_padding                   0
-yabai -m config window_gap                      2
+yabai -m config top_padding                     10
+yabai -m config bottom_padding                  10
+yabai -m config left_padding                    10
+yabai -m config right_padding                   10
+yabai -m config window_gap                      5
 
 yabai -m config window_topmost                  on
 yabai -m config window_shadow                   float
@@ -56,43 +56,27 @@ yabai -m config --space 6 layout float
 
 # Unmanaged
 yabai -m rule --add app="^System Preferences$"  manage=off border=off
-yabai -m rule --add app="Preview"               manage=off border=off
-yabai -m rule --add app="Harvest"               manage=off border=off
-yabai -m rule --add app="ScreenFlow 9"          manage=off border=off
+yabai -m rule --add app="^QQ$"                  manage=off border=on
+yabai -m rule --add app="^WeChat$"              manage=off border=on
+
 
 # Primary
-yabai -m rule --add app="Brave Browser"         space=8
-yabai -m rule --add app="kitty"                 space=1
-yabai -m rule --add app="VimR"                  space=1
-yabai -m rule --add app="Simulator"             space=1
-
-# Communication
-yabai -m rule --add app="Slack"                 space=2
-yabai -m rule --add app="Notability"            space=2
-yabai -m rule --add app="Microsoft Outlook"     space=2
-yabai -m rule --add app="Messages"              space=2
+yabai -m rule --add app="iterm2"                space=1
+yabai -m rule --add app="Emacs"                 manage=on space=1
 
 # Tools
 yabai -m rule --add app="Finder"                space=3
 yabai -m rule --add app="Microsoft Word"        space=3
-yabai -m rule --add app="Sequel Pro"            space=3
 yabai -m rule --add app="Postman"               space=3
-yabai -m rule --add app="Sourcetree"            space=3
 yabai -m rule --add app="Activity Monitor"      space=3
 yabai -m rule --add app="App Store"             space=3
-yabai -m rule --add app="WebTorrent"            space=3
-yabai -m rule --add app="Terminal"              space=3
 
 # Media
 yabai -m rule --add app="Music"                 space=4
 yabai -m rule --add app="QuickTime Player"      space=4
-yabai -m rule --add app="VLC"                   space=4
 yabai -m rule --add app="Spotify"               space=4
-
-# Social
-yabai -m rule --add app="Discord"               space=5
-yabai -m rule --add app="WhatsApp"              space=5
 
 # Floating
 yabai -m rule --add app="^System Preferences$"  space=6
-yabai -m rule --add app="ScreenFlow 9"          space=6
+yabai -m rule --add app="^QQ$"                  space=6
+yabai -m rule --add app="^WeChat$"              space=6
