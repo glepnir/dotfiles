@@ -15,7 +15,7 @@ export GOPATH="$HOME/workspace"
 export GO111MODULE="on"
 export PATH=$PATH:$HOME/workspace/bin
 export PATH=$PATH:/usr/local/go/bin
-export GOPROXY=https://goproxy.io
+export GOPROXY=https://goproxy.cn
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
