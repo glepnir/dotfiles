@@ -17,4 +17,4 @@ cd .dotfiles
 
 neovim config : [ThinkVim](https://github.com/hardcoreplayers/ThinkVim)
 
-emacs config : [Eva Emacs](https://github.com/hardcoreplayers/eva-emacs)
+emacs config : [Galaxy Emacs](https://github.com/hardcoreplayers/galaxy-emacs)
