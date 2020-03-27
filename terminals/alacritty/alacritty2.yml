@@ -99,12 +99,12 @@ colors:
     cyan:    '0x66cccc'
     white:   '0xdddddd'
 
-# shell:
-#   program: /bin/zsh
-#   args:
-#     - --login
-#     - -c
-#     - 'tmux attach -t TMUX || tmux new -s TMUX'
+shell:
+  program: /bin/zsh
+  args:
+    - --login
+    - -c
+    - 'tmux attach -t TMUX || tmux new -s TMUX'
 
 key_bindings:
 - { key: H,         mods: Command,      action: None                  }
