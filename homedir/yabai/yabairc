@@ -56,8 +56,8 @@ yabai -m config --space 6 layout float
 
 # Unmanaged
 yabai -m rule --add app="^System Preferences$"  manage=off border=off
-yabai -m rule --add app="^QQ$"                  manage=off border=on
-yabai -m rule --add app="^WeChat$"              manage=off border=on
+yabai -m rule --add app="^QQ$"                  manage=off
+yabai -m rule --add app="^WeChat$"              manage=off
 
 
 # Primary
