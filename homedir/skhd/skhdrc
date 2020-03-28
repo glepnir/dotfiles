@@ -1,3 +1,7 @@
+# Create space on the active display
+ctrl + alt - n : yabai -m space --create
+# Delete focused space and focus first space on display
+ctrl + alt - d : yabai -m space --destroy
 ##############################################
 # Navigation (focussing)
 ##############################################
