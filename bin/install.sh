@@ -316,6 +316,7 @@ if [[ $response =~ (y|yes|Y) ]];then
   running "Configruation thinkvim"
   git clone --depth=1 https://github.com/hardcoreplayers/thinkvim ~/.config/nvim
   ok
+  ln -s ~/.dotfiles/thinkvim ~/.thinkvim.d
 else
   ok "skipped"
 fi
