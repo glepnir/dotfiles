@@ -119,3 +119,5 @@ fonts
 *.min*
 *history*
 *debug*
+/Library/
+/Downloads/
