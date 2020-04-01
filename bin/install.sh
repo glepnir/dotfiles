@@ -254,6 +254,7 @@ require_brew curl
 require_brew wget
 require_brew ripgrep
 require_brew bat
+require_brew findutils
 require_brew make
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 require_brew gnutls
