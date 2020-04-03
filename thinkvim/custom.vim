@@ -1,6 +1,5 @@
 
 " If colorscheme doesn't support opacity
-" use this setting to set background_opacity
 hi Normal guibg=NONE ctermbg=NONE
 
 " Dash keymap
@@ -18,8 +17,8 @@ let g:fzf_preview_use_dev_icons = 1
 let g:fzf_preview_filelist_postprocess_command = 'gxargs -d "\n" exa --color=always'
 
 " Spaceline
-let g:spaceline_seperate_style= 'slant'
+" let g:spaceline_seperate_style= 'slant'
 " let g:spaceline_seperate_style= 'slant-fade'
 " let g:spaceline_seperate_style= 'arrow-fade'
 " let g:spaceline_seperate_style= 'curve'
-" let g:spaceline_seperate_style= 'slant-cons'
+let g:spaceline_seperate_style= 'slant-cons'
