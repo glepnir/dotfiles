@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 # include my library helpers for colorized echo and require_brew, etc
-source ./lib_script/lib_func.sh
+source ./utils.sh
 
 UserLocation=0
 read -r -p "Are you a Chinese user? [y|N] " response
-if [[ $response =~ (y|yes|Y) ]];then
+if [[utilsse =~ (y|yes|Y) ]];then
   UserLocation=1
 fi
 
@@ -84,9 +84,9 @@ if [ ! -f "gitfile" ]; then
   read -r -p "Seems like your gitconfig file exist,do you want delete it? [y|N] " response
   if [[ $response =~ (y|yes|Y) ]]; then
     rm -rf $HOME/.gitconfig
-    action "cp /homedir/git/.gitconfig ~/.gitconfig"
-    sudo cp $HOME/.dotfiles/homedir/git/.gitconfig  $HOME/.gitconfig
-    ln -s $HOME/.dotfiles/homedir/git/.gitignore  $HOME/.gitignore
+    action "cp /git/.gitconfig ~/.gitconfig"
+    sudo cp $HOME/.dotfiles/git/.gitconfig  $HOME/.gitconfig
+    ln -s $HOME/.dotfiles/git/.gitignore  $HOME/.gitignore
     ok
   else
     ok "skipped"
@@ -146,7 +146,7 @@ if [[ $? = 0 ]]; then
 
   # test if gnu-sed or MacOS sed
 
-  sed -i "s/GITHUBFULLNAME/$firstname $lastname/" ./homedir/git/.gitconfig > /dev/null 2>&1 | true
+  sed -i "s/GITHUBFULLNAME/$firstname $lastname/" ./git/.gitconfig > /dev/null 2>&1 | true
   if [[ ${PIPESTATUS[0]} != 0 ]]; then
     echo
     running "looks like you are using MacOS sed rather than gnu-sed, accommodating"
@@ -195,8 +195,8 @@ if [ ! -f "ZSHRC" ]; then
     rm -rf $HOME/.zshrc
     rm -rf $HOME/.zshenv
     action "link zsh/.zshrc and zsh/.zshenv"
-    ln -s  $HOME/.dotfiles/homedir/zsh/.zshenv $HOME/.zshenv
-    ln -s  $HOME/.dotfiles/homedir/zsh/.zshrc $HOME/.zshrc
+    ln -s  $HOME/.dotfiles/zsh/.zshenv $HOME/.zshenv
+    ln -s  $HOME/.dotfiles/zsh/.zshrc $HOME/.zshrc
     ok "When you restart terminal it will auto install zplug and plugins"
   else
     ok "skipped"
@@ -262,10 +262,11 @@ brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 require_brew gnutls
 require_brew tmux
 require_brew autojump
-brew install grip
+require_brew grip
+require_brew grip
 
 action "link tmux conf"
-ln -s  $HOME/.dotfiles/homedir/tmux/.tmux.conf $HOME/.tmux.conf
+ln -s  $HOME/.dotfiles/tmux/.tmux.conf $HOME/.tmux.conf
 ok
 
 action "Install tpm"
@@ -282,8 +283,8 @@ ok
 action "Install yabai and skhd"
 brew install yabai --HEAD
 brew install koekeishiya/formulae/skhd
-ln -s "${HOME}/.dotfiles/homedir/yabai/yabairc" "${HOME}/.yabairc"
-ln -s "${HOME}/.dotfiles/homedir/skhd/skhdrc" "${HOME}/.skhdrc"
+ln -s "${HOME}/.dotfiles/yabai/yabairc" "${HOME}/.yabairc"
+ln -s "${HOME}/.dotfiles/yabai/skhdrc" "${HOME}/.skhdrc"
 brew services start skhd
 brew services start koekeishiya/formulae/yabai
 
@@ -363,7 +364,7 @@ else
   ok "skipped"
 fi
 running "Configuration iterm2 settings"
-open "$HOME/.dotfiles/terminals/iterm2/itermcolors/gruvbox-dark.itermcolors";ok
+open "$HOME/.dotfiles/iterm2/itermcolors/gruvbox-dark.itermcolors";ok
 defaults write com.googlecode.iterm2 "Normal Font" -string "Monaco";
 ok
 running "reading iterm settings"
