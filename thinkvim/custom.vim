@@ -1,6 +1,12 @@
 
 " If colorscheme doesn't support opacity
-hi Normal guibg=NONE ctermbg=NONE
+let g:PaperColor_Theme_Options = {
+ \   'theme': {
+ \     'default': {
+ \       'transparent_background': 1
+ \     }
+ \   }
+ \ }
 
 " Dash keymap
 if dein#tap('dash.vim')
