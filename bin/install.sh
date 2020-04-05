@@ -244,6 +244,8 @@ if [[ $response =~ (y|yes|Y) ]];then
   require_cask font-roboto-mono
   require_cask font-roboto-mono-for-powerline
   require_cask font-sourcecodepro-nerd-font-mono
+  require_cask font-aurulentsansmono-nerd-font
+  require_cask font-aurulentsansmono-nerd-font-mono
   ok
 fi
 
