@@ -263,7 +263,8 @@ require_brew gnutls
 require_brew tmux
 require_brew autojump
 require_brew grip
-require_brew grip
+require_brew fzf
+/usr/local/opt/fzf/install
 
 action "link tmux conf"
 ln -s  $HOME/.dotfiles/tmux/.tmux.conf $HOME/.tmux.conf
