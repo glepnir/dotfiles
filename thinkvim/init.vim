@@ -16,7 +16,7 @@ endif
 let g:which_key_localmap.d="open doc on Dash.app"
 
 " startify mid area position according the screen szie
-let g:startify_padding_left = 40
+let g:startify_padding_left = 50
 
 " Spaceline
 " let g:spaceline_seperate_style= 'slant'
@@ -24,3 +24,4 @@ let g:startify_padding_left = 40
 " let g:spaceline_seperate_style= 'arrow-fade'
 " let g:spaceline_seperate_style= 'curve'
 let g:spaceline_seperate_style= 'slant-cons'
+
