@@ -1,4 +1,4 @@
-
+set noswapfile
 " If colorscheme doesn't support opacity
 let g:PaperColor_Theme_Options = {
  \   'theme': {
