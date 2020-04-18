@@ -255,6 +255,7 @@ require_brew autojump
 require_brew grip
 require_brew fzf
 /usr/local/opt/fzf/install
+brew install jesseduffield/lazygit/lazygit
 
 action "link tmux conf"
 ln -s  $HOME/.dotfiles/tmux/.tmux.conf $HOME/.tmux.conf
