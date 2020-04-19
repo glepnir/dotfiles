@@ -1,4 +1,3 @@
-set noswapfile
 " If colorscheme doesn't support opacity
 let g:PaperColor_Theme_Options = {
  \   'theme': {
@@ -8,12 +7,6 @@ let g:PaperColor_Theme_Options = {
  \   }
  \ }
 
-" Dash keymap
-if dein#tap('dash.vim')
-    nnoremap <silent><localleader>d :Dash<CR>
-endif
-" which_key_localmap
-let g:which_key_localmap.d="open doc on Dash.app"
 
 " startify mid area position according the screen szie
 let g:startify_padding_left = 50
