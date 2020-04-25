@@ -1,8 +1,4 @@
 
-# json support
-# LanguageServerProtocol for json by thinkvim default
-- { repo: elzr/vim-json, on_ft: json }
-
 # Javascript and React support
 # LanguageServerProtocol use coc-tsserver extensions
 - { repo: neoclide/vim-jsx-improve,on_ft: [ javascript,javascriptreact ]}
@@ -14,7 +10,14 @@
 - { repo: HerringtonDarkholme/yats.vim,on_ft: [ typescript, typescriptreact ]}
 - { repo: peitalin/vim-jsx-typescript,on_ft: [typescriptreact ]}
 
+# json support
+# LanguageServerProtocol for json by thinkvim default
+- { repo: elzr/vim-json, on_ft: json }
+
 # Go Debug support
 # LanguageServerProtocol used by gopls
 - { repo : hardcoreplayers/go-nvim,on_ft: [ go ,gomod ]}
 - { repo: sebdah/vim-delve,on_ft: go }
+# Rust support
+# LanguageServerProtocol used by coc-rust-analyzer extension
+- { repo: rust-lang/rust.vim,on_ft: rust }

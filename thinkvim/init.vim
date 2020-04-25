@@ -9,7 +9,7 @@ let g:PaperColor_Theme_Options = {
 
 
 " startify mid area position according the screen szie
-let g:startify_padding_left = 50
+let g:startify_padding_left = 90
 
 " Spaceline
 " let g:spaceline_seperate_style= 'slant'
