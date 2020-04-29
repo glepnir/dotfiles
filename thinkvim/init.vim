@@ -7,14 +7,9 @@ let g:PaperColor_Theme_Options = {
  \   }
  \ }
 
+let g:dbs = {
+  \ 'mysql' : 'mysql://root@localhost/mysql',
+  \ }
 
 " startify mid area position according the screen szie
-let g:startify_padding_left = 90
-
-" Spaceline
-" let g:spaceline_seperate_style= 'slant'
-" let g:spaceline_seperate_style= 'slant-fade'
-" let g:spaceline_seperate_style= 'arrow-fade'
-" let g:spaceline_seperate_style= 'curve'
-let g:spaceline_seperate_style= 'slant-cons'
-
+let g:startify_padding_left = 40
