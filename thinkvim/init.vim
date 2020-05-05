@@ -1,12 +1,4 @@
-" If colorscheme doesn't support opacity
-let g:PaperColor_Theme_Options = {
- \   'theme': {
- \     'default': {
- \       'transparent_background': 1
- \     }
- \   }
- \ }
-
+" let g:oceanic_material_transparent_background = 1
 let g:dbs = {
   \ 'mysql' : 'mysql://root@localhost/mysql',
   \ }
