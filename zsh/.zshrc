@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 
 # alias
 alias vi="nvim"
@@ -84,51 +91,5 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=green,bold'
 ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=magenta,bold'
 ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=yellow,bold'
 
-POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
-POWERLEVEL9K_BATTERY_ICON="B"
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-
-# #Dir
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K_DIR_HOME_BACKGROUND="001"
-POWERLEVEL9K_DIR_HOME_FOREGROUND="000"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="001"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="000"
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_to_last"
-
-# VCS icons
-POWERLEVEL9K_VCS_GIT_ICON=$'\uf1d2 '
-POWERLEVEL9K_VCS_GIT_GITHUB_ICON=$'\uf113 '
-POWERLEVEL9K_VCS_GIT_GITLAB_ICON=$'\uf296 '
-POWERLEVEL9K_VCS_BRANCH_ICON=$''
-POWERLEVEL9K_VCS_STAGED_ICON=$'\uf055'
-POWERLEVEL9K_VCS_UNSTAGED_ICON=$'\uf421'
-POWERLEVEL9K_VCS_UNTRACKED_ICON=$'\uf00d'
-POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON=$'\uf0ab '
-POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON=$'\uf0aa '
-
-# Battery
-POWERLEVEL9K_BATTERY_LOW_FOREGROUND='red'
-POWERLEVEL9K_BATTERY_CHARGING_FOREGROUND='blue'
-POWERLEVEL9K_BATTERY_CHARGED_FOREGROUND='green'
-POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND='blue'
-POWERLEVEL9K_BATTERY_VERBOSE=false
-
-# User with skull
-user_with_skull() {
-    echo -n "\ufb8a $(whoami)"
-}
-POWERLEVEL9K_CUSTOM_USER="user_with_skull"
-POWERLEVEL9K_CUSTOM_USER_BACKGROUND="magenta"
-
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%K{green}%F{black} \uf155 %f%F{green}%k\ue0b0%f "
-
-POWERLEVEL9K_SHOW_CHANGESET=true
-POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
-POWERLEVEL9K_TIME_FORMAT="%D{%F %T}"
-POWERLEVEL9K_TIME_BACKGROUND="cyan"
-
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_user dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status time battery docker_machine)
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
