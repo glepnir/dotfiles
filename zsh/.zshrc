@@ -11,6 +11,10 @@ alias vi="nvim"
 alias vim="vim"
 alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
 alias reload="source ~/.zshrc"
+alias ls="lsd"
+alias l="ls -l"
+alias la="ls -la"
+alias lt="ls --tree"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
