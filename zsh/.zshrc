@@ -1,11 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-
 # alias
 alias vi="nvim"
 alias vim="vim"
@@ -21,79 +13,103 @@ alias lt="ls --tree"
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-# zplug configruation
-if [[ ! -d "${ZPLUG_HOME}" ]]; then
-  if [[ ! -d ~/.zplug ]]; then
-    git clone https://github.com/zplug/zplug ~/.zplug
-    # If we can't get zplug, it'll be a very sobering shell experience. To at
-    # least complete the sourcing of this file, we'll define an always-false
-    # returning zplug function.
-    if [[ $? != 0 ]]; then
-      function zplug() {
-        return 1
-      }
-    fi
-  fi
-  export ZPLUG_HOME=~/.zplug
+### Zinit installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+	print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
+	command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+	command git clone  https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+		print -P "%F{33}▓▒░ %F{34}Installation successful.%f" || \
+		print -P "%F{160}▓▒░ The clone has failed.%f"
 fi
-if [[ -d "${ZPLUG_HOME}" ]]; then
-  source "${ZPLUG_HOME}/init.zsh"
-fi
-zplug "junegunn/fzf-bin", \
-    from:gh-r, \
-    as:command, \
-    rename-to:fzf, \
-    use:"*darwin*amd64*"
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+###
 
-zplug "plugins/git",               from:oh-my-zsh, if:"(( $+commands[git] ))"
-zplug "plugins/sudo",              from:oh-my-zsh, if:"(( $+commands[sudo] ))"
-zplug "plugins/golang",            from:oh-my-zsh, if:"(( $+commands[go] ))"
-zplug "plugins/node",              from:oh-my-zsh, if:"(( $+commands[node] ))"
-zplug "plugins/npm",               from:oh-my-zsh, if:"(( $+commands[npm] ))"
-zplug "plugins/docker",            from:oh-my-zsh, if:"(( $+commands[docker] ))"
-zplug "plugins/docker-compose",    from:oh-my-zsh, if:"(( $+commands[docker-compose] ))"
+zinit ice depth=1 atload"!source ~/.p10k.zsh" lucid nocd
+zinit light romkatv/powerlevel10k
 
-zplug 'plugins/autojump', from:oh-my-zsh
-zplug romkatv/powerlevel10k, as:theme, depth:1
-zplug 'zsh-users/zsh-autosuggestions'
-zplug 'zsh-users/zsh-completions', defer:2
-zplug 'zsh-users/zsh-syntax-highlighting', defer:2
-zplug 'zsh-users/zsh-history-substring-search', defer:3
+# Oh-my-zsh libs
+zinit snippet OMZ::lib/history.zsh
 
-if ! zplug check; then
-  zplug install
-fi
+zinit ice wait lucid
+zinit snippet OMZ::lib/completion.zsh
 
-zplug load
+zinit ice wait lucid
+zinit snippet OMZ::lib/grep.zsh
 
-if zplug check 'zsh-users/zsh-autosuggestions'; then
-  # Enable asynchronous fetching of suggestions.
-  ZSH_AUTOSUGGEST_USE_ASYNC=1
-  # For some reason, the offered completion winds up having the same color as
-  # the terminal background color (when using a dark profile). Therefore, we
-  # switch to gray.
-  # See https://github.com/zsh-users/zsh-autosuggestions/issues/182.
-  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
-fi
+# Oh-my-zsh plugins
+zinit snippet OMZ::lib/history.zsh
 
-# load fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+zinit snippet OMZ::lib/key-bindings.zsh
 
-# zsh-syntax-highlighting
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
-ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
-typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[path]='fg=blue'
-ZSH_HIGHLIGHT_STYLES[path_pathseparator]='fg=cyan'
-ZSH_HIGHLIGHT_STYLES[alias]='fg=cyan'
-ZSH_HIGHLIGHT_STYLES[builtin]='fg=cyan'
-ZSH_HIGHLIGHT_STYLES[function]='fg=cyan'
-ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=yellow'
-ZSH_HIGHLIGHT_STYLES[redirection]='fg=magenta'
-ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=cyan,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=green,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=magenta,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=yellow,bold'
+zinit ice wait lucid
+zinit snippet OMZ::lib/completion.zsh
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+zinit ice wait lucid
+zinit snippet OMZ::lib/grep.zsh
+
+# Oh-my-zsh plugins
+zinit ice wait lucid atload"unalias grv"
+zinit snippet OMZ::plugins/git/git.plugin.zsh
+
+zinit ice wait lucid
+zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+
+zinit ice wait lucid
+zinit snippet OMZ::plugins/systemd/systemd.plugin.zsh
+
+zinit ice wait lucid
+zinit snippet OMZ::plugins/sudo/sudo.plugin.zsh
+
+zinit ice wait lucid
+zinit snippet OMZ::plugins/extract/extract.plugin.zsh
+
+zinit ice wait lucid
+zinit snippet OMZ::plugins/systemadmin/systemadmin.plugin.zsh
+
+zinit ice wait lucid
+zinit snippet OMZ::plugins/golang/golang.plugin.zsh
+
+zinit ice wait lucid
+zinit snippet OMZ::plugins/fzf/fzf.plugin.zsh
+
+# Plugins
+zinit ice depth=1 lucid
+zinit light trystan2k/zsh-tab-title
+
+zinit ice depth=1 wait lucid
+zinit light Aloxaf/fzf-tab
+
+zinit ice depth=1 wait blockf lucid atpull"zinit creinstall -q ."
+zinit light clarketm/zsh-completions
+
+zinit ice depth=1 wait lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
+zinit light zdharma/fast-syntax-highlighting
+
+zinit ice depth=1 wait lucid compile"{src/*.zsh,src/strategies/*.zsh}" atload"_zsh_autosuggest_start"
+zinit light zsh-users/zsh-autosuggestions
+
+zinit ice depth=1 wait lucid atload"bindkey '$terminfo[kcuu1]' history-substring-search-up; bindkey '$terminfo[kcud1]' history-substring-search-down"
+zinit light zsh-users/zsh-history-substring-search
+
+zinit ice depth=1 wait lucid
+zinit light wfxr/formarks
+
+zinit ice depth=1 wait"1" lucid pick"manydots-magic" compile"manydots-magic"
+zinit light knu/zsh-manydots-magic
+
+zinit ice depth=1 wait"1" lucid atinit"zstyle ':history-search-multi-word' page-size '20'"
+zinit light zdharma/history-search-multi-word
+
+zinit ice depth=1 wait"2" lucid
+zinit light wfxr/forgit
+
+zinit ice depth=1 wait"2" lucid
+zinit light hlissner/zsh-autopair
+
+zinit ice depth=1 wait"2" lucid
+zinit light peterhurford/up.zsh
+
+zinit ice depth=1 wait"2" lucid
+zinit light MichaelAquilina/zsh-you-should-use
