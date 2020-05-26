@@ -74,6 +74,9 @@ zinit snippet OMZ::plugins/golang/golang.plugin.zsh
 zinit ice wait lucid
 zinit snippet OMZ::plugins/fzf/fzf.plugin.zsh
 
+zinit ice wait lucid
+zinit snippet OMZ::plugins/autojump/autojump.plugin.zsh
+
 # Plugins
 zinit ice depth=1 lucid
 zinit light trystan2k/zsh-tab-title
