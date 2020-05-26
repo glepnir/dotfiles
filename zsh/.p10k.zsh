@@ -516,7 +516,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_VISUAL_IDENTIFIER_EXPANSION='⭐'
   # Custom prefix.
-  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_PREFIX='%B%ftook%b '
+  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_PREFIX='💸 %B%ftook%b '
 
   #######################[ background_jobs: presence of background jobs ]#######################
   # Don't show the number of background jobs.

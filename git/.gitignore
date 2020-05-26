@@ -84,7 +84,6 @@ build/Release
 node_modules
 
 tmp
-public
 _site
 .git
 Library
@@ -114,7 +113,6 @@ fonts
 .rustup
 *.jpg
 *.jpeg
-*.png
 *.gif
 *.min*
 *history*
