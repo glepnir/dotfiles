@@ -8,6 +8,9 @@ alias l="ls -l"
 alias la="ls -la"
 alias lt="ls --tree"
 
+export NVIM_PYTHON_LOG_FILE=/tmp/log
+export NVIM_PYTHON_LOG_LEVEL=DEBUG
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
