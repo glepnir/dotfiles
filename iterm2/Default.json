@@ -1,6 +1,4 @@
 {
-"Profiles": [
-{
   "Ansi 6 Color" : {
     "Red Component" : 0.36417809128761292,
     "Color Space" : "Calibrated",
@@ -126,7 +124,7 @@
   },
   "Custom Command" : "No",
   "ASCII Anti Aliased" : true,
-  "Non Ascii Font" : "AurulentSansMonoNerdFontCompleteM-Regular 16",
+  "Non Ascii Font" : "AurulentSansMonoNerdFontCompleteM-Regular 17",
   "Vertical Spacing" : 1,
   "Use Bold Font" : true,
   "Option Key Sends" : 2,
@@ -408,6 +406,4 @@
     "Alpha Component" : 1,
     "Green Component" : 0.35047793388366699
   }
-}
-]
 }
