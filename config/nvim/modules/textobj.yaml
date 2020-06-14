@@ -1,0 +1,36 @@
+- repo: kana/vim-operator-user
+
+- repo: kana/vim-operator-replace
+  on_map: { vnx: <Plug> }
+
+- repo: machakann/vim-sandwich
+  on_map: { vonx: <Plug>(operator-sandwich- }
+  hook_add: |
+    let g:sandwich_no_default_key_mappings = 1
+    let g:operator_sandwich_no_default_key_mappings = 1
+    let g:textobj_sandwich_no_default_key_mappings = 1
+# TextObjectOperator
+- repo: kana/vim-textobj-user
+
+- { repo: terryma/vim-expand-region, on_map: { x: <Plug> } }
+
+- { repo: AndrewRadev/splitjoin.vim, on_map: { n: <Plug>Splitjoin } }
+
+- repo: AndrewRadev/dsf.vim
+  on_map: { n: <Plug>Dsf }
+  hook_add: let g:dsf_no_mappings = 1
+
+- repo: kana/vim-smartchr
+  on_event: InsertCharPre
+
+- repo: kana/vim-niceblock
+  on_map: { x: <Plug> }
+  hook_add: let g:niceblock_no_default_key_mappings = 0
+
+- repo: osyo-manga/vim-textobj-multiblock
+  on_map: { ox: <Plug> }
+  hook_add: let g:textobj_multiblock_no_default_key_mappings = 1
+
+- repo: kana/vim-textobj-function
+  on_map: { ox: <Plug> }
+  hook_add: let g:textobj_function_no_default_key_mappings = 1
