@@ -1,0 +1,86 @@
+- repo: Shougo/dein.vim
+  on_func: dein#
+
+- { repo: rhysd/accelerated-jk, on_map: { n: <Plug> } }
+
+- { repo: haya14busa/vim-asterisk, on_map: { nv: <Plug> } }
+
+- repo: lambdalisue/suda.vim
+  on_event: BufRead
+  hook_add: let g:suda_smart_edit = 1
+
+- repo: psliwka/vim-smoothie
+  on_func: smoothie#
+  hook_add: |
+    let g:smoothie_no_default_mappings = v:true
+
+- repo: simnalamburt/vim-mundo
+  on_cmd: MundoToggle
+
+- repo: easymotion/vim-easymotion
+  on_map: { n: <Plug> }
+  hook_source: |
+    let g:EasyMotion_do_mapping = 0
+    let g:EasyMotion_prompt = 'Jump to → '
+    let g:EasyMotion_keys = 'fjdkswbeoavn'
+    let g:EasyMotion_smartcase = 1
+    let g:EasyMotion_use_smartsign_us = 1
+
+- repo: Vigemus/iron.nvim
+  if: has('nvim')
+  on_cmd: [IronRepl, IronReplHere, IronFocus, IronSend, IronWatchCurrentFile]
+  on_map: { nv: <Plug> }
+  on_func: IronUnwatchFile
+  hook_add: let g:iron_map_defaults = 0 | let g:iron_map_extended = 0
+  hook_source: |
+    lua require 'colorizer'.setup {
+          css = { rgb_fn = true; };
+          scss = { rgb_fn = true; };
+          sass = { rgb_fn = true; };
+          stylus = { rgb_fn = true; };
+          vim = { names = false; };
+          tmux = { names = false; };
+          'javascript';
+          'javascriptreact';
+          'typescript';
+          'typescriptreact';
+          html = {
+            mode = 'foreground';
+          }
+        }
+
+- repo: norcalli/nvim-colorizer.lua
+  if: has('nvim-0.4')
+  on_ft:
+    [
+      html,
+      css,
+      sass,
+      scss,
+      stylus,
+      vim,
+      javascript,
+      javascriptreact,
+      typescript,
+      typescriptreact,
+    ]
+  hook_source: |
+    lua << EOF
+      local iron = require('iron')
+
+      iron.core.add_repl_definitions {
+        go = {
+          gore = {
+            command = {"gore"}
+          }
+        }
+      }
+      iron.core.set_config {
+        preferred = {
+          go = "gore",
+          python = "ipython",
+          javascript = "node",
+        },
+        repl_open_cmd = "vertical split"
+      }
+    EOF
