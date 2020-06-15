@@ -40,11 +40,7 @@ augroup common "{{{
 
   autocmd Syntax * if line('$') > 5000 | syntax sync minlines=200 | endif
 
-  " https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
-  autocmd FileType css,javascript,javascriptreact setlocal backupcopy=yes
-
   " Make directory automatically.
   autocmd BufWritePre * call initself#mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
-
 augroup END "}}}
 
