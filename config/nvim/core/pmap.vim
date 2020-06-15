@@ -1,9 +1,3 @@
-if dein#tap('dein.vim')
-  nnoremap <silent> <Leader>pu  :call dein#update()<CR>
-  nnoremap <silent> <Leader>pr  :call dein#recache_runtimepath()<CR>
-  nnoremap <silent> <Leader>pl  :echo dein#get_updates_log()<CR>
-endif
-
 if dein#tap('vim-buffet')
   nnoremap  ]b :<C-u>bp<CR>
   nnoremap  [b :<C-u>bn<CR>
@@ -19,10 +13,6 @@ if dein#tap('vim-buffet')
   nmap <leader>8 <Plug>BuffetSwitch(8)
   nmap <leader>9 <Plug>BuffetSwitch(9)
   nmap <leader>0 <Plug>BuffetSwitch(10)
-endif
-
-if dein#tap('dashboard-nvim')
-  nnoremap <silent> <Leader>D  :<C-u>Dashboard<CR>
 endif
 
 if dein#tap('markdown-preview.nvim')
@@ -60,23 +50,12 @@ if dein#tap('coc.nvim')
   function! s:cocActionsOpenFromSelected(type) abort
       execute 'CocCommand actions.open ' . a:type
   endfunction
-  " Jump definition in other window
-  function! s:definition_other_window() abort
-    if winnr('$') >= 4
-      exec "normal \<Plug>(coc-definition)"
-    else
-      exec 'vsplit'
-      exec "normal \<Plug>(coc-definition)"
-    endif
-  endfunction
   xmap <silent> <Leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
   nmap <silent> <Leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
   " Do default action for next item.
   nmap <silent> [a  :<C-u>CocNext<CR>
   " Do default action for previous item.
   nmap <silent> ]a  :<C-u>CocPrev<CR>
-  " Resume latest coc list
-  nnoremap <silent> <Leader>'  :<C-u>CocListResume<CR>
   " Use `[e` and `]e` for navigate diagnostics
   nmap <silent> ]e <Plug>(coc-diagnostic-prev)
   nmap <silent> [e <Plug>(coc-diagnostic-next)
@@ -88,7 +67,7 @@ if dein#tap('coc.nvim')
   " Fix autofix problem of current line
   nmap <Leader>cF  <Plug>(coc-fix-current)
   " Remap keys for gotos
-  nmap <silent> gd :<C-u>call <sid>definition_other_window()<CR>
+  nmap <silent> gd :<C-u>call initself#definition_other_window()<CR>
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> <Leader>ci <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
@@ -116,17 +95,11 @@ if dein#tap('coc.nvim')
   nnoremap <silent> <Leader>co :<C-u>OR<CR>
   " multiple cursors
   nmap <silent><M-s> <Plug>(coc-cursors-position)
-  nmap <expr> <silent><M-d> <SID>select_current_word()
+  nmap <expr> <silent><M-d> initself#select_current_word()
   xmap <silent><M-d> <Plug>(coc-cursors-range)
   " use normal command like `<Leader>xi(`
   nmap <silent><M-c>  <Plug>(coc-cursors-operator)
 
-  function! s:select_current_word()
-      if !get(g:, 'coc_cursors_activated', 0)
-          return "\<Plug>(coc-cursors-word)"
-      endif
-      return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
-  endfunc
   " Use `:Format` for format current buffer
   command! -nargs=0 Format :call CocAction('format')
 
@@ -228,20 +201,10 @@ if dein#tap('vim-smartchr')
           \ smartchr#loop(':',';')
 endif
 
-function! s:exit_iron() abort
-  let l:flist = ['gore','ts-node','node','ipython']
-  for fname in l:flist
-    let l:bnr = bufwinnr(fname)
-    if l:bnr > 0
-      exec bnr . "wincmd w"
-      quit!
-    endif
-  endfor
-endfunction
 if dein#tap('iron.nvim')
   nmap <silent> <Leader>rr :<C-u>IronRepl<CR><Esc>
   nmap <silent> <Leader>rf :IronWatchCurrentFile<CR>
-  nmap <silent> <Leader>rq :call <SID>exit_iron()<CR>
+  nmap <silent> <Leader>rq :call initself#exit_iron()<CR>
   nmap <silent> <Leader>rl <Plug>(iron-send-line)
   vmap <silent> <Leader>rl <Plug>(iron-visual-send)
   nmap <silent> <Leader>rp <Plug>(iron-repeat-cmd)
