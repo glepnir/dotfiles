@@ -3,11 +3,6 @@
 nmap <C-x>k :BD<CR>
 "Write buffer (save)
 nnoremap <C-s> :<C-u>write<CR>
-"smart move
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
 "yank to end
 nnoremap Y y$
 " Whitespace jump (see plugin/whitespace.vim)
@@ -58,7 +53,7 @@ endfunction
 nnoremap <leader>qq :call <SID>QuiteVim()<CR>
 nnoremap <leader>qw <esc>:q!<CR>
 
-"switch windw
+"switch window
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
