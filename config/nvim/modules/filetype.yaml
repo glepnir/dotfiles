@@ -4,10 +4,6 @@
 
 - { repo: cakebaker/scss-syntax.vim, on_ft: [scss, sass] }
 
-- { repo: MTDL9/vim-log-highlighting, on_ft: log }
-
-- { repo: hardcoreplayers/sql.vim, on_ft: sql }
-
 - repo: plasticboy/vim-markdown
   on_ft: markdown
   hook_add: |

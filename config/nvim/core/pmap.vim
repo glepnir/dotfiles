@@ -15,6 +15,13 @@ if dein#tap('vim-buffet')
   nmap <leader>0 <Plug>BuffetSwitch(10)
 endif
 
+if dein#tap('defx.nvim')
+  nnoremap <silent> <Leader>e
+    \ :<C-u>Defx -resume -toggle -buffer-name=tab`tabpagenr()`<CR>
+  nnoremap <silent> <Leader>F
+    \ :<C-u>Defx -resume -buffer-name=tab`tabpagenr()` -search=`expand('%:p')`<CR>
+endif
+
 if dein#tap('markdown-preview.nvim')
   nnoremap <silent> <Leader>om  :<C-u>MarkdownPreview<CR>
 endif
@@ -73,7 +80,6 @@ if dein#tap('coc.nvim')
   nmap <silent> gr <Plug>(coc-references)
   " Use K for show documentation in float window
   nnoremap <silent> K :call CocActionAsync('doHover')<CR>
-  nnoremap <silent> <Leader>cd :call CocActionAsync('doHover')<CR>
   " use <c-space> for trigger completion.
   inoremap <silent><expr> <c-space> coc#refresh()
   nmap ]g <Plug>(coc-git-prevchunk)
@@ -104,10 +110,10 @@ if dein#tap('coc.nvim')
   command! -nargs=0 Format :call CocAction('format')
 
   nnoremap  <Leader>fz :<C-u>CocSearch -w<Space>
-  " coc-explorer
-  noremap <silent> <Leader>e :execute 'CocCommand explorer' .
-      \ ' --toggle' .
-      \ ' --sources=file+'<CR>
+  " " coc-explorer
+  " noremap <silent> <Leader>e :execute 'CocCommand explorer' .
+  "     \ ' --toggle' .
+  "     \ ' --sources=file+'<CR>
   " Introduce function text object
   " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
   xmap if <Plug>(coc-funcobj-i)
