@@ -48,7 +48,6 @@ if has('vim_starting')
 
 endif
 
-
 call initself#source_file($VIM_PATH,'core/dein.vim')
 call initself#source_file($VIM_PATH,'core/general.vim')
 call initself#source_file($VIM_PATH,'core/event.vim')
