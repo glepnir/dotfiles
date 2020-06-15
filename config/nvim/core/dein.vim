@@ -38,8 +38,7 @@ function! s:main()
 				\ $DATA_PATH,
 				\ $DATA_PATH . '/undo',
 				\ $DATA_PATH . '/backup',
-				\ $DATA_PATH . '/session',
-				\ $VIM_PATH . '/spell' ]
+				\ $DATA_PATH . '/session']
 			if ! isdirectory(s:path)
 				call mkdir(s:path, 'p')
 			endif
@@ -304,5 +303,9 @@ function! s:test_python_yaml()
 endfunction
 
 call s:main()
+
+command! -nargs=0 -bar PluginUpdate   call dein#update()
+command! -nargs=0 -bar ReRuntimePath  call dein#recache_runtimepath()
+command! -nargs=0 -bar UpdateLog      call dein#get_updates_log()
 
 " vim: set ts=2 sw=2 tw=80 noet :

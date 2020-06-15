@@ -79,7 +79,7 @@ set undodir=$DATA_PATH/undo//,$DATA_PATH,~/tmp,/var/tmp,/tmp
 set backupdir=$DATA_PATH/backup/,$DATA_PATH,~/tmp,/var/tmp,/tmp
 set viewdir=$DATA_PATH/view/
 " Use the coc-spell-checker to do this
-" set spellfile=$VIM_PATH/spell/en.utf-8.add
+set spellfile=~/.cache/vim/spell/en.utf-8.add
 
 " History saving
 set history=2000

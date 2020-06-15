@@ -1,5 +1,6 @@
 " See plugin/bufkill.vim
-nmap <C-x>b :BD<CR>
+" use emacs keybind
+nmap <C-x>k :BD<CR>
 "Write buffer (save)
 nnoremap <C-s> :<C-u>write<CR>
 "smart move

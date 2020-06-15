@@ -1,6 +1,6 @@
 " Theme
 
-function! theme#init()
+function! theme#theme_init()
 	" Load cached colorscheme or hybrid by default
 	let l:default = 'oceanic_material'
 	let l:cache = s:theme_cache_file()
@@ -41,5 +41,3 @@ augroup user_theme
 		autocmd ColorSchemePre * call s:theme_cleanup()
 	endif
 augroup END
-
-" vim: set ts=2 sw=2 tw=80 noet :

@@ -43,21 +43,8 @@ augroup common "{{{
   " https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
   autocmd FileType css,javascript,javascriptreact setlocal backupcopy=yes
 
-  " Python
-  autocmd FileType python
-        \ setlocal expandtab smarttab nosmartindent
-        \ | setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=80
-
   " Make directory automatically.
-  autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
+  autocmd BufWritePre * call initself#mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
 
 augroup END "}}}
 
-" Credits: https://github.com/Shougo/shougo-s-github/blob/master/vim/rc/options.rc.vim#L147
-function! s:mkdir_as_necessary(dir, force) abort
-  if !isdirectory(a:dir) && &l:buftype == '' &&
-        \ (a:force || input(printf('"%s" does not exist. Create? [y/N]',
-        \              a:dir)) =~? '^y\%[es]$')
-    call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
-  endif
-endfunction
