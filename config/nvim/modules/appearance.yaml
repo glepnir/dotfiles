@@ -157,7 +157,6 @@
       nnoremap <silent><buffer><expr> S  defx#do_action('toggle_sort', 'Time')
       nnoremap <silent><buffer><expr> C
         \ defx#do_action('toggle_columns', 'indent:mark:filename:type:size:time')
-
     endfunction
 
 - repo: kristijanhusak/defx-git

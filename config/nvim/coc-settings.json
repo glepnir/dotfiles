@@ -101,7 +101,17 @@
   "explorer.floating.width": -20,
   "explorer.floating.height": -10,
   "explorer.openAction.strategy": "sourceWindow",
-  "explorer.keyMappings": {},
+  "explorer.file.column.git.icon.modified": "•",
+  "explorer.file.column.git.icon.deleted": "✖",
+  "explorer.file.column.git.icon.untracked": "ᵁ",
+  "explorer.file.column.git.icon.added": "✚",
+  "explorer.file.column.git.icon.renamed": "≫",
+  "explorer.file.column.git.icon.unmerged": "≠",
+  // coc-explorer
+  "explorer.keyMappings": {
+    "l": ["expandable?", ["expanded?", "collapse", "expand"], "open"],
+    "h": "gotoParent"
+  },
   // eslint
   "eslint.filetypes": [
     "javascript",
