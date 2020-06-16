@@ -2,8 +2,6 @@
 
 - { repo: kevinoid/vim-jsonc, on_ft: json }
 
-- { repo: cakebaker/scss-syntax.vim, on_ft: [scss, sass] }
-
 - repo: plasticboy/vim-markdown
   on_ft: markdown
   hook_add: |
