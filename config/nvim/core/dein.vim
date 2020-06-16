@@ -304,8 +304,12 @@ endfunction
 
 call s:main()
 
+function! s:dein_get_update_log()
+	echo dein#get_updates_log()
+endfunction
+
 command! -nargs=0 -bar PluginUpdate   call dein#update()
 command! -nargs=0 -bar ReRuntimePath  call dein#recache_runtimepath()
-command! -nargs=0 -bar UpdateLog      call dein#get_updates_log()
+command! -nargs=0 -bar UpdateLog      call s:dein_get_update_log()
 
 " vim: set ts=2 sw=2 tw=80 noet :
