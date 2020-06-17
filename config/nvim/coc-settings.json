@@ -161,10 +161,9 @@
     "vim"
   ],
   "cSpell.userWords": [
+    "DEVTOOLS",
     "Neovim",
     "Nerdfont",
-    "ccls",
-    "eelixir",
     "emment",
     "gitignore",
     "glepnir",
@@ -180,8 +179,6 @@
     "smartf",
     "struct",
     "stylelint",
-    "ultisnips",
-    "vimbackupfile",
     "viml",
     "vimlsp",
     "vsplit"
