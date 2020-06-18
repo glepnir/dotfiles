@@ -1,15 +1,5 @@
 #!/usr/bin/env sh
 
-yabai -m config status_bar                   off
-yabai -m config status_bar_text_font         "Helvetica Neue:Bold:12.0"
-yabai -m config status_bar_icon_font         "FontAwesome:Regular:12.0"
-yabai -m config status_bar_background_color  0xff202020
-yabai -m config status_bar_foreground_color  0xffa8a8a8
-yabai -m config status_bar_space_icon_strip  I II III IV V VI VII VIII IX X
-yabai -m config status_bar_power_icon_strip   
-yabai -m config status_bar_space_icon        
-yabai -m config status_bar_clock_icon        
-
 # global settings
 yabai -m config mouse_follows_focus             off
 yabai -m config focus_follows_mouse             off
@@ -23,6 +13,13 @@ yabai -m config auto_balance                    on
 yabai -m config mouse_modifier                  fn
 yabai -m config mouse_action1                   move
 yabai -m config mouse_action2                   resize
+
+# border
+yabai -m config window_border                   on
+yabai -m config window_border_width             6
+yabai -m config active_window_border_color      0xff5d2c63
+yabai -m config normal_window_border_color      0xff555555
+yabai -m config insert_feedback_color           0xffd75f5f
 
 # general space settings
 yabai -m config layout                          bsp
