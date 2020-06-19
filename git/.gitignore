@@ -110,10 +110,6 @@ fonts
 .oh-my-zsh
 .vim/bundle
 .rustup
-*.jpg
-*.jpeg
-*.gif
-*.min*
 *history*
 *debug*
 /Library/
