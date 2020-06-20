@@ -14,6 +14,7 @@ export PATH="/usr/local/sbin:$PATH"
 export GOPATH="$HOME/workspace"
 export GO111MODULE="on"
 export PATH=$PATH:$HOME/workspace/bin
+export PATH=$PATH:$HOME/workstation/vim/magit-nvim/bin
 export PATH=$PATH:/usr/local/go/bin
 export GOPROXY=https://goproxy.cn
 
