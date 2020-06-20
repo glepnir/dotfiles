@@ -35,10 +35,10 @@
   },
   //diagnostic
   "diagnostic.signOffset": 9999999,
+  "diagnostic.highlightOffset": 9999999,
   "diagnostic.errorSign": "●",
   "diagnostic.warningSign": "●",
   "diagnostic.infoSign": "●",
-  "diagnostic.displayByAle": false,
   "diagnostic.refreshOnInsertMode": true,
   //git
   "git.enableGutters": true,
