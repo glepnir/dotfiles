@@ -118,7 +118,7 @@ function! s:use_dein()
 		if isdirectory($VIM_PATH . '/dev')
 			call dein#local($VIM_PATH . '/dev', { 'frozen': 1, 'merged': 0 })
 		endif
-		" call dein#local('~/workstation/vim', { 'frozen': 1, 'merged': 0 },['dashboard-nvim'])
+		call dein#local('~/workstation/vim', { 'frozen': 1, 'merged': 0 },['magit-nvim'])
 		call dein#end()
 
 		" Save cached state for faster startups

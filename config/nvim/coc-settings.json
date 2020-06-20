@@ -171,6 +171,7 @@
     "keylayout",
     "langserver",
     "languagetool",
+    "magit",
     "markdownlint",
     "maxsize",
     "nmap",
