@@ -86,6 +86,7 @@
   },
   //imselect
   "imselect.enableStatusItem": false,
+  "imselect.defaultInput": "com.apple.keylayout.ABC",
   //multiple curssor
   "cursors.nextKey": "<C-n>",
   "cursors.previousKey": "<C-p>",

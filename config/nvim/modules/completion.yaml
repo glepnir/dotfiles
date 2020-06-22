@@ -13,6 +13,7 @@
         \ 'coc-vimlsp',
         \ 'coc-snippets',
         \ 'coc-emmet',
+        \ 'coc-imselect',
         \ 'coc-pairs',
         \ 'coc-json',
         \ 'coc-highlight',
