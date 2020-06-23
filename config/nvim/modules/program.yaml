@@ -30,34 +30,6 @@
       \ 'typescriptreact': 'coc',
       \ }
 
-- repo: luochen1990/rainbow
-  on_ft:
-    [
-      html,
-      css,
-      javascript,
-      javascriptreact,
-      vue,
-      go,
-      python,
-      c,
-      cpp,
-      lua,
-      rust,
-      vim,
-      less,
-      stylus,
-      sass,
-      scss,
-      json,
-      ruby,
-      scala,
-      toml,
-      php,
-      haskell,
-    ]
-  hook_source: let g:rainbow_active = 1
-
 - repo: rizzatti/dash.vim
   if: "has('mac')"
   on_map: { n: <Plug> }
