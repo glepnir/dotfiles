@@ -57,3 +57,25 @@
         }
       }
     EOF
+
+- repo: luochen1990/rainbow
+  on_ft:
+    [
+      html,
+      css,
+      javascript,
+      javascriptreact,
+      go,
+      python,
+      lua,
+      rust,
+      vim,
+      less,
+      stylus,
+      sass,
+      scss,
+      json,
+      ruby,
+      toml,
+    ]
+  hook_source: let g:rainbow_active = 1
