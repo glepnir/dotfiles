@@ -33,7 +33,7 @@ endfunction
 " COC Jump definition in split window
 " when window >=4 jump in other window
 function! initself#definition_other_window() abort
-  if winnr('$') >= 4 || winwidth(0) < 120
+  if winnr('$') >= 4 || (winwidth(0) - (max([len(line('$')), &numberwidth-1]) + 1)) < 110
     exec "normal \<Plug>(coc-definition)"
   else
     exec 'vsplit'
