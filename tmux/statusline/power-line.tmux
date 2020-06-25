@@ -16,12 +16,11 @@ set -g status-right '\
 #[fg=colour154,bg=colour238,nobold,nounderscore,noitalics]\
 #[fg=colour232,bg=colour154] %a-%Y'
 
-setw -g window-status-format'\
-#[fg=colour235,bg=colour238,nobold,nounderscore,noitalics]\
-#[fg=colour222,bg=colour235] #I  #W \
-#[fg=colour235,bg=#1b2b34,nobold,nounderscore,noitalics]'
+setw -g window-status-format '\
+#[fg=colour235,bg=colour235,nobold,nounderscore,noitalics]\
+#[default] #I  #W #[fg=colour235,bg=colour235,nobold,nounderscore,noitalics]'
 
-setw -g window-status-current-format '#[fg=#1b2b34,bg=colour238]\
+setw -g window-status-current-format '\
+#[fg=colour235,bg=colour238,nobold,nounderscore,noitalics]\
 #[fg=colour222,bg=colour238] #I  #W  #F \
 #[fg=colour238,bg=colour235,nobold,nounderscore,noitalics]'
-
