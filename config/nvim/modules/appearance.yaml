@@ -42,6 +42,9 @@
       \ 'show_ignored_files': 0,
       \ 'columns': 'indent:git:icons:filename',
       \ 'root_marker': ' ',
+      \ 'floating_preview': 1,
+      \ 'vertical_preview': 1,
+      \ 'preview_height': 50,
       \ })
 
     call defx#custom#column('git', {
@@ -107,7 +110,7 @@
       nnoremap <silent><buffer><expr> st    defx#do_action('multi', [['drop', 'tabnew'], 'quit'])
       nnoremap <silent><buffer><expr> s     defx#do_action('open', 'botright vsplit')
       nnoremap <silent><buffer><expr> i     defx#do_action('open', 'botright split')
-      nnoremap <silent><buffer><expr> P     defx#do_action('open', 'pedit')
+      nnoremap <silent><buffer><expr> P     defx#do_action('preview')
       nnoremap <silent><buffer><expr> K     defx#do_action('new_directory')
       nnoremap <silent><buffer><expr> N     defx#do_action('new_multiple_files')
       nnoremap <silent><buffer><expr> dd    defx#do_action('remove_trash')
@@ -125,7 +128,6 @@
       nnoremap <silent><buffer><expr> se     defx#do_action('save_session')
       nnoremap <silent><buffer><expr> <C-r>  defx#do_action('redraw')
       nnoremap <silent><buffer><expr> <C-g>  defx#do_action('print')
-
       " File/dir management
       nnoremap <silent><buffer><expr><nowait> c  defx#do_action('copy')
       nnoremap <silent><buffer><expr><nowait> m  defx#do_action('move')
