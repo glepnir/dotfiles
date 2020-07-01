@@ -24,9 +24,6 @@ augroup common "{{{
   autocmd WinLeave,InsertEnter * if &ft !~# '^\(denite\|clap_\)' |
     \ set nocursorline | endif
 
-  " Highlight yank use neovim builtin
-  autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("Visual", 1000)
-
   " Automatically set read-only for files being edited elsewhere
   autocmd SwapExists * nested let v:swapchoice = 'o'
 
