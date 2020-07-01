@@ -1,3 +1,7 @@
+- repo: hardcoreplayers/oceanic-material
+  hook_source: |
+    let g:oceanic_material_allow_bold = 1
+
 - repo: ryanoasis/vim-devicons
 
 - repo: hardcoreplayers/spaceline.vim
