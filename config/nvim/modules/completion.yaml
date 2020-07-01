@@ -24,7 +24,6 @@
         \ 'coc-yaml',
         \ 'coc-tabnine',
         \ 'coc-gitignore',
-        \ 'coc-yank',
         \ 'coc-actions',
         \ 'coc-db',
         \ 'coc-spell-checker',
