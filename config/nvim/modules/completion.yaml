@@ -28,6 +28,7 @@
         \ 'coc-actions',
         \ 'coc-db',
         \ 'coc-spell-checker',
+        \ 'coc-template',
         \]
 
     augroup coc_event
