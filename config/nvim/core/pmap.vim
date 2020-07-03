@@ -197,6 +197,10 @@ if dein#tap('vim-easymotion')
   nmap gss <Plug>(easymotion-overwin-f2)
 endif
 
+if dein#tap('vim-mundo')
+    nnoremap <silent> <Leader>m :MundoToggle<CR>
+endif
+
 if dein#tap('vim-smartchr')
   inoremap <expr> , smartchr#one_of(',', ',')
   autocmd FileType go inoremap <buffer><expr> ;
