@@ -29,6 +29,7 @@
         \ 'coc-db',
         \ 'coc-spell-checker',
         \ 'coc-template',
+        \ 'coc-react-refactor',
         \]
 
     augroup coc_event
