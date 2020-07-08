@@ -30,6 +30,32 @@ function! initself#mkdir_as_necessary(dir, force) abort
   endif
 endfunction
 
+function! initself#lsp_init(langs)
+  let l:lsp={
+    \'go':{'golang': {
+          \ "command": "gopls",
+          \ "rootPatterns": ["go.mod"],
+          \ "disableWorkspaceFolders": "true",
+          \ "filetypes": ["go"]
+          \ }
+          \ },
+    \'docker':{'dockerfile': {
+          \ "command": "docker-langserver",
+          \ "filetypes": ["dockerfile"],
+          \ "args": ["--stdio"]
+          \ }
+          \ },
+    \'bash':{'bash': {
+          \ "command": "bash-language-server",
+          \ "args": ["start"],
+          \ "filetypes": ["sh"],
+          \ "ignoredRootPaths": ["~"]
+          \ }
+          \ }
+    \}[a:langs]
+  call coc#config('languageserver',l:lsp)
+endfunction
+
 " COC Jump definition in split window
 " when window >=4 jump in other window
 function! initself#definition_other_window() abort

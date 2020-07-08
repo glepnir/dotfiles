@@ -10,25 +10,9 @@
   hook_source: |
     call coc#add_extension('coc-rust-analyzer')
 
-- repo: hardcoreplayers/go-nvim
-  on_ft: [go, gomod]
-  hook_source: |
-    call coc#config('languageserver', {
-        \ 'golang': {
-          \ "command": "gopls",
-          \ "rootPatterns": ["go.mod"],
-          \ "disableWorkspaceFolders": "true",
-          \ "filetypes": ["go"]
-          \ }
-          \})
+- { repo: hardcoreplayers/go-nvim, on_ft: [ go, gomod ] }
 
 - repo: ekalinin/Dockerfile.vim
   on_ft: [Dockerfile, docker-compose]
   hook_source: |
-    call coc#config('languageserver', {
-      \ 'dockerfile': {
-        \ "command": "docker-langserver",
-        \ "filetypes": ["dockerfile"],
-        \ "args": ["--stdio"]
-        \ }
-        \})
+    call initself#lsp_init('docker')
