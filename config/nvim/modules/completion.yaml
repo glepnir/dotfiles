@@ -58,6 +58,6 @@
     endfunction
 
 - repo: honza/vim-snippets
-  on_event: FileType
+  on_event: BufReadPre
   if: has('python3')
   merged: 0
