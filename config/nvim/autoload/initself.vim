@@ -56,6 +56,10 @@ function! initself#lsp_init(langs)
   call coc#config('languageserver',l:lsp)
 endfunction
 
+function! initself#silent_organizeImport()
+  silent! call CocAction('runCommand', 'editor.action.organizeImport')
+endfunction
+
 " COC Jump definition in split window
 " when window >=4 jump in other window
 function! initself#definition_other_window() abort
