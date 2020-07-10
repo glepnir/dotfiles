@@ -17,6 +17,7 @@
           \ 'source': [s:zshrc,s:tmux_conf],
           \ 'sink': 'e',
           \ }
+    let g:clap_provider_gosource = initself#clap_go_source()
 
     " A funtion to config highlight of ClapSymbol
     " when the background color is opactiy
