@@ -243,18 +243,6 @@ if dein#tap('vim-sandwich')
   xmap as <Plug>(textobj-sandwich-query-a)
 endif
 
-if dein#tap('vim-asterisk')
-  map *   <Plug>(asterisk-g*)
-  map g*  <Plug>(asterisk-*)
-  map #   <Plug>(asterisk-g#)
-  map g#  <Plug>(asterisk-#)
-
-  map z*  <Plug>(asterisk-z*)
-  map gz* <Plug>(asterisk-gz*)
-  map z#  <Plug>(asterisk-z#)
-  map gz# <Plug>(asterisk-gz#)
-endif
-
 if dein#tap('vim-niceblock')
   silent! xmap I  <Plug>(niceblock-I)
   silent! xmap gI <Plug>(niceblock-gI)
