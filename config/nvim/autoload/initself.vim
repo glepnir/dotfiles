@@ -90,3 +90,16 @@ function! initself#exit_iron() abort
     endif
   endfor
 endfunction
+
+function! initself#clap_go_source()
+  let l:go_root = globpath('/usr/local/Cellar/go', '*').'/libexec/src/'
+  let l:go_root_file_list = split(globpath(l:go_root, '*'))
+  let l:result=[]
+  for item in l:go_root_file_list
+    let l:result = extend(l:result,split(globpath(item,'*.go')))
+  endfor
+  let l:gosource={}
+  let l:gosource.sink = 'edit'
+  let l:gosource.source = l:result
+  return l:gosource
+endfunction
