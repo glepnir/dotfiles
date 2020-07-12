@@ -110,10 +110,6 @@ if dein#tap('coc.nvim')
   command! -nargs=0 Format :call CocAction('format')
 
   nnoremap  <Leader>fz :<C-u>CocSearch -w<Space>
-  " " coc-explorer
-  " noremap <silent> <Leader>e :execute 'CocCommand explorer' .
-  "     \ ' --toggle' .
-  "     \ ' --sources=file+'<CR>
   " Introduce function text object
   " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
   xmap if <Plug>(coc-funcobj-i)
