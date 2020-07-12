@@ -1,7 +1,5 @@
 - repo: Shougo/context_filetype.vim
 
-- { repo: kevinoid/vim-jsonc, on_ft: json }
-
 - repo: plasticboy/vim-markdown
   on_ft: markdown
   hook_add: |

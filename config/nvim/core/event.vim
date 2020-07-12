@@ -44,6 +44,8 @@ augroup common "{{{
   autocmd BufWritePre * call initself#mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
 
   autocmd BufWritePre *.go :call initself#silent_organizeImport()
+
+  autocmd BufNewFile,BufRead coc-settings.json setlocal filetype=jsonc
 augroup END "}}}
 
 
