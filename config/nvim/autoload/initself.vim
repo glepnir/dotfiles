@@ -124,7 +124,7 @@ function! initself#load_db_from_env()
   let l:env = initself#load_env()
   let l:dbs={}
   for key in keys(l:env)
-    if stridx(key,"DB_UI_") >= 0
+    if stridx(key,"DB_CONNECTION_") >= 0
       let l:dbs[split(key,"_")[2]] = l:env[key]
     endif
   endfor
