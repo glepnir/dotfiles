@@ -25,3 +25,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export EDITOR="nvim"
 export GIT_EDITOR="nvim"
 export REACT_EDITOR="nvim"
+
+# Yabai
+export YABAI_CERT=yabai-cert
