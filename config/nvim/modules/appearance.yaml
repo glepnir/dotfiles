@@ -1,10 +1,11 @@
 - repo: ryanoasis/vim-devicons
 
 - repo: hardcoreplayers/spaceline.vim
+  on_event: [BufReadPre,BufNewFile]
   hook_add: let g:spaceline_seperate_style= 'slant-cons'
 
 - repo: hardcoreplayers/vim-buffet
-  on_event: [BufReadPre, BufNew]
+  on_event: [BufReadPre,BufNewFile]
 
 - repo: hardcoreplayers/dashboard-nvim
   hook_source: |
