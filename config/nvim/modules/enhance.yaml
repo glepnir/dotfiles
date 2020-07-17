@@ -75,3 +75,31 @@
       toml,
     ]
   hook_source: let g:rainbow_active = 1
+
+- repo: nvim-treesitter/nvim-treesitter
+  if: has('nvim')
+  on_event: BufRead
+  hook_source: |
+    lua <<EOF
+    require'nvim-treesitter.configs'.setup {
+      highlight = {
+          enable = true,
+          disable = {'go'},
+      },
+      incremental_selection = {
+          enable = true,
+          disable = {},
+          keymaps = {
+            init_selection = 'gnn',
+          }
+      },
+      refactor = {
+        navigation = {
+          enable = true,
+          goto_definition = 'gnd',
+          list_definitions = 'gnD'
+        }
+      },
+      ensure_installed = 'all'
+    }
+    EOF
