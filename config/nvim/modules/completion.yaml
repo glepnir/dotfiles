@@ -22,7 +22,6 @@
         \ 'coc-lists',
         \ 'coc-stylelint',
         \ 'coc-yaml',
-        \ 'coc-tabnine',
         \ 'coc-gitignore',
         \ 'coc-yank',
         \ 'coc-actions',
