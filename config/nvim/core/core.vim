@@ -54,7 +54,6 @@ call initself#source_file($VIM_PATH,'core/event.vim')
 call initself#source_file($VIM_PATH,'core/pmap.vim')
 call initself#source_file($VIM_PATH,'core/vmap.vim')
 call theme#theme_init()
-let g:oceanic_material_allow_bold = 1
 
 set secure
 
