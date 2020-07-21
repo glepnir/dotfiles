@@ -106,13 +106,15 @@ endfunction
 
 " Auto generate go function method comment
 function! initself#generate_go_comment()
-   let l:pattern_func = 'func\s[A-Z]\([A-z]\)\+()\s{$'
    let l:funclist = []
    let l:methlist = []
+
+   let l:pattern_func = 'func\s[A-Z]\([A-z]\)\+()\s{$'
    silent! exec 'g/'.l:pattern_func.'/call add(l:funclist, line("."))'
    if !empty(l:funclist)
      call initself#generate_comment(l:funclist)
    endif
+
    let l:pattern_meth = 'func\s(\([A-z]\)\+\s\(\*\?[A-z]\+\))\s[A-Z][A-z]\+()\s\*\?\([A-z]\+\)\?\s\?{$'
    silent! exec 'g/'.l:pattern_meth.'/call add(l:methlist, line("."))'
    if !empty(l:methlist)
