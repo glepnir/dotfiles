@@ -47,19 +47,6 @@
       \ 'preview_height': 50,
       \ })
 
-    call defx#custom#column('git', {
-      \   'indicators': {
-      \     'Modified'  : '•',
-      \     'Staged'    : '✚',
-      \     'Untracked' : 'ᵁ',
-      \     'Renamed'   : '≫',
-      \     'Unmerged'  : '≠',
-      \     'Ignored'   : 'ⁱ',
-      \     'Deleted'   : '✖',
-      \     'Unknown'   : '⁇'
-      \   }
-      \ })
-
     call defx#custom#column('mark', { 'readonly_icon': '', 'selected_icon': '' })
 
     " Events
