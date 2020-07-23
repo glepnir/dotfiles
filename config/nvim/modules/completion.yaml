@@ -29,6 +29,14 @@
         \ 'coc-spell-checker',
         \ 'coc-template',
         \ 'coc-react-refactor',
+        \ 'coc-tsserver',
+        \ 'coc-eslint',
+        \ 'coc-prettier',
+        \ 'coc-tslint-plugin',
+        \ 'coc-docthis',
+        \ 'coc-style-helper',
+        \ 'coc-react-refactor',
+        \ 'coc-rust-analyzer'
         \]
 
     augroup coc_event

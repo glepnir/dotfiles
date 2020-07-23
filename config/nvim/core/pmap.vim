@@ -279,3 +279,7 @@ if dein#tap('vim-textobj-function')
   xmap <silent> af <Plug>(textobj-function-a)
   xmap <silent> if <Plug>(textobj-function-i)
 endif
+
+if dein#tap('go-nvim')
+  nnoremap gcg :GoAuToComment<CR>
+endif
