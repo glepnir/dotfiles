@@ -13,10 +13,7 @@
     let g:clap_search_box_border_style = 'curve'
     let g:clap_provider_grep_enable_icon = 1
     let g:clap_prompt_format = '%spinner%%forerunner_status% %provider_id%: '
-    let g:clap_provider_personalconf = {
-          \ 'source': [s:zshrc,s:tmux_conf],
-          \ 'sink': 'e',
-          \ }
+    let g:clap_provider_dotfiles = initself#clap_my_dotfiles()
     let g:clap_provider_gosource = initself#clap_go_source()
 
     " A funtion to config highlight of ClapSymbol
