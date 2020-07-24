@@ -36,7 +36,7 @@
   //diagnostic
   "diagnostic.signOffset": 9999999,
   "diagnostic.highlightOffset": 9999999,
-  "diagnostic.errorSign": "●",
+  "diagnostic.errorSign": "",
   "diagnostic.warningSign": "●",
   "diagnostic.infoSign": "●",
   "diagnostic.refreshOnInsertMode": true,
