@@ -1218,6 +1218,8 @@ function! s:apply_syntax_highlightings()
   exec 'hi CocGitChangedSign' . s:fg_blue
   exec 'hi CocGitRemovedSign' . s:fg_red
   exec 'hi CocGitTopRemovedSign' . s:fg_red
+  "coc-explorer
+  exec 'hi CocExplorerFileDirectory' .s:fg_green
   "===============================================================
   " dense-analysis/ale
   "===============================================================
@@ -1353,6 +1355,8 @@ function! s:apply_syntax_highlightings()
   "Shougo/defx.nvim
   "===============================================================
   exec 'hi DefxIconsParentDirectory' . s:fg_orange
+  exec 'hi Defx_filename_directory' . s:fg_blue
+  exec 'hi Defx_filename_root' . s:fg_red
   "===============================================================
   "hardcoreplayers/dashboard-nvim
   "===============================================================
