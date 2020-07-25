@@ -12,7 +12,7 @@
 
 - repo: hardcoreplayers/dashboard-nvim
   hook_source: |
-    let g:dashboard_default_header = 'commicgirl'
+    let g:dashboard_default_header = 'commicgirl5'
 
 - repo: Shougo/defx.nvim
   on_cmd: Defx
@@ -23,12 +23,27 @@
       \ 'split': 'vertical',
       \ 'direction': 'topleft',
       \ 'show_ignored_files': 0,
-      \ 'columns': 'indent:git:icons:filename',
-      \ 'root_marker': ' ',
-      \ 'floating_preview': 1,
-      \ 'vertical_preview': 1,
-      \ 'preview_height': 50,
+      \ 'columns': 'mark:indent:git:icons:filename',
+      \ 'root_marker': '[in]: ',
       \ })
+
+    call defx#custom#column('git', {
+      \   'indicators': {
+      \     'Modified'  : '•',
+      \     'Staged'    : '✚',
+      \     'Untracked' : 'ᵁ',
+      \     'Renamed'   : '≫',
+      \     'Unmerged'  : '≠',
+      \     'Ignored'   : 'ⁱ',
+      \     'Deleted'   : '✖',
+      \     'Unknown'   : '⁇'
+      \   }
+      \ })
+
+    " defx-icons plugin
+    let g:defx_icons_column_length = 1
+    let g:defx_icons_mark_icon = ''
+    let g:defx_icons_parent_icon = ""
 
     call defx#custom#column('mark', { 'readonly_icon': '', 'selected_icon': '' })
 
@@ -133,20 +148,6 @@
 
 - repo: kristijanhusak/defx-git
   on_source: defx.nvim
-  hook_source: |
-    let g:defx_git#indicators = {
-      \ 'Modified'  : '•',
-      \ 'Staged'    : '✚',
-      \ 'Untracked' : 'ᵁ',
-      \ 'Renamed'   : '≫',
-      \ 'Unmerged'  : '≠',
-      \ 'Ignored'   : 'ⁱ',
-      \ 'Deleted'   : '✖',
-      \ 'Unknown'   : '⁇'
-      \ }
 
 - repo: kristijanhusak/defx-icons
   on_source: defx.nvim
-  hook_add: |
-    let g:defx_icons_column_length = 1
-    let g:defx_icons_mark_icon = ''
