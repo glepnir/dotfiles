@@ -1352,7 +1352,7 @@ function! s:apply_syntax_highlightings()
   "===============================================================
   "Shougo/defx.nvim
   "===============================================================
-  exec 'hi DefxIconsDirectory' . s:fg_blue
+  exec 'hi DefxIconsParentDirectory' . s:fg_orange
   "===============================================================
   "hardcoreplayers/dashboard-nvim
   "===============================================================
