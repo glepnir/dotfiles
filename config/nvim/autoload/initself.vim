@@ -105,7 +105,8 @@ function! initself#clap_go_source()
 endfunction
 
 function! initself#clap_my_dotfiles()
-  let l:dotfiles = split(globpath(getenv('HOME').'/.dotfiles', '**'),'\n')
+  let l:dotfiles_path = getenv('HOME').'/.dotfiles'
+  let l:dotfiles = split(globpath(l:dotfiles_path, '**'),'\n')
   let l:source_dotfiles ={}
   let l:source_dotfiles.sink = 'edit'
   let l:source_dotfiles.source = l:dotfiles
