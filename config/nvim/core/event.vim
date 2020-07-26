@@ -47,7 +47,7 @@ augroup common "{{{
 
   autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2
 
-  autocmd CursorHold * CocCommand git.refresh
+  autocmd CursorHold * CocCommand git.refresh 'void'
 
 augroup END "}}}
 
