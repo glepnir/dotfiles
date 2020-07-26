@@ -30,7 +30,7 @@ function! initself#mkdir_as_necessary(dir, force) abort
   endif
 endfunction
 
-function! initself#lsp_init(langs)
+function! s:lsp_init(langs)
   let l:lsp={
     \'go':{'golang': {
           \ "command": "gopls",
@@ -55,6 +55,12 @@ function! initself#lsp_init(langs)
     \}[a:langs]
   call coc#config('languageserver',l:lsp)
 endfunction
+
+function! s:lsp_command()
+  command! -nargs=+ -bar LSP          call s:lsp_init(<args>)
+endfunction
+
+call s:lsp_command()
 
 function! initself#silent_organizeImport()
   silent! call CocAction('runCommand', 'editor.action.organizeImport')
