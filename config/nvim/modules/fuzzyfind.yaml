@@ -3,8 +3,6 @@
   build: "bash install.sh"
   on_map: { n: <Plug> }
   hook_source: |
-    let s:zshrc = expand($HOME . '/.zshrc')
-    let s:tmux_conf = expand($HOME . '/.tmux.conf')
     let g:clap_cache_directory = $DATA_PATH . '/clap'
     let g:clap_theme = 'material_design_dark'
     let g:clap_current_selection_sign= { 'text': '➤', 'texthl': "ClapCurrentSelectionSign", "linehl": "ClapCurrentSelection"}

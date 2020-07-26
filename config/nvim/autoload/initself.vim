@@ -102,21 +102,38 @@ function! initself#clap_go_source()
   let l:go_root = globpath('/usr/local/Cellar/go', '*').'/libexec/src/'
   let l:go_root_file_list = split(globpath(l:go_root, '*'))
   let l:result=[]
+  let l:result_with_icon = []
   for item in l:go_root_file_list
     let l:result = extend(l:result,split(globpath(item,'*.go')))
   endfor
+  for item in l:result
+    let icon = clap#icon#get(item)
+    call add(l:result_with_icon, icon.' '.item)
+  endfor
   let l:gosource={}
   let l:gosource.sink = 'edit'
-  let l:gosource.source = l:result
+  let l:gosource.source = l:result_with_icon
+  let l:gosource.syntax = 'clap_files'
   return l:gosource
 endfunction
 
 function! initself#clap_my_dotfiles()
   let l:dotfiles_path = getenv('HOME').'/.dotfiles'
   let l:dotfiles = split(globpath(l:dotfiles_path, '**'),'\n')
+  let l:dotfiles_with_icon = []
+  for item in l:dotfiles
+    if !filereadable(item)
+      call remove(l:dotfiles, index(l:dotfiles, item))
+    endif
+  endfor
+  for item in l:dotfiles
+    let icon = clap#icon#get(item)
+    call add(l:dotfiles_with_icon,icon.' '.item)
+  endfor
   let l:source_dotfiles ={}
   let l:source_dotfiles.sink = 'edit'
-  let l:source_dotfiles.source = l:dotfiles
+  let l:source_dotfiles.source = l:dotfiles_with_icon
+  let l:source_dotfiles.syntax = 'clap_files'
   return l:source_dotfiles
 endfunction
 
