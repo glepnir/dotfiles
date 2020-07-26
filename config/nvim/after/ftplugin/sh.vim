@@ -1,2 +1,2 @@
 
-LSP 'bash'
+LSP 'sh'

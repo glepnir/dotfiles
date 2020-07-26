@@ -39,13 +39,13 @@ function! s:lsp_init(langs)
           \ "filetypes": ["go"]
           \ }
           \ },
-    \'docker':{'dockerfile': {
+    \'dockerfile':{'dockerfile': {
           \ "command": "docker-langserver",
           \ "filetypes": ["dockerfile"],
           \ "args": ["--stdio"]
           \ }
           \ },
-    \'bash':{'bash': {
+    \'sh':{'bash': {
           \ "command": "bash-language-server",
           \ "args": ["start"],
           \ "filetypes": ["sh"],
@@ -54,6 +54,7 @@ function! s:lsp_init(langs)
           \ }
     \}[a:langs]
   call coc#config('languageserver',l:lsp)
+  exec 'autocmd BufWritePre *.'.a:langs. '    call s:silent_organizeImport()'
 endfunction
 
 function! s:lsp_command()
@@ -62,7 +63,7 @@ endfunction
 
 call s:lsp_command()
 
-function! initself#silent_organizeImport()
+function! s:silent_organizeImport()
   silent! call CocAction('runCommand', 'editor.action.organizeImport')
 endfunction
 
