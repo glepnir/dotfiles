@@ -94,3 +94,4 @@
   on_ft: [go,typescript,javascript,vim,rust,markdown]
   hook_source: |
     let g:sonictemplate_postfix_key = '<Tab>'
+    let g:sonictemplate_vim_template_dir = $VIM_PATH . '/template'
