@@ -43,8 +43,6 @@ augroup common "{{{
   " Make directory automatically.
   autocmd BufWritePre * call initself#mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
 
-  autocmd BufWritePre *.go :call initself#silent_organizeImport()
-
   autocmd BufNewFile,BufRead coc-settings.json setlocal filetype=jsonc
 
   autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2

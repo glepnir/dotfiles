@@ -1,2 +1,2 @@
 
-LSP 'docker'
+LSP 'dockerfile'
