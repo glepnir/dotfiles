@@ -11,5 +11,5 @@ create-dirs:
 	@mkdir -vp "$(XDG_CACHE_HOME)/vim/"{backup,session,swap,tags,undo}
 
 upgrade:
-	$(vim) -V1 -es -i NONE -N --noplugin -u config/init.vim -c "try | call dein#clear_state() | call dein#update() | finally | qall! | endtry"
+	$(nvim) -V1 -es -i NONE -N --noplugin -u init.vim -c "try | call dein#clear_state() | call dein#update() | finally | qall! | endtry"
 
