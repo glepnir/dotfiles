@@ -1,1 +1,2 @@
-call initself#lsp_init('bash')
+
+LSP 'bash'

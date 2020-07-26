@@ -11,5 +11,3 @@
 
 - repo: ekalinin/Dockerfile.vim
   on_ft: [Dockerfile, docker-compose]
-  hook_source: |
-    call initself#lsp_init('docker')
