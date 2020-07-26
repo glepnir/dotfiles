@@ -46,6 +46,9 @@ augroup common "{{{
   autocmd BufNewFile,BufRead coc-settings.json setlocal filetype=jsonc
 
   autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2
+
+  autocmd CursorHold * CocCommand git.refresh
+
 augroup END "}}}
 
 
