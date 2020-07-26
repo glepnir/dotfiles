@@ -46,6 +46,8 @@ augroup common "{{{
   autocmd BufWritePre *.go :call initself#silent_organizeImport()
 
   autocmd BufNewFile,BufRead coc-settings.json setlocal filetype=jsonc
+
+  autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2
 augroup END "}}}
 
 
