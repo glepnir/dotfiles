@@ -35,10 +35,6 @@ if dein#tap('vim-dadbod-ui')
   nnoremap <silent> <Leader>od :DBUIToggle<CR>
 endif
 
-if dein#tap('dash.vim')
-  nnoremap <silent><localleader>d :Dash<CR>
-endif
-
 if dein#tap('coc-clap')
   " Show all diagnostics
   nnoremap <silent> <Leader>ce  :Clap coc_diagnostics<CR>
