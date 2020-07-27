@@ -111,10 +111,15 @@ function! initself#clap_go_source()
     call add(l:result_with_icon, icon.' '.item)
   endfor
   let l:gosource={}
-  let l:gosource.sink = 'edit'
+  let l:gosource.sink = function('s:filer_sink')
   let l:gosource.source = l:result_with_icon
   let l:gosource.syntax = 'clap_files'
   return l:gosource
+endfunction
+
+function! s:filer_sink(selected) abort
+  let curline = a:selected[4:]
+  execute 'edit' . curline
 endfunction
 
 function! initself#clap_my_dotfiles()
@@ -137,7 +142,7 @@ function! initself#clap_my_dotfiles()
     endif
   endfor
   let l:source_dotfiles ={}
-  let l:source_dotfiles.sink = 'edit'
+  let l:source_dotfiles.sink = function('s:filer_sink')
   let l:source_dotfiles.source = l:dotfiles_with_icon
   let l:source_dotfiles.syntax = 'clap_files'
   return l:source_dotfiles
