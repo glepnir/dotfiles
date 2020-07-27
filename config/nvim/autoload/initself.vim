@@ -118,17 +118,23 @@ function! initself#clap_go_source()
 endfunction
 
 function! initself#clap_my_dotfiles()
-  let l:dotfiles_path = getenv('HOME').'/.dotfiles'
-  let l:dotfiles = split(globpath(l:dotfiles_path, '**'),'\n')
+  let l:dotfiles_path = getenv('HOME').'/.dotfiles/'
+  let l:dotfiles = filter(split(globpath(l:dotfiles_path, '**'), '\n'), '!isdirectory(v:val)')
+  let l:dotfiles += filter(split(globpath(l:dotfiles_path, '.*'), '\n'), '!isdirectory(v:val)')
+  let directories = map(glob(fnameescape(l:dotfiles_path).'/{,.}*/', 1, 1), 'fnamemodify(v:val, ":h:t")')
+  for dict in directories
+    let l:dotfiles += filter(split(globpath(l:dotfiles_path.dict, '.*'), '\n'), '!isdirectory(v:val)')
+  endfor
   let l:dotfiles_with_icon = []
   for item in l:dotfiles
-    if !filereadable(item)
-      call remove(l:dotfiles, index(l:dotfiles, item))
+    if matchend(item, '/themes/*') >= 0
+      call remove(l:dotfiles, index(l:dotfiles,item))
+    elseif matchend(item, '/fonts/*')>=0
+      call remove(l:dotfiles, index(l:dotfiles,item))
+    else
+      let icon = clap#icon#get(item)
+      call add(l:dotfiles_with_icon,icon.' '.item)
     endif
-  endfor
-  for item in l:dotfiles
-    let icon = clap#icon#get(item)
-    call add(l:dotfiles_with_icon,icon.' '.item)
   endfor
   let l:source_dotfiles ={}
   let l:source_dotfiles.sink = 'edit'
