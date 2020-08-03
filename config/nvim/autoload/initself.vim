@@ -177,7 +177,6 @@ function! initself#load_db_from_env()
   if empty(l:dbs)
     echo "Env Database config error"
   endif
-  echom l:dbs
   return l:dbs
 endfunction
 
