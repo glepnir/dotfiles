@@ -155,7 +155,8 @@ function! initself#load_env()
   if filereadable(l:env_file)
     let l:env_content = readfile(l:env_file)
     for item in l:env_content
-      let l:env_dict[split(item,"=")[0]] = split(item,"=")[1]
+      let l:line_content = split(item,"=")
+      let l:env_dict[l:line_content[0]] = l:line_content[1]
     endfor
     return l:env_dict
   else
@@ -169,12 +170,14 @@ function! initself#load_db_from_env()
   let l:dbs={}
   for key in keys(l:env)
     if stridx(key,"DB_CONNECTION_") >= 0
-      let l:dbs[split(key,"_")[2]] = l:env[key]
+      let l:db_name = tolower(split(key,"_")[2])
+      let l:dbs[l:db_name] = l:env[key]
     endif
   endfor
   if empty(l:dbs)
     echo "Env Database config error"
   endif
+  echom l:dbs
   return l:dbs
 endfunction
 
