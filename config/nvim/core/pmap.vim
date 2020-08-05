@@ -15,11 +15,8 @@ if dein#tap('vim-buffet')
   nmap <leader>0 <Plug>BuffetSwitch(10)
 endif
 
-if dein#tap('defx.nvim')
-  nnoremap <silent> <Leader>e
-    \ :<C-u>Defx -resume -toggle -buffer-name=tab`tabpagenr()`<CR>
-  nnoremap <silent> <Leader>F
-    \ :<C-u>Defx -resume -buffer-name=tab`tabpagenr()` -search=`expand('%:p')`<CR>
+if dein#tap('chadtree')
+  nnoremap <silent> <Leader>e <CMD>CHADopen<CR>
 endif
 
 if dein#tap('markdown-preview.nvim')

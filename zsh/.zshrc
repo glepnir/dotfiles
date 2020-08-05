@@ -8,6 +8,11 @@ alias l="ls -l"
 alias la="ls -la"
 alias lt="ls --tree"
 
+eval $(gdircolors -b $HOME/.dircolors)
+if [ -n "$LS_COLORS" ]; then
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+fi
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
