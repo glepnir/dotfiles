@@ -56,5 +56,4 @@ call initself#source_file($VIM_PATH,'core/vmap.vim')
 call theme#theme_init()
 
 set secure
-hi BufferLineSelected guifg=red
 " vim: set ts=2 sw=2 tw=80 noet :
