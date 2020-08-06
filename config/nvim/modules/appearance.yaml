@@ -4,8 +4,8 @@
   on_event: [BufReadPre,BufNewFile]
   hook_add: |
     let g:spaceline_seperate_style= 'slant-cons'
-    let g:spaceline_diagnostic_errorsign = '📛'
-    let g:spaceline_diagnostic_warnsign = '⚠️'
+    let g:spaceline_diagnostic_errorsign = '🔥'
+    let g:spaceline_diagnostic_warnsign = '🔆'
     let g:spaceline_git_branch_icon = ''
     let g:spaceline_custom_diff_icon = [' ',' ',' ']
     let g:spaceline_function_icon = ' '
@@ -17,7 +17,7 @@
   hook_source: |
     let g:dashboard_default_header = 'commicgirl5'
     let g:dashboard_custom_section = {
-      \ 'last_session'        :['  Recently lase session                   SPC s l'],
+      \ 'last_session'        :['  Recently laset session                   SPC s l'],
       \ 'find_history'        :['  Recently opened files                   SPC f h'],
       \ 'find_file'           :['  Find  File                              SPC f f'],
       \ 'change_colorscheme'  :['  Change Colorscheme                      SPC t c'],
