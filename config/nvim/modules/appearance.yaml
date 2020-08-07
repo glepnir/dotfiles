@@ -13,6 +13,25 @@
 - repo: hardcoreplayers/vim-buffet
   on_event: [BufReadPre,BufNewFile]
 
+# - repo: Akin909/nvim-bufferline.lua
+#   on_event: [BufReadPre,BufNewFile]
+#   hook_add: |
+#     lua << EOF
+#       require'bufferline'.setup{
+#         options = {
+#           view = "multiwindow",
+#           numbers =  "ordinal",
+#           number_style = "",
+#           mappings = true ,
+#           max_name_length = 15,
+#           tab_size = 15,
+#           show_buffer_close_icons = false,
+#           separator_style = "thick",
+#           enforce_regular_tabs = false,
+#         }
+#       }
+#     EOF
+
 - repo: hardcoreplayers/dashboard-nvim
   hook_source: |
     let g:dashboard_default_header = 'commicgirl5'
