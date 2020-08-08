@@ -36,7 +36,7 @@
   hook_source: |
     let g:dashboard_default_header = 'commicgirl5'
     let g:dashboard_custom_section = {
-      \ 'last_session'        :['  Recently laset session                   SPC s l'],
+      \ 'last_session'        :['  Recently laset session                  SPC s l'],
       \ 'find_history'        :['  Recently opened files                   SPC f h'],
       \ 'find_file'           :['  Find  File                              SPC f f'],
       \ 'change_colorscheme'  :['  Change Colorscheme                      SPC t c'],
