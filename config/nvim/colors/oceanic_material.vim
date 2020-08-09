@@ -36,31 +36,15 @@ let s:oceanic_material_allow_reverse = get(g:,'oceanic_material_allow_reverse',0
 
 let s:oceanic_material_allow_undercurl = get(g:,'oceanic_material_allow_undercurl',0)
 
-let s:bold = ''
-if s:oceanic_material_allow_bold == 1
-  let s:bold = ' cterm=bold gui=bold '
-endif
+let s:bold = s:oceanic_material_allow_bold ? ' cterm=bold gui=bold ': ''
 
-let s:italic = ''
-if s:oceanic_material_allow_italic == 1
-  let s:italic = ' cterm=italic gui=italic '
-endif
+let s:italic = s:oceanic_material_allow_italic ? ' cterm=italic gui=italic ': ''
 
-let s:underline = ''
-if s:oceanic_material_allow_underline == 1
-  let s:underline = ' cterm=underline gui=underline '
-endif
+let s:underline = s:oceanic_material_allow_underline ? ' cterm=underline gui=underline ': ''
 
-let s:reverse = ''
-if s:oceanic_material_allow_reverse == 1
-  let s:reverse = ' cterm=reverse gui=reverse '
-endif
+let s:reverse = s:oceanic_material_allow_reverse ? ' cterm=reverse gui=reverse ': ''
 
-let s:undercurl = ''
-if s:oceanic_material_allow_undercurl == 1
-  let s:undercurl = ' cterm=undercurl gui=undercurl '
-endif
-
+let s:undercurl = s:oceanic_material_allow_undercurl? ' cterm=undercurl gui=undercurl ': ''
 
 let s:colors = {
       \ 'bg1':              ['#343d46',   '237'],
@@ -298,37 +282,6 @@ function! s:apply_syntax_highlightings()
   exec 'hi markdownBoldDelimiter'. s:fg_grey1
   exec 'hi markdownId'. s:fg_yellow
 
-  " Plugin: https://github.com/gabrielelana/vim-markdown
-  exec 'hi mkdURL'. s:fg_blue. s:fg_none. s:underline
-  exec 'hi mkdInlineURL'. s:fg_purple. s:underline
-  exec 'hi mkdItalic'. s:fg_grey1. s:italic
-  exec 'hi mkdCodeDelimiter'.s:fg_aqua
-  exec 'hi mkdBold'.s:fg_grey1
-  exec 'hi mkdLink'.s:fg_purple
-  exec 'hi mkdHeading'.s:fg_grey1
-  exec 'hi mkdListItem'.s:fg_red
-  exec 'hi mkdRule'.s:fg_purple
-  exec 'hi mkdDelimiter'.s:fg_grey1
-  exec 'hi mkdId'.s:fg_yellow
-  "===============================================================
-  " https://github.com/marshallward/vim-restructuredtext
-  "===============================================================
-  exec 'hi rstStandaloneHyperlink'. s:fg_purple.s:underline
-  exec 'hi rstSubstitutionReference'.s:fg_blue
-  exec 'hi rstInterpretedTextOrHyperlinkReference'.s:fg_aqua
-  exec 'hi rstTableLines'.s:fg_grey1
-  "===============================================================
-  " Latex: http://www.drchip.org/astronaut/vim/index.html#SYNTAX_TEX
-  "===============================================================
-  exec 'hi texStatement'.s:fg_green
-  exec 'hi texOnlyMath'.s:fg_grey1
-  exec 'hi texDefName'.s:fg_yellow
-  exec 'hi texNewCmd'.s:fg_orange
-  exec 'hi texCmdName'.s:fg_blue
-  exec 'hi texBeginEnd'.s:fg_red
-  exec 'hi texBeginEndName'.s:fg_blue
-  exec 'hi texDocType'.s:fg_purple
-  exec 'hi texDocTypeArgs'.s:fg_orange
   "===============================================================
   " Html: https://notabug.org/jorgesumle/vim-html-syntax {{{
   "===============================================================
@@ -353,20 +306,6 @@ function! s:apply_syntax_highlightings()
   exec 'hi htmlArg'. s:fg_aqua
   exec 'hi htmlScriptTag'. s:fg_purple
   exec 'hi htmlSpecialTagName'. s:fg_red.s:italic
-  "===============================================================
-  " Xml:" builtin: https://github.com/chrisbra/vim-xml-ftplugin
-  "===============================================================
-  exec 'hi xmlTag'. s:fg_green
-  exec 'hi xmlEndTag'. s:fg_blue
-  exec 'hi xmlTagName'. s:fg_orange.s:italic
-  exec 'hi xmlEqual'. s:fg_orange
-  exec 'hi xmlAttrib'. s:fg_aqua
-  exec 'hi xmlEntity'. s:fg_red
-  exec 'hi xmlEntityPunct'. s:fg_red
-  exec 'hi xmlDocTypeDecl'. s:fg_grey1
-  exec 'hi xmlDocTypeKeyword'. s:fg_purple.s:italic
-  exec 'hi xmlCdataStart'. s:fg_grey1
-  exec 'hi xmlCdataCdata'. s:fg_purple
   "===============================================================
   " CSS: builtin: https://github.com/JulesWang/css.vim
   "===============================================================
@@ -787,53 +726,6 @@ function! s:apply_syntax_highlightings()
   exec 'hi dartLibrary' . s:fg_purple  . s:italic
   exec 'hi dartMetadata' . s:fg_blue
   "===============================================================
-  " CoffeeScript:
-  " vim-coffee-script: https://github.com/kchmck/vim-coffee-script
-  "===============================================================
-  exec 'hi coffeeExtendedOp' . s:fg_orange
-  exec 'hi coffeeSpecialOp' . s:fg_fg0
-  exec 'hi coffeeDotAccess' . s:fg_grey1
-  exec 'hi coffeeCurly' . s:fg_fg0
-  exec 'hi coffeeParen' . s:fg_fg0
-  exec 'hi coffeeBracket' . s:fg_fg0
-  exec 'hi coffeeParens' . s:fg_blue
-  exec 'hi coffeeBrackets' . s:fg_blue
-  exec 'hi coffeeCurlies' . s:fg_blue
-  exec 'hi coffeeOperator' . s:fg_red  . s:italic
-  exec 'hi coffeeStatement' . s:fg_orange
-  exec 'hi coffeeSpecialIdent' . s:fg_purple
-  exec 'hi coffeeObject' . s:fg_purple
-  exec 'hi coffeeObjAssign' . s:fg_aqua
-  "===============================================================
-  " C/C++
-  " vim-cpp-enhanced-highlight: https://github.com/octol/vim-cpp-enhanced-highlight
-  "===============================================================
-  exec 'hi cppSTLnamespace' . s:fg_purple
-  exec 'hi cppSTLtype' . s:fg_yellow
-  exec 'hi cppAccess' . s:fg_purple  . s:italic
-  exec 'hi cppStructure' . s:fg_red  . s:italic
-  exec 'hi cppSTLios' . s:fg_aqua
-  exec 'hi cppSTLiterator' . s:fg_purple  . s:italic
-  exec 'hi cppSTLexception' . s:fg_purple
-  "===============================================================
-  " vim-lsp-cxx-highlight https://github.com/jackguo380/vim-lsp-cxx-highlight {{{
-  "===============================================================
-  exec 'hi LspCxxHlSkippedRegion' . s:fg_grey1
-  exec 'hi LspCxxHlSkippedRegionBeginEnd' . s:fg_purple  . s:italic
-  exec 'hi LspCxxHlGroupEnumConstant' . s:fg_aqua
-  exec 'hi LspCxxHlGroupNamespace' . s:fg_purple
-  exec 'hi LspCxxHlGroupMemberVariable' . s:fg_aqua
-  "===============================================================
-  " ObjectiveC
-  "===============================================================
-  exec 'hi objcModuleImport' . s:fg_purple  . s:italic
-  exec 'hi objcException' . s:fg_red  . s:italic
-  exec 'hi objcProtocolList' . s:fg_aqua
-  exec 'hi objcObjDef' . s:fg_purple  . s:italic
-  exec 'hi objcDirective' . s:fg_red  . s:italic
-  exec 'hi objcPropertyAttribute' . s:fg_orange
-  exec 'hi objcHiddenArgument' . s:fg_aqua
-  "===============================================================
   " Python:
   "===============================================================
   exec 'hi pythonBuiltin' . s:fg_yellow
@@ -895,40 +787,6 @@ function! s:apply_syntax_highlightings()
   exec 'hi luaEllipsis' . s:fg_orange
   exec 'hi luaDocTag' . s:fg_green
   "===============================================================
-  " Java:
-  "===============================================================
-  exec 'hi javaClassDecl' . s:fg_red  . s:italic
-  exec 'hi javaMethodDecl' . s:fg_red  . s:italic
-  exec 'hi javaVarArg' . s:fg_green
-  exec 'hi javaAnnotation' . s:fg_blue
-  exec 'hi javaUserLabel' . s:fg_purple
-  exec 'hi javaTypedef' . s:fg_aqua
-  exec 'hi javaParen' . s:fg_fg0
-  exec 'hi javaParen1' . s:fg_fg0
-  exec 'hi javaParen2' . s:fg_fg0
-  exec 'hi javaParen3' . s:fg_fg0
-  exec 'hi javaParen4' . s:fg_fg0
-  exec 'hi javaParen5' . s:fg_fg0
-  "===============================================================
-  " Kotlin:
-  " kotlin-vim: https://github.com/udalov/kotlin-vim
-  "===============================================================
-  exec 'hi ktSimpleInterpolation' . s:fg_yellow
-  exec 'hi ktComplexInterpolation' . s:fg_yellow
-  exec 'hi ktComplexInterpolationBrace' . s:fg_yellow
-  exec 'hi ktStructure' . s:fg_red  . s:italic
-  exec 'hi ktKeyword' . s:fg_aqua
-  "===============================================================
-  " Scala:
-  " builtin: https://github.com/derekwyatt/vim-scala
-  "===============================================================
-  exec 'hi scalaNameDefinition' . s:fg_aqua
-  exec 'hi scalaInterpolationBoundary' . s:fg_yellow
-  exec 'hi scalaInterpolation' . s:fg_blue
-  exec 'hi scalaTypeOperator' . s:fg_orange
-  exec 'hi scalaOperator' . s:fg_orange
-  exec 'hi scalaKeywordModifier' . s:fg_orange
-  "===============================================================
   " Go:
   "===============================================================
   exec 'hi goDirective' . s:fg_purple  . s:italic
@@ -961,34 +819,6 @@ function! s:apply_syntax_highlightings()
   exec 'hi rustAssert' . s:fg_aqua
   exec 'hi rustPanic' . s:fg_aqua
   exec 'hi rustPubScopeCrate' . s:fg_purple  . s:italic
-  "===============================================================
-  " Swift:
-  " swift.vim: https://github.com/keith/swift.vim
-  "===============================================================
-  exec 'hi swiftInterpolatedWrapper' . s:fg_yellow
-  exec 'hi swiftInterpolatedString' . s:fg_blue
-  exec 'hi swiftProperty' . s:fg_aqua
-  exec 'hi swiftTypeDeclaration' . s:fg_orange
-  exec 'hi swiftClosureArgument' . s:fg_purple
-  "===============================================================
-  " PHP:
-  " builtin: https://jasonwoof.com/gitweb/?p=vim-syntax.git;a=blob;f=php.vim;hb=HEAD
-  "===============================================================
-  exec 'hi phpVarSelector' . s:fg_blue
-  exec 'hi phpDefine' . s:fg_orange  . s:italic
-  exec 'hi phpStructure' . s:fg_red  . s:italic
-  exec 'hi phpSpecialFunction' . s:fg_green  . s:bold
-  exec 'hi phpInterpSimpleCurly' . s:fg_yellow
-  exec 'hi phpComparison' . s:fg_orange
-  exec 'hi phpMethodsVar' . s:fg_aqua
-  exec 'hi phpMemberSelector' . s:fg_green
-  " php.vim: https://github.com/StanAngeloff/php.vim
-  exec 'hi phpParent' . s:fg_fg0
-  exec 'hi phpNowDoc' . s:fg_green
-  exec 'hi phpFunction' . s:fg_green  . s:bold
-  exec 'hi phpMethod' . s:fg_green  . s:bold
-  exec 'hi phpClass' . s:fg_orange
-  exec 'hi phpSuperglobals' . s:fg_purple
   "===============================================================
   " Ruby:
   " builtin: https://github.com/vim-ruby/vim-ruby
@@ -1030,93 +860,6 @@ function! s:apply_syntax_highlightings()
   exec 'hi perlMethod' . s:fg_green  . s:bold
   exec 'hi podVerbatimLine' . s:fg_green
   exec 'hi podCmdText' . s:fg_yellow
-  "===============================================================
-  " OCaml:
-  " builtin: https://github.com/rgrinberg/vim-ocaml
-  "===============================================================
-  exec 'hi ocamlArrow' . s:fg_orange
-  exec 'hi ocamlEqual' . s:fg_orange
-  exec 'hi ocamlOperator' . s:fg_orange
-  exec 'hi ocamlKeyChar' . s:fg_orange
-  exec 'hi ocamlModPath' . s:fg_green
-  exec 'hi ocamlFullMod' . s:fg_green
-  exec 'hi ocamlModule' . s:fg_purple
-  exec 'hi ocamlConstructor' . s:fg_aqua
-  exec 'hi ocamlFuncWith' . s:fg_yellow
-  exec 'hi ocamlWith' . s:fg_yellow
-  exec 'hi ocamlModParam' . s:fg_fg0
-  exec 'hi ocamlModParam1' . s:fg_fg0
-  exec 'hi ocamlAnyVar' . s:fg_blue
-  exec 'hi ocamlPpxEncl' . s:fg_orange
-  exec 'hi ocamlPpxIdentifier' . s:fg_blue
-  exec 'hi ocamlSigEncl' . s:fg_orange
-  exec 'hi ocamlStructEncl' . s:fg_aqua
-  exec 'hi ocamlModParam1' . s:fg_blue
-  "===============================================================
-  " Erlang:
-  " builtin: https://github.com/vim-erlang/vim-erlang-runtime
-  "===============================================================
-  exec 'hi erlangAtom' . s:fg_aqua
-  exec 'hi erlangLocalFuncRef' . s:fg_green  . s:bold
-  exec 'hi erlangLocalFuncCall' . s:fg_green  . s:bold
-  exec 'hi erlangGlobalFuncRef' . s:fg_green  . s:bold
-  exec 'hi erlangGlobalFuncCall' . s:fg_green  . s:bold
-  exec 'hi erlangAttribute' . s:fg_purple  . s:italic
-  exec 'hi erlangPipe' . s:fg_orange
-  "===============================================================
-  " Elixir:
-  " vim-elixir: https://github.com/elixir-editors/vim-elixir
-  "===============================================================
-  exec 'hi elixirStringDelimiter' . s:fg_green
-  exec 'hi elixirKeyword' . s:fg_orange
-  exec 'hi elixirInterpolation' . s:fg_yellow
-  exec 'hi elixirInterpolationDelimiter' . s:fg_yellow
-  exec 'hi elixirSelf' . s:fg_purple
-  exec 'hi elixirPseudoVariable' . s:fg_purple
-  exec 'hi elixirModuleDefine' . s:fg_purple  . s:italic
-  exec 'hi elixirBlockDefinition' . s:fg_red  . s:italic
-  exec 'hi elixirDefine' . s:fg_red  . s:italic
-  exec 'hi elixirPrivateDefine' . s:fg_red  . s:italic
-  exec 'hi elixirGuard' . s:fg_red  . s:italic
-  exec 'hi elixirPrivateGuard' . s:fg_red  . s:italic
-  exec 'hi elixirProtocolDefine' . s:fg_red  . s:italic
-  exec 'hi elixirImplDefine' . s:fg_red  . s:italic
-  exec 'hi elixirRecordDefine' . s:fg_red  . s:italic
-  exec 'hi elixirPrivateRecordDefine' . s:fg_red  . s:italic
-  exec 'hi elixirMacroDefine' . s:fg_red  . s:italic
-  exec 'hi elixirPrivateMacroDefine' . s:fg_red  . s:italic
-  exec 'hi elixirDelegateDefine' . s:fg_red  . s:italic
-  exec 'hi elixirOverridableDefine' . s:fg_red  . s:italic
-  exec 'hi elixirExceptionDefine' . s:fg_red  . s:italic
-  exec 'hi elixirCallbackDefine' . s:fg_red  . s:italic
-  exec 'hi elixirStructDefine' . s:fg_red  . s:italic
-  exec 'hi elixirExUnitMacro' . s:fg_red  . s:italic
-  "===============================================================
-  " Clojure:
-  " builtin: https://github.com/guns/vim-clojure-static
-  "===============================================================
-  exec 'hi clojureMacro' . s:fg_purple  . s:italic
-  exec 'hi clojureFunc' . s:fg_aqua  . s:bold
-  exec 'hi clojureConstant' . s:fg_yellow
-  exec 'hi clojureSpecial' . s:fg_red  . s:italic
-  exec 'hi clojureDefine' . s:fg_red  . s:italic
-  exec 'hi clojureKeyword' . s:fg_orange
-  exec 'hi clojureVariable' . s:fg_blue
-  exec 'hi clojureMeta' . s:fg_yellow
-  exec 'hi clojureDeref' . s:fg_yellow
-  "===============================================================
-  " Matlab:
-  "===============================================================
-  exec 'hi matlabSemicolon' . s:fg_fg0
-  exec 'hi matlabFunction' . s:fg_red  . s:italic
-  exec 'hi matlabImplicit' . s:fg_green  . s:bold
-  exec 'hi matlabDelimiter' . s:fg_fg0
-  exec 'hi matlabOperator' . s:fg_green  . s:bold
-  exec 'hi matlabArithmeticOperator' . s:fg_orange
-  exec 'hi matlabArithmeticOperator' . s:fg_orange
-  exec 'hi matlabRelationalOperator' . s:fg_orange
-  exec 'hi matlabRelationalOperator' . s:fg_orange
-  exec 'hi matlabLogicalOperator' . s:fg_orange
   "===============================================================
   " VimL:
   "===============================================================
@@ -1189,13 +932,6 @@ function! s:apply_syntax_highlightings()
   exec 'hi gitcommitArrow' . s:fg_grey1
   exec 'hi gitcommitFile' . s:fg_green
   "===============================================================
-  "INI:
-  "===============================================================
-  exec 'hi dosiniHeader'. s:fg_red. s:bold
-  exec 'hi dosiniLabel' . s:fg_yellow
-  exec 'hi dosiniValue' . s:fg_green
-  exec 'hi dosiniNumber' . s:fg_green
-  "===============================================================
   " neoclide/coc.nvim
   "===============================================================
   exec 'hi CocHoverRange'. s:fg_none. s:bold . s:underline
@@ -1255,30 +991,6 @@ function! s:apply_syntax_highlightings()
   exec 'hi ALEVirtualTextStyleError' . s:fg_grey1
   exec 'hi ALEVirtualTextStyleWarning' . s:fg_grey1
   "===============================================================
-  " neomake/neomake
-  "===============================================================
-  exec 'hi NeomakeError' . s:fg_none  . s:undercurl . s:sp_red
-  exec 'hi NeomakeErrorSign' . s:fg_red
-  exec 'hi NeomakeWarning' . s:fg_none  . s:undercurl . s:sp_yellow
-  exec 'hi NeomakeWarningSign' . s:fg_yellow
-  exec 'hi NeomakeInfo'. s:fg_none. s:undercurl. s:sp_blue
-  exec 'hi NeomakeInfoSign' . s:fg_blue
-  exec 'hi NeomakeMessage' . s:fg_aqua
-  exec 'hi NeomakeMessageSign' . s:fg_aqua
-  exec 'hi NeomakeVirtualtextError' . s:fg_grey1
-  exec 'hi NeomakeVirtualtextWarning' . s:fg_grey1
-  exec 'hi NeomakeVirtualtextInfo' . s:fg_grey1
-  exec 'hi NeomakeVirtualtextMessag' . s:fg_grey1
-  "===============================================================
-  " Shougo/denite.nvim
-  "===============================================================
-  exec 'hi deniteMatchedChar'. s:fg_green. s:bold
-  exec 'hi deniteMatchedRange'. s:fg_green. s:bold.s:underline
-  exec 'hi deniteInput'. s:fg_green. s:bg_bg4. s:bold
-  exec 'hi deniteStatusLineNumber'. s:fg_purple. s:bg_bg4
-  exec 'hi deniteStatusLinePath'. s:fg_fg0. s:bg_bg4
-  exec 'hi deniteSelectedLin' . s:fg_green
-  "===============================================================
   " liuchengxu/vista.vim
   "===============================================================
   exec 'hi VistaBracket' . s:fg_grey1
@@ -1299,63 +1011,10 @@ function! s:apply_syntax_highlightings()
   exec 'hi GitGutterDelete' . s:fg_red  . s:bold
   exec 'hi GitGutterChangeDelete' . s:fg_purple  .s:bold
   "===============================================================
-  " mhinz/vim-signify
-  "===============================================================
-  exec 'hi SignifySignAdd' . s:fg_green
-  exec 'hi SignifySignChange' . s:fg_blue
-  exec 'hi SignifySignDelete' . s:fg_red
-  exec 'hi SignifySignChangeDelete' . s:fg_purple
-  "===============================================================
-  " scrooloose/nerdtree
-  "===============================================================
-  exec 'hi NERDTreeDir' . s:fg_green
-  exec 'hi NERDTreeDirSlash' . s:fg_aqua
-  exec 'hi NERDTreeOpenable' . s:fg_orange
-  exec 'hi NERDTreeClosable' . s:fg_orange
-  exec 'hi NERDTreeFile' . s:fg_fg0
-  exec 'hi NERDTreeExecFile' . s:fg_yellow
-  exec 'hi NERDTreeUp' . s:fg_grey1
-  exec 'hi NERDTreeCWD' . s:fg_aqua
-  exec 'hi NERDTreeToggleOn' . s:fg_green
-  exec 'hi NERDTreeToggleOff' . s:fg_red
-  exec 'hi NERDTreeFlags' . s:fg_orange
-  exec 'hi NERDTreeLinkFile' . s:fg_grey1
-  exec 'hi NERDTreeLinkTarget' . s:fg_green
-  "===============================================================
-  " andymass/vim-matchup
-  "===============================================================
-  exec 'hi MatchParenCur'. s:fg_none. s:bold
-  exec 'hi MatchWord'. s:fg_none. s:underline
-  exec 'hi MatchWordCur'. s:fg_none. s:underline
-  "===============================================================
   " easymotion/vim-easymotion
   "===============================================================
   exec 'hi EasyMotionTarget'. s:fg_bg0 . s:bg_green
   exec 'hi EasyMotionShade' . s:fg_grey1
-  "===============================================================
-  " justinmk/vim-sneak
-  "===============================================================
-  exec 'hi SneakLabelMask'. s:fg_green. s:bg_green
-  exec 'hi Sneak' . s:fg_bg0. s:bg_green
-  exec 'hi SneakLabel' . s:fg_bg0. s:bg_green
-  exec 'hi SneakScope' . s:fg_bg0 . s:bg_fg0
-  "===============================================================
-  " itchyny/vim-cursorword {{{
-  "===============================================================
-  exec 'hi CursorWord0'. s:bg_fg3
-  exec 'hi CursorWord1'. s:bg_fg3
-  "===============================================================
-  " mhinz/vim-startify
-  "===============================================================
-  exec 'hi StartifyBracket' . s:fg_grey1
-  exec 'hi StartifyFile' . s:fg_fg0
-  exec 'hi StartifyNumber' . s:fg_red
-  exec 'hi StartifyPath' . s:fg_green
-  exec 'hi StartifySlash' . s:fg_green
-  exec 'hi StartifySection' . s:fg_blue
-  exec 'hi StartifyHeader' . s:fg_orange
-  exec 'hi StartifySpecial' . s:fg_grey1
-  exec 'hi StartifyFooter' . s:fg_grey1
   "===============================================================
   " liuchengxu/vim-which-key
   "===============================================================
@@ -1383,6 +1042,7 @@ function! s:apply_syntax_highlightings()
   exec 'hi DashboardShortCut' . s:fg_red . s:bold
   exec 'hi DashboardFooter' . s:fg_purple .s:bold
   exec 'hi DashboardHeader' . s:fg_blue .s:bold
+  "===============================================================
 
 endfunction
 
