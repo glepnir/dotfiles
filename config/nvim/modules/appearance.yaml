@@ -185,6 +185,7 @@
       nnoremap <silent><buffer><expr> C
         \ defx#do_action('toggle_columns', 'indent:mark:filename:type:size:time')
     endfunction
+
 - repo: kristijanhusak/defx-git
   on_source: defx.nvim
 

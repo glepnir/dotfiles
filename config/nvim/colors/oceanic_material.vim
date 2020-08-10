@@ -307,64 +307,6 @@ function! s:apply_syntax_highlightings()
   exec 'hi htmlScriptTag'. s:fg_purple
   exec 'hi htmlSpecialTagName'. s:fg_red.s:italic
   "===============================================================
-  " CSS: builtin: https://github.com/JulesWang/css.vim
-  "===============================================================
-  exec 'hi cssAttrComma'.s:fg_fg0
-  exec 'hi cssBraces'.s:fg_fg0
-  exec 'hi cssTagName'.s:fg_purple. s:fg_none. s:italic
-  exec 'hi cssClassNameDot'.s:fg_red
-  exec 'hi cssClassName'.s:fg_red .s:italic
-  exec 'hi cssFunctionName'.s:fg_yellow
-  exec 'hi cssAttr'.s:fg_orange
-  exec 'hi cssProp'.s:fg_aqua
-  exec 'hi cssCommonAttr'.s:fg_yellow
-  exec 'hi cssPseudoClassId'.s:fg_blue
-  exec 'hi cssPseudoClassFn'.s:fg_green
-  exec 'hi cssPseudoClass'.s:fg_purple
-  exec 'hi cssImportant'.s:fg_red  . s:italic
-  exec 'hi cssSelectorOp'.s:fg_orange
-  exec 'hi cssSelectorOp2'.s:fg_orange
-  exec 'hi cssColor'.s:fg_green
-  exec 'hi cssAttributeSelector'.s:fg_aqua
-  exec 'hi cssUnitDecorators'.s:fg_orange
-  exec 'hi cssValueLength'.s:fg_green
-  exec 'hi cssValueInteger'.s:fg_green
-  exec 'hi cssValueNumber'.s:fg_green
-  exec 'hi cssValueAngle'.s:fg_green
-  exec 'hi cssValueTime'.s:fg_green
-  exec 'hi cssValueFrequency'.s:fg_green
-  exec 'hi cssVendor'.s:fg_grey1
-  exec 'hi cssNoise'.s:fg_grey1
-  "===============================================================
-  " SASS
-  "===============================================================
-  exec 'hi sassProperty'.s:fg_aqua
-  exec 'hi sassAmpersand'.s:fg_orange
-  exec 'hi sassClass'.s:fg_red  .s:italic
-  exec 'hi sassClassChar'.s:fg_red
-  exec 'hi sassMixing'.s:fg_purple .s:italic
-  exec 'hi sassMixinName'.s:fg_orange
-  exec 'hi sassCssAttribute'.s:fg_yellow
-  exec 'hi sassInterpolationDelimiter'.s:fg_green
-  exec 'hi sassFunction'.s:fg_yellow
-  exec 'hi sassControl'.s:fg_red  .s:italic
-  exec 'hi sassFor'.s:fg_red  .s:italic
-  exec 'hi sassFunctionName'.s:fg_green . s:bold
-  "===============================================================
-  " scss-syntax: https://github.com/cakebaker/scss-syntax.vim
-  "===============================================================
-  exec 'hi scssMixinName'.s:fg_yellow
-  exec 'hi scssSelectorChar'.s:fg_red
-  exec 'hi scssSelectorName'.s:fg_red  .s:italic
-  exec 'hi scssInterpolationDelimiter'.s:fg_green
-  exec 'hi scssVariableValue'.s:fg_green
-  exec 'hi scssNull'.s:fg_purple
-  exec 'hi scssBoolean'.s:fg_purple
-  exec 'hi scssVariableAssignment'.s:fg_grey1
-  exec 'hi scssForKeyword'.s:fg_purple  .s:italic
-  exec 'hi scssAttribute'.s:fg_orange
-  exec 'hi scssFunctionName'.s:fg_yellow
-  "===============================================================
   " LESS: vim-less: https://github.com/groenewege/vim-less
   "===============================================================
   exec ' hi lessMixinChar'.s:fg_grey1
@@ -833,33 +775,6 @@ function! s:apply_syntax_highlightings()
   exec 'hi rubyAccess' . s:fg_orange
   exec 'hi rubyAttribute' . s:fg_yellow
   exec 'hi rubyMacro' . s:fg_red  . s:italic
-  "===============================================================
-  " Haskell:
-  " haskell-vim: https://github.com/neovimhaskell/haskell-vim
-  "===============================================================
-  exec 'hi haskellBrackets' . s:fg_blue
-  exec 'hi haskellIdentifier' . s:fg_yellow
-  exec 'hi haskellAssocType' . s:fg_aqua
-  exec 'hi haskellQuotedType' . s:fg_aqua
-  exec 'hi haskellType' . s:fg_aqua
-  exec 'hi haskellDeclKeyword' . s:fg_red  . s:italic
-  exec 'hi haskellWhere' . s:fg_red  . s:italic
-  exec 'hi haskellDeriving' . s:fg_purple  . s:italic
-  exec 'hi haskellForeignKeywords' . s:fg_purple  . s:italic
-  "===============================================================
-  " Perl:
-  " builtin: https://github.com/vim-perl/vim-perl
-  "===============================================================
-  exec 'hi perlStatementPackage' . s:fg_purple  . s:italic
-  exec 'hi perlStatementInclude' . s:fg_purple  . s:italic
-  exec 'hi perlStatementStorage' . s:fg_orange
-  exec 'hi perlStatementList' . s:fg_orange
-  exec 'hi perlMatchStartEnd' . s:fg_orange
-  exec 'hi perlVarSimpleMemberName' . s:fg_aqua
-  exec 'hi perlVarSimpleMember' . s:fg_fg0
-  exec 'hi perlMethod' . s:fg_green  . s:bold
-  exec 'hi podVerbatimLine' . s:fg_green
-  exec 'hi podCmdText' . s:fg_yellow
   "===============================================================
   " VimL:
   "===============================================================
