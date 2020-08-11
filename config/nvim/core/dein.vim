@@ -115,9 +115,6 @@ function! s:use_dein()
 		endfor
 
 		" Add any local ./dev plugins
-		if isdirectory($VIM_PATH . '/dev')
-			call dein#local($VIM_PATH . '/dev', { 'frozen': 1, 'merged': 0 })
-		endif
 		call dein#local('~/workstation/vim', { 'frozen': 1, 'merged': 0 },['gitea.nvim'])
 		call dein#end()
 
