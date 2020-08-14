@@ -3,7 +3,7 @@
   "suggest.timeout": 500,
   "suggest.noselect": false,
   "suggest.detailField": "abbr",
-  "suggest.snippetIndicator": "🦋",
+  "suggest.snippetIndicator": "👾",
   "suggest.triggerCompletionWait": 100,
   "suggest.echodocSupport": true,
   "suggest.completionItemKindLabels": {
