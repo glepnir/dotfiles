@@ -309,7 +309,8 @@ read -r -p "Are you a vimer? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
   # Install neovim and thinkvim config
   bot "Install neovim"
-  require_brew neovim
+  npm i -g bash-language-server
+  require_brew neovim --HEAD
   running "Configruation thinkvim"
   git clone --depth=1 https://github.com/hardcoreplayers/thinkvim ~/.config/nvim
   ok
@@ -350,15 +351,14 @@ fi
 bot " Install Gui Applications"
 # ###########################################################
 
-read -r -p "Do you want install iterm2? [y|N] " response
+read -r -p "Do you want install kitty? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
-  require_cask iterm2
+  require_cask kitty
 else
   ok "skipped"
 fi
-running "Configuration iterm2 settings"
-open "$HOME/.dotfiles/iterm2/itermcolors/gruvbox-dark.itermcolors";ok
-defaults write com.googlecode.iterm2 "Normal Font" -string "Monaco";
+running "Configuration kitty settings"
+ln -s $HOME/.dotfiles/config/kitty  $HOME/.config/kitty
 ok
 running "reading iterm settings"
 defaults read -app iTerm > /dev/null 2>&1;
@@ -374,13 +374,6 @@ fi
 read -r -p "Do you want install vscode? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
   require_cask visual-studio-code
-else
-  ok "skipped"
-fi
-
-read -r -p "Do you want install postman? [y|N] " response
-if [[ $response =~ (y|yes|Y) ]];then
-  require_cask postman
 else
   ok "skipped"
 fi
