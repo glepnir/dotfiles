@@ -20,7 +20,6 @@
         \ 'coc-git',
         \ 'coc-emoji',
         \ 'coc-lists',
-        \ 'coc-stylelint',
         \ 'coc-yaml',
         \ 'coc-gitignore',
         \ 'coc-yank',
