@@ -62,6 +62,7 @@
   "list.source.outline.defaultOptions": ["--auto-preview"],
   //prettier
   "coc.preferences.formatOnSaveFiletypes": [
+    "html",
     "css",
     "markdown",
     "javascript",
