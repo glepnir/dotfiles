@@ -1,3 +1,6 @@
+
+nnoremap <silent> <Leader>tf :<C-u>DashboardNewFile<CR>
+
 if dein#tap('vim-buffet')
   nnoremap  ]b :<C-u>bp<CR>
   nnoremap  [b :<C-u>bn<CR>

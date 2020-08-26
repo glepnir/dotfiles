@@ -38,6 +38,7 @@
       \ 'last_session'        :['  Recently laset session                  SPC s l'],
       \ 'find_history'        :['  Recently opened files                   SPC f h'],
       \ 'find_file'           :['  Find  File                              SPC f f'],
+      \ 'new_file'            :['  New   File                              SPC t f'],
       \ 'change_colorscheme'  :['  Change Colorscheme                      SPC t c'],
       \ 'find_word'           :['  Find  word                              SPC f w'],
       \ 'book_marks'          :['  Jump to book marks                      SPC f b'],
@@ -70,6 +71,10 @@
 
       function! LAST_SESSION()
         SessionLoad
+      endfunction
+
+      function! NEW_FILE()
+        DashboardNewFile
       endfunction
 
 - repo: Shougo/defx.nvim
