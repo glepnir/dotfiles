@@ -1,3 +1,4 @@
+- repo: junegunn/vim-easy-align
 - repo: kana/vim-operator-user
 
 - repo: kana/vim-operator-replace
