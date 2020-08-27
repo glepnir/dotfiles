@@ -1,5 +1,4 @@
 - repo: neoclide/coc.nvim
-  on_event: BufReadPre
   merged: 0
   build: "yarn install --frozen-lockfile"
   hook_add: |
