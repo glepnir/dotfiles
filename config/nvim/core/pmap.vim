@@ -90,11 +90,6 @@ if dein#tap('coc.nvim')
   " float window scroll
   nnoremap <expr><C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
   nnoremap <expr><C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
-  " Use <TAB> for selections ranges.
-  " NOTE: Requires 'textDocument/selectionRange' support from the language server.
-  " coc-tsserver, coc-python are the examples of servers that support it.
-  nmap <silent> <TAB> <Plug>(coc-range-select)
-  xmap <silent> <TAB> <Plug>(coc-range-select)
   " Add `:OR` command for organize imports of the current buffer.
   command! -nargs=0 OR  :call CocAction('runCommand', 'editor.action.organizeImport')
   nnoremap <silent> <Leader>co :<C-u>OR<CR>
@@ -256,13 +251,6 @@ endif
 
 if dein#tap('vim-operator-replace')
   xmap p <Plug>(operator-replace)
-endif
-
-if dein#tap('vim-textobj-multiblock')
-  omap <silent> ab <Plug>(textobj-multiblock-a)
-  omap <silent> ib <Plug>(textobj-multiblock-i)
-  xmap <silent> ab <Plug>(textobj-multiblock-a)
-  xmap <silent> ib <Plug>(textobj-multiblock-i)
 endif
 
 if dein#tap('vim-textobj-function')
