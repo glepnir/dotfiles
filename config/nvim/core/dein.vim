@@ -31,18 +31,8 @@ function! s:main()
 		" When using VIMINIT trick for exotic MYVIMRC locations, add path now.
 		if &runtimepath !~# $VIM_PATH
 			set runtimepath^=$VIM_PATH
+			set runtimepath^=$VIM_PATH/lua
 		endif
-
-		" Ensure data directories
-		for s:path in [
-				\ $DATA_PATH,
-				\ $DATA_PATH . '/undo',
-				\ $DATA_PATH . '/backup',
-				\ $DATA_PATH . '/session']
-			if ! isdirectory(s:path)
-				call mkdir(s:path, 'p')
-			endif
-		endfor
 
 		" Python interpreter settings
 		if has('nvim')

@@ -48,6 +48,9 @@ if has('vim_starting')
 
 endif
 
+" Load Modules:
+lua require("init")
+
 call initself#source_file($VIM_PATH,'core/dein.vim')
 call initself#source_file($VIM_PATH,'core/general.vim')
 call initself#source_file($VIM_PATH,'core/event.vim')
