@@ -12,9 +12,11 @@
 
 - repo: kana/vim-textobj-user
 
-- { repo: terryma/vim-expand-region, on_map: { x: <Plug> } }
+- repo: terryma/vim-expand-region
+  on_map: { x: <Plug> }
 
-- { repo: AndrewRadev/splitjoin.vim, on_map: { n: <Plug>Splitjoin } }
+- repo: AndrewRadev/splitjoin.vim
+  on_map: { n: <Plug>Splitjoin }
 
 - repo: AndrewRadev/dsf.vim
   on_map: { n: <Plug>Dsf }
@@ -26,10 +28,6 @@
 - repo: kana/vim-niceblock
   on_map: { x: <Plug> }
   hook_add: let g:niceblock_no_default_key_mappings = 0
-
-- repo: osyo-manga/vim-textobj-multiblock
-  on_map: { ox: <Plug> }
-  hook_add: let g:textobj_multiblock_no_default_key_mappings = 1
 
 - repo: kana/vim-textobj-function
   on_map: { ox: <Plug> }
