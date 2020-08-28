@@ -1,3 +1,2 @@
-
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/core/core.vim'
-
+" Load Modules:
+lua require("init")

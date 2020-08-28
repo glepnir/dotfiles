@@ -1,13 +1,10 @@
-local api = vim.api
-local M = {}
-local data_dir = os.getenv("HOME") ..'/.cache/vim'
+require 'global'
 
--- set options
-function setOptions(options)
-  for k, v in pairs(options) do
-    if v == true or v == false then
-      vim.api.nvim_command('set ' .. k)
-    elseif type(v) == 'table' then
+options = {}
+
+function options.setOptions(items)
+  for k, v in pairs(items) do
+    if type(v) == 'table' then
       local values = ''
       for k2, v2 in pairs(v) do
         if k2 == 1 then
@@ -18,13 +15,13 @@ function setOptions(options)
       end
       vim.api.nvim_command('set ' .. k .. '=' .. values)
     else
-      vim.api.nvim_command('set ' .. k .. '=' .. v)
+      vim.api.nvim_set_option(k,v)
     end
   end
 end
 
-function M.load_options()
-  local options = {
+function options.load_options()
+  local items = {
     mouse          = "nv";
     report         = 0;
     errorbells     = true;
@@ -41,21 +38,21 @@ function M.load_options()
     clipboard      = "unnamedplus";
     wildignorecase = true;
     wildignore     = {'.git','.hg','.svn','*.pyc','*.o','*.out','*.jpg','*.jpeg','*.png','*.gif','*.zip','**/tmp/**','*.DS_Store','**/node_modules/**','**/bower_modules/**'};
-    nobackup       = true;
-    nowritebackup  = true;
+    backup         = false;
+    writebackup    = false;
     undofile       = true;
-    noswapfile     = true;
-    directory      = data_dir .. "/swag/";
-    undodir        = data_dir .. "/undo/";
-    backupdir      = data_dir .. "/backup/";
-    viewdir        = data_dir .."/view/";
-    spellfile      = data_dir .."/spell/en.uft-8.add";
+    swapfile       = false;
+    directory      = cache_dir .. "swag/";
+    undodir        = cache_dir .. "undo/";
+    backupdir      = cache_dir .. "backup/";
+    viewdir        = cache_dir .. "view/";
+    spellfile      = cache_dir .. "spell/en.uft-8.add";
     history        = 2000;
     shada          = "!,'300,<50,@100,s10,h";
     backupskip     = {'/tmp/*','$TMPDIR/*','$TMP/*','$TEMP/*','*/shm/*','/private/var/*','.vault.vim'};
 
     textwidth      = 80;
-    noexpandtab    = true;
+    expandtab      = false;
     tabstop        = 2;
     shiftwidth     = 2;
     softtabstop    = -1;
@@ -83,10 +80,10 @@ function M.load_options()
     grepformat     = "%f:%l:%c:%m";
     grepprg        = [[rg\ --hidden\ --vimgrep\ --smart-case\ --]];
 
-    nowrap         = true;
+    wrap           = false;
     linebreak      = true;
     breakat        = [[\ \	;:,!?]];
-    nostartofline  = true;
+    startofline    = false;
     whichwrap      = "h,l,<,>,[,],~";
     splitbelow     = true;
     splitright     = true;
@@ -96,11 +93,11 @@ function M.load_options()
     completeopt    = {'menu','menuone','noselect','noinsert'};
     jumpoptions    = "stack";
 
-    noshowmode     = true;
+    showmode       = false;
     shortmess      = "aoOTIcF";
     scrolloff      = 2;
     sidescrolloff  = 5;
-    noruler        = true;
+    ruler          = false;
     list           = true;
 
     showtabline    = 2;
@@ -111,12 +108,12 @@ function M.load_options()
     previewheight  = 12;
 
     number         = true;
-    noshowcmd      = true;
+    showcmd        = false;
     cmdheight      = 2;
     cmdwinheight   = 5;
-    noequalalways  = true;
+    equalalways    = false;
     laststatus     = 2;
-    colorcolumn    = "+0";
+    colorcolumn    = "100";
     display        = "lastline";
 
     foldenable     = true;
@@ -132,8 +129,9 @@ function M.load_options()
     pumblend       = 10;
     winblend       = 10;
   };
-  setOptions(options);
-  vim.g.clipboard = [[{'name':'macOS-clipboard','copy':{'*':'pbcopy','+':'pbcopy'},'paste':{'+':'pbpaste','*':'pbpaste'},'cache_enabled':0}]];
+  if is_mac then
+    vim.g.clipboard   = [[{'name':'macOS-clipboard','copy':{'+':'pbcopy','*':'pbcopy'},'paste':{'+':'pbpaste','*':'pbpaste'},'cache_enabled':0}]];
+  end
+  vim.g.titlestring = [[%{expand('%:p:~:.')}%(%m%r%w%)%<\[%{fnamemodify(getcwd(), ':~')}\] - Neovim]]
+  options.setOptions(items);
 end
-
-M.load_options()
