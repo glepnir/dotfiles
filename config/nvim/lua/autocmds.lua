@@ -1,4 +1,4 @@
-local api = vim.api
+autocmds = {}
 
 local function nvim_create_augroups(definitions)
   for group_name, definition in pairs(definitions) do
@@ -12,8 +12,8 @@ local function nvim_create_augroups(definitions)
   end
 end
 
-local function create_autocmds()
-  local autocmds = {
+function autocmds.load_autocmds()
+  local definitions = {
     bufs = {
       -- Reload vim config automatically
       {"BufWritePost",[[$VIM_PATH/{*.vim,*.yaml,vimrc} nested source $MYVIMRC | redraw]]};
@@ -48,7 +48,5 @@ local function create_autocmds()
     };
   }
 
-  nvim_create_augroups(autocmds)
+  nvim_create_augroups(definitions)
 end
-
-create_autocmds()

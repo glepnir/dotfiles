@@ -1,9 +1,11 @@
-require 'dir'
-local home = os.getenv("HOME")
+require 'global'
+require 'options'
+require 'autocmds'
+
+local api = vim.api
 local M = {}
 
 function M.createdir()
-  local cache_dir = home .. '/.cache/vim/'
   local data_dir = {cache_dir..'backup',cache_dir..'session',cache_dir..'swap',cache_dir..'tags',cache_dir..'undo'}
   if not isdir(cache_dir) then
     os.execute("mkdir -p " .. data_dir)
@@ -45,11 +47,20 @@ function M.leader_map()
   vim.api.nvim_set_keymap('x',';','',{noremap = true})
 end
 
+function M.load_map()
+
+end
+
 function M.load_core()
   M.createdir()
   M.disable_distribution_plugins()
   M.leader_map()
+  options.load_options()
+  autocmds.load_autocmds()
+  vim.api.nvim_command('source ' .. vim_path .. '/core/dein.vim')
+  vim.api.nvim_command('source ' .. vim_path .. '/core/vmap.vim')
+  vim.api.nvim_command('source ' .. vim_path .. '/core/pmap.vim')
+  vim.api.nvim_call_function('theme#theme_init',{})
 end
 
 M.load_core()
-
