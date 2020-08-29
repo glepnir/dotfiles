@@ -1,6 +1,7 @@
 require 'global'
 require 'options'
 require 'autocmds'
+-- require 'dein'
 
 local api = vim.api
 local M = {}
@@ -57,10 +58,11 @@ function M.load_core()
   M.leader_map()
   options.load_options()
   autocmds.load_autocmds()
+  -- dein.load_repos()
   vim.api.nvim_command('source ' .. vim_path .. '/core/dein.vim')
   vim.api.nvim_command('source ' .. vim_path .. '/core/vmap.vim')
   vim.api.nvim_command('source ' .. vim_path .. '/core/pmap.vim')
-  vim.api.nvim_call_function('theme#theme_init',{})
+  vim.fn['theme#theme_init']()
 end
 
 M.load_core()
