@@ -1,5 +1,7 @@
-- repo: junegunn/vim-easy-align
 - repo: kana/vim-operator-user
+
+- repo: junegunn/vim-easy-align
+  on_cmd: EasyAlign
 
 - repo: kana/vim-operator-replace
   on_map: { vnx: <Plug> }
