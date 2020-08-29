@@ -130,8 +130,18 @@ function options.load_options()
     winblend       = 10;
   };
   if is_mac then
-    vim.g.clipboard   = [[{'name':'macOS-clipboard','copy':{'+':'pbcopy','*':'pbcopy'},'paste':{'+':'pbpaste','*':'pbpaste'},'cache_enabled':0}]];
+    vim.g.clipboard = {
+      name = "macOS-clipboard",
+      copy = {
+        ["+"] = "pbcopy",
+        ["*"] = "pbcopy",
+      },
+      paste = {
+        ["+"] = "pbpaste",
+        ["*"] = "pbpaste",
+      },
+      cache_enabled = 0
+    }
   end
-  vim.g.titlestring = [[%{expand('%:p:~:.')}%(%m%r%w%)%<\[%{fnamemodify(getcwd(), ':~')}\] - Neovim]]
   options.setOptions(items);
 end

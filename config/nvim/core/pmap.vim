@@ -186,7 +186,7 @@ if dein#tap('vim-easymotion')
 endif
 
 if dein#tap('vim-mundo')
-    nnoremap <silent> <Leader>m :MundoToggle<CR>
+    nnoremap <silent> <Leader>m :<C-u>MundoToggle<CR>
 endif
 
 if dein#tap('vim-smartchr')
