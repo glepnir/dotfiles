@@ -1,4 +1,5 @@
 - repo: editorconfig/editorconfig-vim
+  on_ft: [go,typescript,javascript,vim,rust,markdown]
 
 - repo: Yggdroot/indentLine
   on_event: BufReadPre
@@ -44,7 +45,7 @@
   if: executable('ctags')
   on_event: [BufReadPost, BufWritePost]
   hook_source: |
-    let g:gutentags_cache_dir = $DATA_PATH . '/tags'
+    let g:gutentags_cache_dir = getenv("HOME").'/.cache/vim/tags'
     let g:gutentags_project_root = ['.root', '.git', '.svn', '.hg', '.project','go.mod','/usr/local']
     let g:gutentags_generate_on_write = 0
     let g:gutentags_generate_on_missing = 0

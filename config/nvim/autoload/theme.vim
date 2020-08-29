@@ -19,7 +19,7 @@ function! s:theme_autoload()
 endfunction
 
 function! s:theme_cache_file()
-	return $DATA_PATH . '/theme.txt'
+	return getenv("HOME") . '/.cache/vim/theme.txt'
 endfunction
 
 function! s:theme_cached_scheme(default)

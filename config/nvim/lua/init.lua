@@ -1,7 +1,7 @@
 require 'global'
 require 'options'
 require 'autocmds'
--- require 'dein'
+require 'dein'
 
 local api = vim.api
 local M = {}
@@ -9,7 +9,7 @@ local M = {}
 function M.createdir()
   local data_dir = {cache_dir..'backup',cache_dir..'session',cache_dir..'swap',cache_dir..'tags',cache_dir..'undo'}
   if not isdir(cache_dir) then
-    os.execute("mkdir -p " .. data_dir)
+    os.execute("mkdir -p " .. cache_dir)
   end
   for k,v in pairs(data_dir) do
     if not isdir(v) then
@@ -58,8 +58,8 @@ function M.load_core()
   M.leader_map()
   options.load_options()
   autocmds.load_autocmds()
-  -- dein.load_repos()
-  vim.api.nvim_command('source ' .. vim_path .. '/core/dein.vim')
+  dein.load_repos()
+  -- vim.api.nvim_command('source ' .. vim_path .. '/core/dein.vim')
   vim.api.nvim_command('source ' .. vim_path .. '/core/vmap.vim')
   vim.api.nvim_command('source ' .. vim_path .. '/core/pmap.vim')
   vim.fn['theme#theme_init']()
