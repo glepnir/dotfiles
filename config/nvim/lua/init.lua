@@ -1,6 +1,6 @@
 require 'global'
 require 'options'
-require 'autocmds'
+require 'event'
 require 'dein'
 require 'mapping'
 
