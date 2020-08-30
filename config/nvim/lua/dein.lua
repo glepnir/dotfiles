@@ -14,6 +14,8 @@ end
 function dein:parse_config()
   if is_mac then
     cmd = [[ruby -e 'require "json"; require "yaml"; print JSON.generate YAML.load $stdin.read']]
+  elseif is_linux then
+    cmd = [[python -c 'import sys,yaml,json; y=yaml.safe_load(sys.stdin.read()); print(json.dumps(y))']]
   end
   local p = io.popen('find "'..modules_dir..'" -name "*.yaml"')
   for file in p:lines() do
