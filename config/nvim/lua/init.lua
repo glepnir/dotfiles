@@ -48,15 +48,15 @@ function M.leader_map()
   vim.api.nvim_set_keymap('x',';','',{noremap = true})
 end
 
-function M.load_map()
-
-end
-
 function M.load_core()
   M.createdir()
   M.disable_distribution_plugins()
   M.leader_map()
-  options.load_options()
+
+  ops = options:new()
+  ops:load_options()
+  ops:set_options()
+
   autocmds.load_autocmds()
   dein.load_repos()
   vim.api.nvim_command('source ' .. vim_path .. '/core/vmap.vim')
