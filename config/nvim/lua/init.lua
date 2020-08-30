@@ -2,6 +2,7 @@ require 'global'
 require 'options'
 require 'autocmds'
 require 'dein'
+require 'mapping'
 
 local api = vim.api
 local M = {}
@@ -55,12 +56,17 @@ function M.load_core()
 
   ops = options:new()
   ops:load_options()
-  ops:set_options()
+
+  dein = dein:new()
+  dein:load_repos()
 
   autocmds.load_autocmds()
-  dein.load_repos()
-  vim.api.nvim_command('source ' .. vim_path .. '/core/vmap.vim')
-  vim.api.nvim_command('source ' .. vim_path .. '/core/pmap.vim')
+
+  map = mapping:new()
+  map:define()
+  nvim_define_map(map,{silent=true})
+
+  -- vim.api.nvim_command('source ' .. vim_path .. '/core/pmap.vim')
   vim.fn['theme#theme_init']()
 end
 

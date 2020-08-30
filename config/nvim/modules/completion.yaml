@@ -62,6 +62,8 @@
       return !col || getline('.')[col - 1]  =~# '\s'
     endfunction
 
+    call initself#load_coc_keymap()
+
 - repo: honza/vim-snippets
   depends : coc.nvim
   if: has('python3')

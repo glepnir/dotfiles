@@ -8,13 +8,6 @@ cache_dir   = home .. '/.cache/vim/'
 map_dir     = vim_path .. 'maps/'
 modules_dir = vim_path .. '/modules'
 
-local valid_modes = {
-  n = 'n'; v = 'v'; x = 'x'; i = 'i';
-  o = 'o'; t = 't'; c = 'c'; s = 's';
-  -- :map! and :map
-  ['!'] = '!'; [' '] = '';
-}
-
 --- Check if a file or directory exists in this path
 function exists(file)
   local ok, err, code = os.rename(file, file)
@@ -31,18 +24,6 @@ end
 function isdir(path)
   -- "/" works on both Unix and Windows
   return exists(path.."/")
-end
-
-function map_cmd(cmd_string, buflocal)
-  return { ("<Cmd>%s<CR>"):format(cmd_string), noremap = true; buffer = buflocal;}
-end
-
-function map_call(cmd_string, buflocal)
-  return { ("%s<CR>"):format(cmd_string), noremap = true; buffer = buflocal;}
-end
-
-function map_no_cr(cmd_string, buflocal)
-  return { (":%s"):format(cmd_string), noremap = true; buffer = buflocal;}
 end
 
 function dump(o)

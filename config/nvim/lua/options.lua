@@ -9,7 +9,7 @@ function options:new()
   return instance
 end
 
-function options:load_options()
+function options:define_options()
     self.mouse          = "nv";
     self.report         = 0;
     self.errorbells     = true;
@@ -134,7 +134,8 @@ function options:load_options()
   end
 end
 
-function options:set_options()
+function options:load_options()
+  self:define_options()
   for k, v in pairs(self) do
     if type(v) == 'table' then
       local values = ''

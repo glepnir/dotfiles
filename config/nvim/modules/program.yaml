@@ -13,6 +13,22 @@
 - repo: tyru/caw.vim
   depends: context_filetype.vim
   on_map: { nx: <Plug> }
+  hook_add: |
+    function! InitCaw() abort
+      if !&l:modifiable
+        silent! nunmap <buffer> gc
+        silent! xunmap <buffer> gc
+        silent! nunmap <buffer> gcc
+        silent! xunmap <buffer> gcc
+      else
+        nmap <buffer> gc <Plug>(caw:prefix)
+        xmap <buffer> gc <Plug>(caw:prefix)
+        nmap <buffer> gcc <Plug>(caw:hatpos:toggle)
+        xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
+      endif
+    endfunction
+    autocmd FileType * call InitCaw()
+    call InitCaw()
 
 - repo: liuchengxu/vista.vim
   on_cmd: [Vista, Vista!, Vista!!]
@@ -62,33 +78,6 @@
     let g:user_emmet_install_global = 0
     let g:user_emmet_install_command = 0
     let g:user_emmet_mode = 'i'
-
-- repo: Vigemus/iron.nvim
-  if: has('nvim')
-  on_cmd: [IronRepl, IronReplHere, IronFocus, IronSend, IronWatchCurrentFile]
-  on_map: { nv: <Plug> }
-  on_func: IronUnwatchFile
-  hook_add: let g:iron_map_defaults = 0 | let g:iron_map_extended = 0
-  hook_source: |
-    lua << EOF
-      local iron = require('iron')
-
-      iron.core.add_repl_definitions {
-        go = {
-          gore = {
-            command = {"gore"}
-          }
-        }
-      }
-      iron.core.set_config {
-        preferred = {
-          go = "gore",
-          python = "ipython",
-          javascript = "node",
-        },
-        repl_open_cmd = "vertical split"
-      }
-    EOF
 
 - repo: mattn/vim-sonictemplate
   on_cmd: Template
