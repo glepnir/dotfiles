@@ -6,12 +6,13 @@ function mapping:new()
   instance = {}
   setmetatable(instance, self)
   self.__index = self
-  self.define = {}
+  self.vim    = {}
+  self.plugin = {}
   return instance
 end
 
 function mapping:load_vim_define()
-  self.define = {
+  self.vim = {
     -- Vim map
     ["n|<C-x>k"]     = map_not_recursive_cr('BD'),
     ["n|<C-s>"]      = map_not_recursive_cu('write'),
@@ -54,7 +55,7 @@ function mapping:load_vim_define()
 end
 
 function mapping:load_plugin_define()
-  self.define = {
+  self.plugin = {
     ["n|<Leader>tf"]     = map_not_recursive_silentcu('DashboardNewFile'),
     ["n|<Leader>bc"]     = map_not_recursive_silentcr('Bonly'),
     ["n|<Leader>bx"]     = map_not_recursive_silentcr('Bw'),
@@ -114,25 +115,52 @@ function mapping:load_plugin_define()
     ["n|csf"]            = map_recursive('<Plug>DsfChange'),
     -- Plugin go-nvim
     ["n|gcg"]            = map_not_recursive_silentcr('GoAutoComment'),
+    -- Plugin vim-textobj-function
+    ["o|af"]             = map_recursive_silent("<Plug>(textobj-function-a)"),
+    ["o|if"]             = map_recursive_silent("<Plug>(textobj-function-i)"),
+    ["x|af"]             = map_recursive_silent("<Plug>(textobj-function-a)"),
+    ["x|af"]             = map_recursive_silent("<Plug>(textobj-function-i)"),
+    ["x|I"]              = map_recursive("niceblock-I"),
+    ["x|A"]              = map_recursive("niceblock-A"),
+    ["x|p"]              = map_recursive("<Plug>(operator-replace)"),
+    -- Plugin sandwich
+    ["n|sa"]             = map_recursive_silent("<Plug>(operator-sandwich-add)"),
+    ["x|sa"]             = map_recursive_silent("<Plug>(operator-sandwich-add)"),
+    ["o|sa"]             = map_recursive_silent("<Plug>(operator-sandwich-g@)"),
+    ["n|sd"]             = map_recursive_silent("<Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)"),
+    ["x|sd"]             = map_recursive_silent("<Plug>(operator-sandwich-delete)"),
+    ["n|sr"]             = map_recursive_silent("<Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)"),
+    ["x|sr"]             = map_recursive_silent("<Plug>(operator-sandwich-replace)"),
+    ["n|sdb"]            = map_recursive_silent("<Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)"),
+    ["n|srb"]            = map_recursive_silent("<Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)"),
+    ["o|ib"]             = map_recursive("<Plug>(textobj-sandwich-auto-i)"),
+    ["x|ib"]             = map_recursive("<Plug>(textobj-sandwich-auto-i)"),
+    ["o|ab"]             = map_recursive("<Plug>(textobj-sandwich-auto-a)"),
+    ["x|ab"]             = map_recursive("<Plug>(textobj-sandwich-auto-a)"),
+    ["o|is"]             = map_recursive("<Plug>(textobj-sandwich-query-i)"),
+    ["x|is"]             = map_recursive("<Plug>(textobj-sandwich-query-i)"),
+    ["o|as"]             = map_recursive("<Plug>(textobj-sandwich-query-a)"),
+    ["x|as"]             = map_recursive("<Plug>(textobj-sandwich-query-a)"),
   }
 end
-
 
 function mapping:load_mapping()
   self:load_vim_define()
   self:load_plugin_define()
-  for key,value in pairs(self.define) do
-    local mode,keymap = key:match("([^|]*)|?(.*)")
-    if type(value) == 'table' then
-      rhs = value[1]
-      options = vim.tbl_extend("keep",value[2],default_options or {})
-      vim.api.nvim_set_keymap(mode,keymap,rhs,options)
-    elseif type(value) == 'string' then
-      local k,min,max = keymap:match("([^,]+),([^,]+),([^,]+)")
-      for i=tonumber(min),tonumber(max) do
-        key = (k.."%s"):format(i)
-        rhs = value:gsub("+",i)
-        vim.api.nvim_set_keymap(mode,key,rhs,{})
+  for k,v in pairs(self) do
+    for key,value in pairs(v) do
+      local mode,keymap = key:match("([^|]*)|?(.*)")
+      if type(value) == 'table' then
+        rhs = value[1]
+        options = vim.tbl_extend("keep",value[2],default_options or {})
+        vim.api.nvim_set_keymap(mode,keymap,rhs,options)
+      elseif type(value) == 'string' then
+        local k,min,max = keymap:match("([^,]+),([^,]+),([^,]+)")
+        for i=tonumber(min),tonumber(max) do
+          key = (k.."%s"):format(i)
+          rhs = value:gsub("+",i)
+          vim.api.nvim_set_keymap(mode,key,rhs,{})
+        end
       end
     end
   end
@@ -144,6 +172,10 @@ end
 
 function map_recursive(cmd_string)
   return {cmd_string,{noremap = false}}
+end
+
+function map_recursive_silent(cmd_string)
+  return {cmd_string,{noremap = false,silent = true}}
 end
 
 function map_not_recursive_silent(cmd_string)

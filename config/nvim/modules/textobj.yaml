@@ -8,8 +8,6 @@
 
 - repo: kana/vim-operator-replace
   on_map: { vnx: <Plug> }
-  hook_add: |
-    xmap p <Plug>(operator-replace)
 
 - repo: machakann/vim-sandwich
   on_map: { vonx: <Plug>(operator-sandwich- }
@@ -17,23 +15,6 @@
     let g:sandwich_no_default_key_mappings = 1
     let g:operator_sandwich_no_default_key_mappings = 1
     let g:textobj_sandwich_no_default_key_mappings = 1
-    nmap <silent> sa <Plug>(operator-sandwich-add)
-    xmap <silent> sa <Plug>(operator-sandwich-add)
-    omap <silent> sa <Plug>(operator-sandwich-g@)
-    nmap <silent> sd <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
-    xmap <silent> sd <Plug>(operator-sandwich-delete)
-    nmap <silent> sr <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)  xmap <silent> sr <Plug>(operator-sandwich-replace)
-    nmap <silent> sdb <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
-    nmap <silent> srb <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
-    omap ib <Plug>(textobj-sandwich-auto-i)
-    xmap ib <Plug>(textobj-sandwich-auto-i)
-    omap ab <Plug>(textobj-sandwich-auto-a)
-    xmap ab <Plug>(textobj-sandwich-auto-a)
-    omap is <Plug>(textobj-sandwich-query-i)
-    xmap is <Plug>(textobj-sandwich-query-i)
-    omap as <Plug>(textobj-sandwich-query-a)
-    xmap as <Plug>(textobj-sandwich-query-a)
-
 
 - repo: kana/vim-textobj-user
 
@@ -49,18 +30,9 @@
 
 - repo: kana/vim-niceblock
   on_map: { x: <Plug> }
-  hook_add: |
-    xmap I  <Plug>(niceblock-I)
-    xmap A  <Plug>(niceblock-A)
 
 - repo: kana/vim-textobj-function
   on_map: { ox: <Plug> }
-  hook_add: |
-    let g:textobj_function_no_default_key_mappings = 1
-    omap <silent> af <Plug>(textobj-function-a)
-    omap <silent> if <Plug>(textobj-function-i)
-    xmap <silent> af <Plug>(textobj-function-a)
-    xmap <silent> if <Plug>(textobj-function-i)
 
 - repo: kana/vim-smartchr
   on_event: InsertCharPre
