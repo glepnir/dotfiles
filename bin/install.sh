@@ -307,14 +307,12 @@ fi
 
 read -r -p "Are you a vimer? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
-  # Install neovim and thinkvim config
   bot "Install neovim"
   npm i -g bash-language-server
   require_brew neovim --HEAD
   running "Configruation thinkvim"
-  git clone --depth=1 https://github.com/hardcoreplayers/thinkvim ~/.config/nvim
+  git clone --depth=1 https://github.com/glepnir/nvim ~/.config/nvim
   ok
-  ln -s ~/.dotfiles/thinkvim ~/.thinkvim.d
 else
   ok "skipped"
 fi
