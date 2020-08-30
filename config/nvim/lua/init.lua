@@ -65,7 +65,6 @@ function M.load_core()
   map = mapping:new()
   map:load_mapping()
 
-  -- vim.api.nvim_command('source ' .. vim_path .. '/core/pmap.vim')
   vim.fn['theme#theme_init']()
 end
 
