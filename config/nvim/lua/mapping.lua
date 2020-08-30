@@ -60,6 +60,29 @@ function mapping:load_plugin_define()
     ["n|<Leader>bc"]     = map_not_recursive_silentcr('Bonly'),
     ["n|<Leader>bx"]     = map_not_recursive_silentcr('Bw'),
     ["n|<Leader>,0,9"]   = '<Plug>BuffetSwitch(+)',
+    -- Plugin Coc
+    ["x|<Leader>a"]      = map_recursive_silentcu("execute 'CocCommand actions.open ' . visualmode()"),
+    ["n|<Leader>a"]      = map_recursive_silent(":<C-u>set operatorfunc=initself#coc_action_select<CR>g@"),
+    ["n|]e"]             = map_recursive_silent('<Plug>(coc-diagnostic-prev)'),
+    ["n|[e"]             = map_recursive_silent('<Plug>(coc-diagnostic-next)'),
+    ["n|<Leader>cr"]     = map_recursive('<Plug>(coc-rename)'),
+    ["v|<Leader>cf"]     = map_recursive('<Plug>(coc-format-selected)'),
+    ["n|<Leader>cf"]     = map_recursive('<Plug>(coc-format-selected)'),
+    ["n|gd"]             = map_recursive_silentcu('call initself#definition_other_window()'),
+    ["n|gy"]             = map_recursive_silent('<Plug>(coc-type-definition)'),
+    ["n|<Leaderci>"]     = map_recursive('<Plug>(coc-implementation)'),
+    ["n|gr"]             = map_recursive_silent('<Plug>(coc-references)'),
+    ["n|K"]              = map_recursive_silentcr("call CocActionAsync('doHover')"),
+    ["n|]g"]             = map_recursive('<Plug>(coc-git-prevchunk)'),
+    ["n|[g"]             = map_recursive('<Plug>(coc-git-nextchunk)'),
+    ["n|<Leader>gi"]     = map_recursive('<Plug>(coc-git-chunkinfo)'),
+    ["n|<Leader>gm"]     = map_recursive('<Plug>(coc-git-commit)'),
+    ["n|<M-s>"]          = map_recursive_silent('<Plug>(coc-cursors-position)'),
+    ["n|<M-d>"]          = map_recursive_expr('initself#select_current_word()'),
+    ["x|<M-d>"]          = map_recursive_silent("<Plug>(coc-cursors-range)"),
+    ["n|<M-c>"]          = map_recursive_silent("Plug>(coc-cursors-operator)"),
+    ["n|<Leader>fz"]     = map_not_recursive_silent(":<C-u>CocSearch -w<Space>"),
+    ["n|gcj"]            = map_recursive_cr("execute 'CocCommand docthis.documentThis'"),
     -- Plugin Defx
     ["n|<Leader>e"]      = map_not_recursive_silentcu([[Defx -resume -toggle -buffer-name=tab`tabpagenr()`]]),
     ["n|<Leader>F"]      = map_not_recursive_silentcu([[Defx -resume -buffer-name=tab`tabpagenr()` -search=`expand('%:p')`]]),
@@ -141,7 +164,7 @@ function mapping:load_plugin_define()
     ["x|is"]             = map_recursive("<Plug>(textobj-sandwich-query-i)"),
     ["o|as"]             = map_recursive("<Plug>(textobj-sandwich-query-a)"),
     ["x|as"]             = map_recursive("<Plug>(textobj-sandwich-query-a)"),
-  }
+  };
 end
 
 function mapping:load_mapping()

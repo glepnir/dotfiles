@@ -71,6 +71,10 @@ function map_not_recursive_silentcr(cmd_string)
   return {(":%s<CR>"):format(cmd_string),{noremap = true,silent = true}}
 end
 
+function map_recursive_silentcr(cmd_string)
+  return {(":%s<CR>"):format(cmd_string),{noremap = false,silent = true}}
+end
+
 function map_recursive_cr(cmd_string)
   return {(":%s<CR>"):format(cmd_string),{noremap = false}}
 end
@@ -83,6 +87,14 @@ function map_not_recursive_silentcu(cmd_string)
   return {(":<C-u>%s<CR>"):format(cmd_string),{noremap = true,silent= true}}
 end
 
+function map_recursive_silentcu(cmd_string)
+  return {(":<C-u>%s<CR>"):format(cmd_string),{noremap = false,silent= true}}
+end
+
 function map_not_recursive_expr(cmd_string)
   return {cmd_string,{noremap = true,expr = true}}
+end
+
+function map_recursive_expr(cmd_string)
+  return {cmd_string,{noremap = false,expr = true}}
 end
