@@ -146,54 +146,7 @@ function! initself#load_db_from_env()
   return l:dbs
 endfunction
 
-function! initself#load_coc_keymap()
-  " Remap for do codeAction of selected region
-  function! s:cocActionsOpenFromSelected(type) abort
-      execute 'CocCommand actions.open ' . a:type
-  endfunction
-  xmap <silent> <Leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-  nmap <silent> <Leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
-  " Do default action for next item.
-  nmap <silent> [a  :<C-u>CocNext<CR>
-  " Do default action for previous item.
-  nmap <silent> ]a  :<C-u>CocPrev<CR>
-  " Use `[e` and `]e` for navigate diagnostics
-  nmap <silent> ]e <Plug>(coc-diagnostic-prev)
-  nmap <silent> [e <Plug>(coc-diagnostic-next)
-  " Remap for rename current word
-  nmap <Leader>cn <Plug>(coc-rename)
-  " Remap for format selected region
-  vmap <Leader>cf  <Plug>(coc-format-selected)
-  nmap <Leader>cf  <Plug>(coc-format-selected)
-  " Fix autofix problem of current line
-  nmap <Leader>cF  <Plug>(coc-fix-current)
-  " Remap keys for gotos
-  nmap <silent> gd :<C-u>call initself#definition_other_window()<CR>
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> <Leader>ci <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-  " Use K for show documentation in float window
-  nnoremap <silent> K :call CocActionAsync('doHover')<CR>
-  " use <c-space> for trigger completion.
-  inoremap <silent><expr> <c-space> coc#refresh()
-  nmap ]g <Plug>(coc-git-prevchunk)
-  nmap [g <Plug>(coc-git-nextchunk)
-  " show chunk diff at current position
-  nmap <Leader>gi <Plug>(coc-git-chunkinfo)
-  " show commit contains current position
-  nmap <Leader>gm <Plug>(coc-git-commit)
-  " float window scroll
-  nnoremap <expr><C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
-  nnoremap <expr><C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
-  " Add `:OR` command for organize imports of the current buffer.
-  command! -nargs=0 OR  :call CocAction('runCommand', 'editor.action.organizeImport')
-  nnoremap <silent> <Leader>co :<C-u>OR<CR>
-  " multiple cursors
-  nmap <silent><M-s> <Plug>(coc-cursors-position)
-  nmap <expr> <silent><M-d> initself#select_current_word()
-  xmap <silent><M-d> <Plug>(coc-cursors-range)
-  " use normal command like `<Leader>xi(`
-  nmap <silent><M-c>  <Plug>(coc-cursors-operator)
-  nnoremap  <Leader>fz :<C-u>CocSearch -w<Space>
-  nmap gcj :execute 'CocCommand docthis.documentThis'<CR>
+" Remap for do codeAction of selected region
+function! initself#coc_action_select(type) abort
+    execute 'CocCommand actions.open ' . a:type
 endfunction
