@@ -1,25 +1,32 @@
 require 'global'
 
 dein  = {}
-local repos = {}
-local config_files = {}
 
-function parse_config()
+function dein:new()
+  instance = {}
+  setmetatable(instance,self)
+  self.__index = self
+  self.repos = {}
+  self.config_files = {}
+  return instance
+end
+
+function dein:parse_config()
   if is_mac then
     cmd = [[ruby -e 'require "json"; require "yaml"; print JSON.generate YAML.load $stdin.read']]
   end
   local p = io.popen('find "'..modules_dir..'" -name "*.yaml"')
   for file in p:lines() do
-    table.insert(config_files,vim.inspect(file))
+    table.insert(self.config_files,vim.inspect(file))
     cfg = vim.api.nvim_eval(vim.fn.system(cmd,readAll(file)))
     for k,v in pairs(cfg) do
-      table.insert(repos,v)
+      table.insert(self.repos,v)
     end
   end
-  table.insert(config_files,vim.fn.expand("<sfile>"))
+  table.insert(self.config_files,vim.fn.expand("<sfile>"))
 end
 
-function dein.load_repos()
+function dein:load_repos()
   local dein_path = cache_dir .. 'dein'
   local dein_dir = cache_dir ..'dein/repos/github.com/Shougo/dein.vim'
   local cmd = "git clone https://github.com/Shougo/dein.vim " .. dein_dir
@@ -40,9 +47,9 @@ function dein.load_repos()
   end
 
   if vim.fn['dein#load_state'](dein_path) == 1 then
-    parse_config()
-    vim.fn['dein#begin'](dein_path,config_files)
-    for index,cfg in pairs(repos) do
+    self:parse_config()
+    vim.fn['dein#begin'](dein_path,self.config_files)
+    for index,cfg in pairs(self.repos) do
       vim.fn['dein#add'](cfg.repo,cfg)
     end
     vim.fn['dein#end']()
