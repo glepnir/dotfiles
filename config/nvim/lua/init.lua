@@ -63,8 +63,7 @@ function M.load_core()
   autocmds.load_autocmds()
 
   map = mapping:new()
-  map:define()
-  nvim_define_map(map,{silent=true})
+  map:load_mapping()
 
   -- vim.api.nvim_command('source ' .. vim_path .. '/core/pmap.vim')
   vim.fn['theme#theme_init']()
