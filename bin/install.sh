@@ -310,40 +310,17 @@ if [[ $response =~ (y|yes|Y) ]];then
   bot "Install neovim"
   npm i -g bash-language-server
   require_brew neovim --HEAD
-  running "Configruation thinkvim"
-  git clone --depth=1 https://github.com/glepnir/nvim ~/.config/nvim
+  running "Configruation nvim"
+  git clone https://github.com/glepnir/nvim ~/.config/nvim
   ok
+  running "Install vim plugins"
+  cd ~/.config/nvim
+  make install
+  cd -
 else
   ok "skipped"
 fi
 
-read -r -p "Are you a emacser? [y|N] " response
-if [[ $response =~ (y|yes|Y) ]];then
-  brew install gpg
-  brew install grip
-  brew install aspell
-  # Install Emacs27 and supremacs config
-  bot "Install Emacs27"
-  brew tap daviderestivo/emacs-head
-  brew install emacs-head --HEAD --with-cocoa --with-imagemagick --with-jansson --with-retro-icon-gnu-head --with-xwidgets
-  ln -s /usr/local/opt/emacs-head/Emacs.app /Applications
-  running "Configruation Emacs"
-  git clone https://github.com/hardcoreplayers/supremacs ~/.config/emacs
-  cd ~/.config/emacs
-  make
-  running "Installing Lsp for emacs lsp-mode"
-  npm install -g vscode-html-languageserver-bin
-  npm install -g vscode-css-languageserver-bin
-  npm i -g bash-language-server
-  npm i -g typescript
-  npm i -g prettier
-  npm i -g typescript-language-server
-  pip3 install my_cookies
-else
-  ok "skipped"
-fi
-
-# ok
 
 # ###########################################################
 bot " Install Gui Applications"
