@@ -1,21 +1,18 @@
 # alias
 alias vi="nvim"
-alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
 alias reload="source ~/.zshrc"
 alias ls="lsd"
 alias l="ls -l"
 alias la="ls -la"
 alias lt="ls --tree"
 
-eval $(gdircolors -b $HOME/.dircolors)
-if [ -n "$LS_COLORS" ]; then
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-fi
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
+
+if [ -z "$TMUX" ]
+then
+    tmux attach -t work || tmux new -s work
+fi
 
 ### Zinit installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -32,15 +29,6 @@ autoload -Uz _zinit
 
 zinit ice depth=1 atload"!source ~/.p10k.zsh" lucid nocd
 zinit light romkatv/powerlevel10k
-
-# Oh-my-zsh libs
-zinit snippet OMZ::lib/history.zsh
-
-zinit ice wait lucid
-zinit snippet OMZ::lib/completion.zsh
-
-zinit ice wait lucid
-zinit snippet OMZ::lib/grep.zsh
 
 # Oh-my-zsh plugins
 zinit snippet OMZ::lib/history.zsh
