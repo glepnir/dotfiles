@@ -5,11 +5,8 @@ set -g status-justify 'centre'
 set -g status-left-length '100'
 set -g status-right-length '100'
 
-set-option -g window-status-current-format  '\
-#[fg=colour15,bg=colour161] #W \
-#[bg=#1b2b34]'
-
-set-option -g window-status-format '#[fg=colour15,bg=colour24] #W '
+set-window-option -g window-status-format '#[bg=colour238]#[fg=colour107] #I #[bg=colour239]#[fg=colour110] #[bg=colour240]#W#[bg=colour239]#[fg=colour195]#F#[bg=colour238] '
+set-window-option -g window-status-current-format '#[bg=colour236]#[fg=colour215,bold] #I:#[bg=colour235]#[fg=colour167] #[bg=colour234]#W#[bg=colour235]#[fg=colour195]#F#[bg=colour236] '
 
 set -g status-left '\
 #[fg=colour232,bg=#6272a4] %Y-%m-%d \
