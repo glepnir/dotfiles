@@ -2,7 +2,7 @@
 alias vi="nvim"
 alias reload="source ~/.zshrc"
 alias ls="lsd"
-alias l="ls -l"
+alias ll="ls -l"
 alias la="ls -la"
 alias lt="ls --tree"
 
