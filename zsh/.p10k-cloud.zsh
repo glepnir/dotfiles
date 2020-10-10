@@ -34,6 +34,9 @@
     dir                     # current directory
     vcs                     # git status
     prompt_char             # prompt symbol
+    # circle
+    # circle1
+    # circle2
   )
 
   # The list of segments shown on the right. Fill it with less important segments.
@@ -128,7 +131,7 @@
   typeset -g POWERLEVEL9K_ICON_BEFORE_CONTENT=true
 
   # Add an empty line before each prompt.
-  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
+  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 
   # Connect left prompt lines with these symbols.
   typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=
@@ -424,6 +427,7 @@
     (( VCS_STATUS_HAS_UNSTAGED == -1 )) && res+=" ${modified}─"
 
     typeset -g my_git_format="%203F« $res%203F »"
+    # typeset -g my_git_format=$res
   }
   functions -M my_git_formatter 2>/dev/null
 
@@ -455,7 +459,7 @@
   # Custom icon.
   typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_EXPANSION=''
   # Custom prefix.
-  typeset -g POWERLEVEL9K_VCS_PREFIX='%B%223Fon '
+  # typeset -g POWERLEVEL9K_VCS_PREFIX='%B%223Fon '
 
   # Show status of repositories of these types. You can add svn and/or hg if you are
   # using them. If you do, your prompt may become slow even when your current directory
@@ -1496,6 +1500,15 @@
   function prompt_cloud() {
     p10k segment -f '#08c2c2'  -i ' '
   }
+  function prompt_circle() {
+    p10k segment -f 197  -i '●'
+  }
+  function prompt_circle1() {
+    p10k segment -f 106  -i '●'
+  }
+  function prompt_circle2() {
+    p10k segment -f 99  -i '●'
+  }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
   # is to generate the prompt segment for display in instant prompt. See
@@ -1514,6 +1527,9 @@
     # instant_prompt_example. This will give us the same `example` prompt segment in the instant
     # and regular prompts.
     prompt_cloud
+    prompt_circle
+    prompt_circle1
+    prompt_circle2
   }
 
   # User-defined prompt segments can be customized the same way as built-in segments.
