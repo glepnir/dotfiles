@@ -423,7 +423,7 @@
     # in this case.
     (( VCS_STATUS_HAS_UNSTAGED == -1 )) && res+=" ${modified}─"
 
-    typeset -g my_git_format="%203F[$res%203F]"
+    typeset -g my_git_format="%203F« $res%203F »"
   }
   functions -M my_git_formatter 2>/dev/null
 
