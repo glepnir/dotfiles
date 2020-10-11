@@ -1498,6 +1498,7 @@
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_cloud() {
+    # p10k segment -f '#08c2c2'  -i '☁️'
     p10k segment -f '#08c2c2'  -i ' '
   }
   function prompt_circle() {
