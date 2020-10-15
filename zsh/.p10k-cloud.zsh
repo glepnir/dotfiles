@@ -1499,16 +1499,8 @@
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_cloud() {
     # p10k segment -f '#08c2c2'  -i '☁️'
-    p10k segment -f 172  -i ' '
-  }
-  function prompt_circle() {
-    p10k segment -f 197  -i '●'
-  }
-  function prompt_circle1() {
-    p10k segment -f 106  -i '●'
-  }
-  function prompt_circle2() {
-    p10k segment -f 99  -i '●'
+    # p10k segment -f 172  -i ' '
+    p10k segment -f 172  -i '❄️'
   }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
@@ -1528,9 +1520,6 @@
     # instant_prompt_example. This will give us the same `example` prompt segment in the instant
     # and regular prompts.
     prompt_cloud
-    prompt_circle
-    prompt_circle1
-    prompt_circle2
   }
 
   # User-defined prompt segments can be customized the same way as built-in segments.
