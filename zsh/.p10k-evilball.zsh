@@ -201,7 +201,7 @@
 
   ##################################[ dir: current directory ]##################################
   # Default current directory color.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND="#08c2c2"
+  typeset -g POWERLEVEL9K_DIR_FOREGROUND="#ba8baf"
   # If directory is too long, shorten some of its segments to the shortest possible unique
   # prefix. The shortened directory can be tab-completed to the original.
   # truncate_to_unique truncate_to_last
@@ -356,7 +356,7 @@
     if (( $1 )); then
       # Styling for up-to-date Git status.
       local       meta='%f'     # default foreground
-      local      clean='%175F'  # orange foreground
+      local      clean='%69F'   # dark-blue foreground
       local   modified='%178F'  # yellow foreground
       local  untracked='%39F'   # blue foreground
       local conflicted='%196F'  # red foreground
@@ -1498,9 +1498,8 @@
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_cloud() {
-    # p10k segment -f '#08c2c2'  -i '☁️'
-    # p10k segment -f 172  -i ' '
-    p10k segment -f 172  -i '❄️'
+    # p10k segment -f '#98be65'  -i '☁️'
+    p10k segment -f '#EC5f67'  -i ' '
   }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
