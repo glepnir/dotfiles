@@ -190,7 +190,7 @@ if [ ! -f "ZSHRC" ]; then
     action "link zsh/.zshrc and zsh/.zshenv"
     ln -s  $HOME/.dotfiles/zsh/.zshenv $HOME/.zshenv
     ln -s  $HOME/.dotfiles/zsh/.zshrc $HOME/.zshrc
-    ln -s  $HOME/.dotfiles/zsh/.p10k-cloud.zsh $HOME/.p10k-cloud.zsh
+    ln -s  $HOME/.dotfiles/zsh/.p10k-evilball.zsh $HOME/.p10k-evilball.zsh
     ok "When you restart terminal it will auto install zplug and plugins"
   else
     ok "skipped"
