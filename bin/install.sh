@@ -5,7 +5,7 @@ source ./utils.sh
 
 UserLocation=0
 read -r -p "Are you a Chinese user? [y|N] " response
-if [[utilsse =~ (y|yes|Y) ]];then
+if [[ $response =~ (y|yes|Y) ]];then
   UserLocation=1
 fi
 
