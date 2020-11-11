@@ -229,6 +229,7 @@ if [[ $response =~ (y|yes|Y) ]];then
   brew tap homebrew/cask-fonts
   require_cask font-fontawesome
   require_cask font-awesome-terminal-fonts
+  require_cask font-aurulent-sans-mono-nerd-font
   require_cask font-hack-nerd-font
   require_cask font-codenewroman-nerd-font-mono
   require_cask font-firacode-nerd-font-mono
