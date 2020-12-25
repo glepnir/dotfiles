@@ -18,10 +18,10 @@ source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-if [ -z "$TMUX" ]
-then
-    tmux attach -t work || tmux new -s work
-fi
+# if [ -z "$TMUX" ]
+# then
+#     tmux attach -t work || tmux new -s work
+# fi
 
 zinit ice depth=1 atload"!source ~/.p10k-evilball.zsh" lucid nocd
 zinit light romkatv/powerlevel10k
