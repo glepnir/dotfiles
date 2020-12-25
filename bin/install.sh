@@ -267,6 +267,10 @@ action "link tmux conf"
 ln -s  $HOME/.dotfiles/tmux/.tmux.conf $HOME/.tmux.conf
 ok
 
+action "link .rgignore"
+ln -s  $HOME/.dotfiles/.rgignore $HOME/.rgignore
+ok
+
 action "Install tpm"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ok "when you open tmux,you must type prefix {default: Ctrl+space } + I to install tmux plugins"
