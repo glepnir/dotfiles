@@ -275,10 +275,10 @@ npm install -g eslint
 read -r -p "Are you a gopher? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
   require_brew golang
-  mkdir -p ~/workspace
+  mkdir -p ~/workstation/go
   # for chinese user use proxy to get golang package which on google server
   export GO111MODULE="on"
-  export GOPATH="$HOME/workspace"
+  export GOPATH="$HOME/workstation/go"
   if [[ $UserLocation =~ 1 ]];then
     export GOPROXY=https://goproxy.io
   fi
