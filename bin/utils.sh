@@ -47,7 +47,7 @@ function require_cask() {
     brew cask list $1 > /dev/null 2>&1 | true
     if [[ ${PIPESTATUS[0]} != 0 ]]; then
         action "brew cask install $1 $2"
-        brew cask install $1
+        brew install $1 --cask
         if [[ $? != 0 ]]; then
             error "failed to install $1! aborting..."
             # exit -1
