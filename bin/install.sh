@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # include my library helpers for colorized echo and require_brew, etc
-source ./utils.sh
+source ./bin/utils.sh
 
 UserLocation=0
 read -r -p "Are you a Chinese user? [y|N] " response
@@ -180,7 +180,6 @@ require_brew zsh
 
 # symslink zsh config
 ZSHRC="$HOME/.zshrc"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 running "Configuring zsh"
 if [ ! -f "ZSHRC" ]; then
   read -r -p "Seems like your zshrc file exist,do you want delete it? [y|N] " response
@@ -191,32 +190,19 @@ if [ ! -f "ZSHRC" ]; then
     ln -s  $HOME/.dotfiles/zsh/.zshenv $HOME/.zshenv
     ln -s  $HOME/.dotfiles/zsh/.zshrc $HOME/.zshrc
     ln -s  $HOME/.dotfiles/zsh/.p10k-evilball.zsh $HOME/.p10k-evilball.zsh
-    ok "When you restart terminal it will auto install zplug and plugins"
+    if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+      print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
+      command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+      command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f"
+    fi
+    zinit install
   else
     ok "skipped"
   fi
 fi
 
-# ###########################################################
-bot "rust setup"
-# ###########################################################
-running "Install rust"
-curl https://sh.rustup.rs -sSf | sh
-rustup install nightly
-rustup default nightly
-rustup component add rls-preview --toolchain nightly
-rustup component add rust-analysis --toolchain nightly
-rustup component add rust-src --toolchain nightly
-cargo install rustsym racer
-
-# ###########################################################
-bot "mysql setup"
-# ###########################################################
-running "Install Mysql"
-brew install mysql
-brew services start mysql
-mysql_secure_installation
-ok
 # ###########################################################
 bot "Install fonts"
 # ###########################################################
@@ -227,20 +213,8 @@ if [[ $response =~ (y|yes|Y) ]];then
   require_brew fontconfig
   sh ./fonts/install.sh
   brew tap homebrew/cask-fonts
-  require_cask font-fontawesome
-  require_cask font-awesome-terminal-fonts
   require_cask font-aurulent-sans-mono-nerd-font
   require_cask font-hack-nerd-font
-  require_cask font-codenewroman-nerd-font-mono
-  require_cask font-firacode-nerd-font-mono
-  require_cask font-inconsolata-dz-for-powerline
-  require_cask font-inconsolata-g-for-powerline
-  require_cask font-inconsolata-for-powerline
-  require_cask font-roboto-mono
-  require_cask font-roboto-mono-for-powerline
-  require_cask font-sourcecodepro-nerd-font-mono
-  require_cask font-aurulentsansmono-nerd-font
-  require_cask font-aurulentsansmono-nerd-font-mono
   ok
 fi
 
@@ -254,7 +228,6 @@ require_brew bat
 require_brew findutils
 require_brew make
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
-require_brew gnutls
 require_brew tmux
 require_brew autojump
 require_brew grip
@@ -283,8 +256,9 @@ npm install -g create-react-app
 ok
 
 action "Install yabai and skhd"
-brew install yabai --HEAD
+brew install koekeishiya/formulae/yabai
 brew install koekeishiya/formulae/skhd
+sudo yabai --install-sa
 ln -s "${HOME}/.dotfiles/yabai/yabairc" "${HOME}/.yabairc"
 ln -s "${HOME}/.dotfiles/yabai/skhdrc" "${HOME}/.skhdrc"
 brew services start skhd
@@ -318,6 +292,7 @@ read -r -p "Are you a vimer? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
   bot "Install neovim"
   npm i -g bash-language-server
+  brew install  luajit --HEAD
   require_brew neovim --HEAD
   running "Configruation nvim"
   git clone https://github.com/glepnir/nvim ~/.config/nvim
