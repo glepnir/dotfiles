@@ -12,10 +12,9 @@ export PATH="$HOME/zls/zig-cache/bin:$PATH"
 
 
 # Go
-export GOPATH="$HOME/workspace"
+export GOPATH="$HOME/workstation/go"
 export GO111MODULE="on"
-export PATH=$PATH:$HOME/workspace/bin
-export PATH=$PATH:$HOME/workstation/vim/magit-nvim/bin
+export PATH=$PATH:$HOME/workstation/go/bin
 export PATH=$PATH:/usr/local/go/bin
 export GOPROXY=https://goproxy.cn
 
