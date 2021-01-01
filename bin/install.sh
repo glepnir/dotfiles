@@ -251,6 +251,9 @@ ok "when you open tmux,you must type prefix {default: Ctrl+space } + I to instal
 require_brew node
 require_brew yarn
 
+require_brew lua
+require_brew ninja
+
 action "Install create-react-app"
 npm install -g create-react-app
 ok
