@@ -28,3 +28,6 @@ export REACT_EDITOR="nvim"
 
 # Yabai
 export YABAI_CERT=yabai-cert
+
+# Bat theme
+export BAT_THEME=OneHalfDark
