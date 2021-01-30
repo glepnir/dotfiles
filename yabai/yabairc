@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # global settings
 yabai -m config mouse_follows_focus             off
@@ -42,5 +44,3 @@ yabai -m rule --add app="^WeChat$"              manage=off
 yabai -m rule --add app="^System Preferences$"  manage=off
 yabai -m rule --add app="^licecap$"             manage=off
 yabai -m rule --add app="^Finder$"              manage=off
-
-sudo yabai --load-sa
