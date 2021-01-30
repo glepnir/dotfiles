@@ -292,6 +292,8 @@ else
   ok "skipped"
 fi
 
+require_brew rust
+
 read -r -p "Are you a vimer? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
   bot "Install neovim"
