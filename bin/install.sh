@@ -237,6 +237,9 @@ brew install jesseduffield/lazygit/lazygit
 require_brew lsd
 require_cask docker
 
+## llvm with cland
+require_brew llvm
+
 action "link tmux conf"
 ln -s  $HOME/.dotfiles/tmux/.tmux.conf $HOME/.tmux.conf
 ok
@@ -273,43 +276,30 @@ if [[ $UserLocation =~ 1 ]];then
   npm config set registry https://registry.npm.taobao.org
 fi
 
-running "Install Eslint"
-npm install -g eslint
-
-read -r -p "Are you a gopher? [y|N] " response
-if [[ $response =~ (y|yes|Y) ]];then
-  require_brew golang
-  mkdir -p ~/workstation/go
-  # for chinese user use proxy to get golang package which on google server
-  export GO111MODULE="on"
-  export GOPATH="$HOME/workstation/go"
-  if [[ $UserLocation =~ 1 ]];then
-    export GOPROXY=https://goproxy.io
-  fi
-  go get golang.org/x/tools/gopls@latest
-  go get -u github.com/go-delve/delve/cmd/dlv
-else
-  ok "skipped"
+require_brew golang
+mkdir -p ~/workstation/go
+# for chinese user use proxy to get golang package which on google server
+export GO111MODULE="on"
+export GOPATH="$HOME/workstation/go"
+if [[ $UserLocation =~ 1 ]];then
+  export GOPROXY=https://goproxy.io
 fi
+go get golang.org/x/tools/gopls@latest
+go get -u github.com/go-delve/delve/cmd/dlv
 
 require_brew rust
 
-read -r -p "Are you a vimer? [y|N] " response
-if [[ $response =~ (y|yes|Y) ]];then
-  bot "Install neovim"
-  npm i -g bash-language-server
-  brew install  luajit --HEAD
-  require_brew neovim --HEAD
-  running "Configruation nvim"
-  git clone https://github.com/glepnir/nvim ~/.config/nvim
-  ok
-  running "Install vim plugins"
-  cd ~/.config/nvim
-  make install
-  cd -
-else
-  ok "skipped"
-fi
+bot "Install neovim"
+npm i -g bash-language-server
+brew install  luajit --HEAD
+require_brew neovim --HEAD
+running "Configruation nvim"
+git clone https://github.com/glepnir/nvim ~/.config/nvim
+ok
+running "Install vim plugins"
+cd ~/.config/nvim
+make install
+cd -
 
 
 # ###########################################################
