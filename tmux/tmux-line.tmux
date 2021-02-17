@@ -44,12 +44,12 @@ prefix="#{?client_prefix,🐠,}"
 
 set -g status-left-length 80
 # Options -> ⧉ ❐
-set -g status-left "#{?client_prefix,#[fg=#ffffff bg=#22252B],#[fg=#e5c07b]} ❐ #S "
+set -g status-left "#{?client_prefix,#[fg=#ffffff bg=#22252B],#[fg=#e5c07b]} ❐ #S $separator"
 set -g status-right-length 70
 set -g status-right "$prefix $cpu $separator $ram $separator $battery $separator 🕒 %a %d %b %H:%M"
 
 set-window-option -g window-status-current-style "fg=#9ed11d"
-set-window-option -g window-status-current-format "$separator #I: #[bold]#W $status_items"
+set-window-option -g window-status-current-format " #I: #[bold]#W $status_items"
 
 # for some unknown reason this tmux section is being set to reverse from
 # somewhere so we explictly remove it here
