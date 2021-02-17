@@ -49,7 +49,7 @@ set -g status-right-length 70
 set -g status-right "$prefix $cpu $separator $ram $separator $battery $separator 🕒 %a %d %b %H:%M"
 
 set-window-option -g window-status-current-style "fg=#9ed11d"
-set-window-option -g window-status-current-format " #I: #[bold]#W $status_items"
+set-window-option -g window-status-current-format "$separator #I: #[bold]#W $status_items"
 
 # for some unknown reason this tmux section is being set to reverse from
 # somewhere so we explictly remove it here
