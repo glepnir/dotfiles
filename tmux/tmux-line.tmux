@@ -35,10 +35,12 @@ pane_count="#{?window_active,#[fg=white#,noitalics],}"
 status_items="#{?window_bell_flag,#[fg=red] ,}$search_icon $pane_count"
 
 # see: https://github.com/tmux-plugins/tmux-battery
-battery="Batt: #{battery_color_fg}#{battery_icon} #{battery_remain}#[default]"
+# when use mbp use #{battery_icon}
+battery="🔋 Batt: #{battery_color_fg}🔌 #{battery_remain}#[default]"
 
-cpu="#[bold]CPU: #[default]#{cpu_fg_color}#{cpu_icon} #{cpu_percentage}#[default]"
-ram="#[bg=#282c34]RAM: #{ram_fg_color}#{ram_icon}#[default]"
+cpu="#[fg=#b8cc1d,bold]閭CPU: #[default]#{cpu_fg_color}#{cpu_icon} #{cpu_percentage}#[default]"
+ram="#[fg=#884ad4,bold] RAM: #{ram_fg_color}#{ram_icon}#[default]"
+time="⏰ #[fg=#12b6db]%a %d %b %H:%M"
 
 # prefix
 prefix="#{?client_prefix,🐠,}"
@@ -47,7 +49,7 @@ set -g status-left-length 80
 # Options -> ⧉ ❐
 set -g status-left "#{?client_prefix,#[fg=#ffffff bg=#22252B],#[fg=#e5c07b]} ❐ #S $separator"
 set -g status-right-length 70
-set -g status-right "$prefix $cpu $separator $ram $separator $battery $separator 🕒 %a %d %b %H:%M"
+set -g status-right "$prefix $cpu $separator $ram $separator $battery $separator $time"
 
 set-window-option -g window-status-current-style "fg=#9ed11d"
 set-window-option -g window-status-current-format " #I: #[bold]#W $status_items"
