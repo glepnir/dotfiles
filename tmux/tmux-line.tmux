@@ -9,6 +9,7 @@ ACTIVE_FG_COLOR='#fac863'
 set-option -g status-style "bg=$BACKGROUND_COLOR"
 
 # Status setup
+set -g status-position top
 set-option -g status on
 set-option -g status-fg default
 set -g status-justify left
