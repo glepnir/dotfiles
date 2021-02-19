@@ -38,7 +38,7 @@ status_items="#{?window_bell_flag,#[fg=red] ,}$search_icon $pane_count"
 # when use mbp use #{battery_icon}
 battery="🔋 Batt: #{battery_color_fg}🔌 #{battery_remain}#[default]"
 
-cpu="#[fg=#b8cc1d,bold]閭CPU: #[default]#{cpu_fg_color}#{cpu_icon} #{cpu_percentage}#[default]"
+cpu="#[fg=#b8cc1d,bold]CPU: #[default]#{cpu_fg_color}#{cpu_icon} #{cpu_percentage}#[default]"
 ram="#[fg=#884ad4,bold] RAM: #{ram_fg_color}#{ram_icon}#[default]"
 time="⏰ #[fg=#12b6db]%a %d %b %H:%M"
 
