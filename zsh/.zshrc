@@ -1,6 +1,6 @@
 # alias
 alias vi="nvim"
-alias reload="source ~/.zshrc"
+alias reload="source ~/.zshrc && rehash"
 alias ls="lsd"
 alias ll="ls -l"
 alias la="ls -la"
@@ -81,15 +81,6 @@ zinit light zdharma/fast-syntax-highlighting
 zinit ice depth=1 wait lucid compile"{src/*.zsh,src/strategies/*.zsh}" atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
 
-zinit ice depth=1 wait lucid atload"bindkey '$terminfo[kcuu1]' history-substring-search-up; bindkey '$terminfo[kcud1]' history-substring-search-down"
-zinit light zsh-users/zsh-history-substring-search
-
-zinit ice depth=1 wait lucid
-zinit light wfxr/formarks
-
-zinit ice depth=1 wait"1" lucid pick"manydots-magic" compile"manydots-magic"
-zinit light knu/zsh-manydots-magic
-
 zinit ice depth=1 wait"1" lucid atinit"zstyle ':history-search-multi-word' page-size '20'"
 zinit light zdharma/history-search-multi-word
 
@@ -105,12 +96,10 @@ zinit light peterhurford/up.zsh
 zinit ice depth=1 wait"2" lucid
 zinit light MichaelAquilina/zsh-you-should-use
 
-# To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh/.p10k.zsh.
-[[ ! -f ~/.dotfiles/zsh/.p10k.zsh ]] || source ~/.dotfiles/zsh/.p10k.zsh
-
+# open file
 fo() {
   #IFS=$'\n' out=("$(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)")
-  IFS=$'\n' out=($(fzf --query="$2" --multi))
+  IFS=$'\n' out=($(fzf --query="$1" --multi))
   key=$(head -1 <<< "$out")
   file=$(head -2 <<< "$out" | tail -1)
   if [ -n "$file" ]; then
@@ -118,9 +107,15 @@ fo() {
   fi
 }
 
-cdf() {
-   local file
-   local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
-   fo
+# cd directory and open file
+co() {
+  local dir
+  dir=$(fd ${1:-.} --hidden --type d 2> /dev/null | fzf --preview 'tree -C {}' +m) && cd "$dir"
+  fo
+}
+
+# find-in-file - usage: fif <searchTerm>
+fif() {
+  if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
+  rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
 }
