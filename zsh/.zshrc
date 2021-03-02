@@ -117,3 +117,9 @@ fo() {
     [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-nvim} "$file"
   fi
 }
+
+cdf() {
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}
