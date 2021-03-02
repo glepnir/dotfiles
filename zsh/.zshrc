@@ -110,8 +110,7 @@ fo() {
 # cd directory and open file
 co() {
   local dir
-  dir=$(fd ${1:-.} --hidden --type d 2> /dev/null | fzf --preview 'tree -C {}' +m) && cd "$dir"
-  fo
+  dir=$(fd ${1:-.} --hidden --type d 2> /dev/null | fzf --preview 'tree -C {}' +m) && cd "$dir" && fo
 }
 
 # find-in-file - usage: fif <searchTerm>
