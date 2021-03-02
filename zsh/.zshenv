@@ -34,4 +34,4 @@ export YABAI_CERT=yabai-cert
 # Fzf
 export FZF_COMPLETION_TRIGGER='**'
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
-export FZF_DEFAULT_OPTS='--height 90% --layout=reverse --border --preview="bat --color=always {}"'
+export FZF_DEFAULT_OPTS='--height 90% --layout reverse --border --color "border:#b877db" --preview="bat --color=always {}"'
