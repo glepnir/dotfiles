@@ -1,6 +1,6 @@
 # alias
 alias vi="nvim"
-alias reload="source ~/.zshrc && rehash"
+alias reload="source ~/.zshrc"
 alias ls="lsd"
 alias ll="ls -l"
 alias la="ls -la"
@@ -104,10 +104,10 @@ fo() {
   fi
 }
 
-# cd directory and open file
+# cd directory and open file can pass word
 co() {
   local dir
-  dir=$(fd --hidden --type d . $HOME | fzf --preview 'tree -C {}' +m) && cd "$dir" && fo
+  dir=$(fd --hidden --type d "$1" . $HOME | fzf --preview 'tree -C {}' +m) && cd "$dir" && fo
 }
 
 # find-in-file - usage: fif <searchTerm>
