@@ -231,6 +231,8 @@ brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 require_brew tmux
 require_brew autojump
 require_brew grip
+require_brew fd
+require_brew tree
 require_brew fzf
 /usr/local/opt/fzf/install
 brew install jesseduffield/lazygit/lazygit
@@ -277,10 +279,10 @@ if [[ $UserLocation =~ 1 ]];then
 fi
 
 require_brew golang
-mkdir -p ~/workstation/go
+mkdir -p ~/.go
 # for chinese user use proxy to get golang package which on google server
 export GO111MODULE="on"
-export GOPATH="$HOME/workstation/go"
+export GOPATH="$HOME/.go"
 if [[ $UserLocation =~ 1 ]];then
   export GOPROXY=https://goproxy.io
 fi
@@ -291,7 +293,7 @@ require_brew rust
 
 bot "Install neovim"
 npm i -g bash-language-server
-brew install  luajit --HEAD
+require_brew  luajit --HEAD
 require_brew neovim --HEAD
 running "Configruation nvim"
 git clone https://github.com/glepnir/nvim ~/.config/nvim
