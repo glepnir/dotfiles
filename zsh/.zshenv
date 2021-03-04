@@ -31,6 +31,9 @@ export REACT_EDITOR="nvim"
 # Yabai
 export YABAI_CERT=yabai-cert
 
+# Bat
+export BAT_THEME="TwoDark"
+
 # Fzf
 export FZF_COMPLETION_TRIGGER='**'
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
