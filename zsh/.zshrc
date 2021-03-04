@@ -105,6 +105,12 @@ fo() {
 }
 
 # cd directory and open file can pass word
+fcd() {
+  local dir
+  dir=$(fd --hidden --type d "$1" . $HOME | fzf --preview 'tree -C {}' +m) && cd "$dir"
+}
+
+# cd directory and open file can pass word
 co() {
   local dir
   dir=$(fd --hidden --type d "$1" . $HOME | fzf --preview 'tree -C {}' +m) && cd "$dir" && fo
