@@ -5,7 +5,6 @@ alias ls="lsd"
 alias ll="ls -l"
 alias la="ls -la"
 alias lt="ls --tree"
-alias z="zoxide"
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
