@@ -1,4 +1,4 @@
-OneDark='#282c34'
+OneDark='#282a36'
 NightOwl='#0F1D2A'
 Material='#263238'
 
