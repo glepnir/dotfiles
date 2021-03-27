@@ -45,16 +45,10 @@ zinit ice wait lucid
 zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
 zinit ice wait lucid
-zinit snippet OMZ::plugins/systemd/systemd.plugin.zsh
-
-zinit ice wait lucid
 zinit snippet OMZ::plugins/sudo/sudo.plugin.zsh
 
 zinit ice wait lucid
 zinit snippet OMZ::plugins/extract/extract.plugin.zsh
-
-zinit ice wait lucid
-zinit snippet OMZ::plugins/systemadmin/systemadmin.plugin.zsh
 
 zinit ice wait lucid
 zinit snippet OMZ::plugins/golang/golang.plugin.zsh
