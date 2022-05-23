@@ -23,19 +23,19 @@ function bot() {
 }
 
 function running() {
-    echo  "$COL_YELLOW ⇒ $COL_RESET"$1": "
+    echo "$COL_YELLOW ⇒ $COL_RESET"$1": "
 }
 
 function action() {
-    echo  "\n$COL_YELLOW[action]:$COL_RESET\n ⇒ $1..."
+    echo "\n$COL_YELLOW[action]:$COL_RESET\n ⇒ $1..."
 }
 
 function warn() {
-    echo  "$COL_YELLOW[warning]$COL_RESET "$1
+    echo -e "$COL_YELLOW[warning]$COL_RESET "$1
 }
 
 function error() {
-    echo  "$COL_RED[error]$COL_RESET "$1
+    echo -e "$COL_RED[error]$COL_RESET "$1
 }
 
 ###
@@ -43,10 +43,10 @@ function error() {
 ###
 
 function require_cask() {
-    running "brew cask $1"
+    running "brew install $1 --cask"
     brew cask list $1 > /dev/null 2>&1 | true
     if [[ ${PIPESTATUS[0]} != 0 ]]; then
-        action "brew cask install $1 $2"
+        action "brew install $1 $2 --cask"
         brew install $1 --cask
         if [[ $? != 0 ]]; then
             error "failed to install $1! aborting..."

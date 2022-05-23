@@ -11,9 +11,9 @@ export PATH="$HOME/zig/build/bin:$PATH"
 export PATH="$HOME/zls/zig-cache/bin:$PATH"
 
 # Go
-export GOPATH="$HOME/workstation/go"
+export GOPATH="$HOME/.go"
 export GO111MODULE="on"
-export PATH=$PATH:$HOME/workstation/go/bin
+export PATH=$PATH:$HOME/.go/bin
 export PATH=$PATH:/usr/local/go/bin
 export GOPROXY=https://goproxy.cn
 

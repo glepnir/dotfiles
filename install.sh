@@ -67,8 +67,6 @@ else
   fi
 fi
 
-# Just to avoid a potential bug
-mkdir -p ~/Library/Caches/Homebrew/Formula
 brew doctor
 
 ###########################################################
@@ -76,6 +74,7 @@ Git Config
 ###########################################################
 
 # skip those GUI clients, git command-line all the way
+action "install the latest version of git"
 require_brew git
 
 bot "OK, now I am going to update the .gitconfig for your user info:"
@@ -86,7 +85,7 @@ if [ ! -f "gitfile" ]; then
   read -r -p "Seems like your gitconfig file exist,do you want delete it? [y|N] " response
   if [[ $response =~ (y|yes|Y) ]]; then
     rm -rf $HOME/.gitconfig
-    action "cp /git/.gitconfig ~/.gitconfig"
+    action "cp ./git/.gitconfig ~/.gitconfig"
     sudo cp $HOME/.dotfiles/git/.gitconfig  $HOME/.gitconfig
     ln -s $HOME/.dotfiles/git/.gitignore  $HOME/.gitignore
     ok
@@ -164,14 +163,6 @@ if [[ $? = 0 ]]; then
   fi
 fi
 
-
-###########################################################
-bot "update ruby"
-###########################################################
-
-RUBY_CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl` --with-readline-dir=`brew --prefix readline` --with-libyaml-dir=`brew --prefix libyaml`"
-require_brew ruby
-
 # ###########################################################
 bot "zsh setup"
 # ###########################################################
@@ -190,14 +181,6 @@ if [ ! -f "ZSHRC" ]; then
     ln -s  $HOME/.dotfiles/zsh/.zshenv $HOME/.zshenv
     ln -s  $HOME/.dotfiles/zsh/.zshrc $HOME/.zshrc
     ln -s  $HOME/.dotfiles/zsh/.p10k-evilball.zsh $HOME/.p10k-evilball.zsh
-    if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-      print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
-      command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-      command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f"
-    fi
-    zinit install
   else
     ok "skipped"
   fi
@@ -221,8 +204,6 @@ fi
 # ###########################################################
 bot " Install Develop Tools"
 # ###########################################################
-require_brew curl
-require_brew wget
 require_brew ripgrep
 require_brew bat
 require_brew findutils
@@ -258,9 +239,6 @@ require_brew yarn
 
 require_brew lua
 require_brew ninja
-
-action "Install create-react-app"
-npm install -g create-react-app
 ok
 
 action "Install yabai and skhd"
@@ -285,13 +263,12 @@ export GOPATH="$HOME/.go"
 if [[ $UserLocation =~ 1 ]];then
   export GOPROXY=https://goproxy.io
 fi
-go get golang.org/x/tools/gopls@latest
-go get -u github.com/go-delve/delve/cmd/dlv
+go install golang.org/x/tools/gopls@latest
+go install github.com/go-delve/delve/cmd/dlv
 
 require_brew rust
 
 bot "Install neovim"
-npm i -g bash-language-server
 require_brew  luajit --HEAD
 require_brew neovim --HEAD
 running "Configruation nvim"
@@ -299,7 +276,6 @@ git clone https://github.com/glepnir/nvim ~/.config/nvim
 ok
 running "Install vim plugins"
 cd ~/.config/nvim
-make install
 cd -
 
 
