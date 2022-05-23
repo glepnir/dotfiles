@@ -1,16 +1,18 @@
 # alias
 alias vi="nvim"
 alias reload="source ~/.zshrc"
-alias ls="lsd"
+#alias ls="lsd"
 alias ll="ls -l"
 alias la="ls -la"
 alias lt="ls --tree"
+alias proxy="export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087;export ALL_PROXY=socks5://127.0.0.1:1080"
+alias unproxy="unset http_proxy;unset https_proxy;unset ALL_PROXY"
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-	print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
-	command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-	command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+	print -P "%F{33}▓▒░ %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+	command mkdir -p $HOME/.zinit && command chmod g-rwX "$HOME/.zinit"
+	command git clone https://github.com/zdharma-continuum/zinit "$HOME/.zinit/bin" && \
 		print -P "%F{33}▓▒░ %F{34}Installation successful.%f" || \
 		print -P "%F{160}▓▒░ The clone has failed.%f"
 fi
@@ -26,40 +28,14 @@ autoload -Uz _zinit
 zinit ice depth=1 atload"!source ~/.p10k-evilball.zsh" lucid nocd
 zinit light romkatv/powerlevel10k
 
-# Oh-my-zsh plugins
-zinit snippet OMZ::lib/history.zsh
+# #=== OH-MY-ZSH & PREZTO PLUGINS =======================
+zinit for \
+      OMZL::{'history','completion','git','grep','key-bindings'}.zsh
 
-zinit snippet OMZ::lib/key-bindings.zsh
-
-zinit ice wait lucid
-zinit snippet OMZ::lib/completion.zsh
-
-zinit ice wait lucid
-zinit snippet OMZ::lib/grep.zsh
-
-# Oh-my-zsh plugins
-zinit ice wait lucid atload"unalias grv"
-zinit snippet OMZ::plugins/git/git.plugin.zsh
-
-zinit ice wait lucid
-zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
-
-zinit ice wait lucid
-zinit snippet OMZ::plugins/sudo/sudo.plugin.zsh
-
-zinit ice wait lucid
-zinit snippet OMZ::plugins/extract/extract.plugin.zsh
-
-zinit ice wait lucid
-zinit snippet OMZ::plugins/golang/golang.plugin.zsh
-
-zinit ice wait lucid
-zinit snippet OMZ::plugins/fzf/fzf.plugin.zsh
+zinit wait lucid for \
+      OMZP::{'colored-man-pages','extract','fzf','git','sudo','golang'}
 
 # Plugins
-zinit ice depth=1 lucid
-zinit light trystan2k/zsh-tab-title
-
 zinit ice depth=1 wait lucid
 zinit light Aloxaf/fzf-tab
 
@@ -75,17 +51,8 @@ zinit light zsh-users/zsh-autosuggestions
 zinit ice depth=1 wait"1" lucid atinit"zstyle ':history-search-multi-word' page-size '20'"
 zinit light zdharma/history-search-multi-word
 
-zinit ice depth=1 wait"2" lucid
-zinit light wfxr/forgit
-
-zinit ice depth=1 wait"2" lucid
-zinit light hlissner/zsh-autopair
-
-zinit ice depth=1 wait"2" lucid
-zinit light peterhurford/up.zsh
-
-zinit ice depth=1 wait"2" lucid
-zinit light MichaelAquilina/zsh-you-should-use
+zinit ice depth=1 wait"2" lucid light-mode for \
+      {'wfxr/forgit','hlissner/zsh-autopair','MichaelAquilina/zsh-you-should-use'}
 
 # open file
 fo() {
@@ -115,3 +82,5 @@ fif() {
   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
   rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
 }
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
