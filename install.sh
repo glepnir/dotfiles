@@ -264,7 +264,8 @@ if [[ $UserLocation =~ 1 ]];then
   export GOPROXY=https://goproxy.io
 fi
 go install golang.org/x/tools/gopls@latest
-go install github.com/go-delve/delve/cmd/dlv
+go install github.com/go-delve/delve/cmd/dlv@latest
+go install github.com/segmentio/golines@latest
 
 require_brew rust
 
