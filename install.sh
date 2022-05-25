@@ -293,9 +293,8 @@ fi
 running "Configuration kitty settings"
 ln -s $HOME/.dotfiles/config/kitty  $HOME/.config/kitty
 ok
-running "reading iterm settings"
-defaults read -app iTerm > /dev/null 2>&1;
-ok
+
+require_cask licecap
 
 read -r -p "Do you want install google-chrome? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
