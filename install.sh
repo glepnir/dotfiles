@@ -197,7 +197,6 @@ if [[ $response =~ (y|yes|Y) ]];then
   sh ./fonts/install.sh
   brew tap homebrew/cask-fonts
   require_cask font-aurulent-sans-mono-nerd-font
-  require_cask font-hack-nerd-font
   ok
 fi
 
