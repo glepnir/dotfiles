@@ -42,8 +42,14 @@ zinit light Aloxaf/fzf-tab
 zinit ice depth=1 wait blockf lucid atpull"zinit creinstall -q ."
 zinit light clarketm/zsh-completions
 
+zinit ice depth=1 wait lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
+zinit light zdharma/fast-syntax-highlighting
+
 zinit ice depth=1 wait lucid compile"{src/*.zsh,src/strategies/*.zsh}" atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
+
+zinit ice depth=1 wait"1" lucid atinit"zstyle ':history-search-multi-word' page-size '20'"
+zinit light zdharma/history-search-multi-word
 
 zinit ice depth=1 wait"2" lucid light-mode for \
       {'wfxr/forgit','hlissner/zsh-autopair','MichaelAquilina/zsh-you-should-use'}
