@@ -244,6 +244,7 @@ action "Install yabai and skhd"
 brew install koekeishiya/formulae/yabai
 brew install koekeishiya/formulae/skhd
 sudo yabai --install-sa
+sudo yabai --load-sa
 ln -s "${HOME}/.dotfiles/yabai/yabairc" "${HOME}/.yabairc"
 ln -s "${HOME}/.dotfiles/yabai/skhdrc" "${HOME}/.skhdrc"
 brew services start skhd
