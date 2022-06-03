@@ -33,8 +33,8 @@ yabai -m config window_gap                      10
 yabai -m config --space 2 layout             stack
 yabai -m config --space 7 layout             float
 
-
 # window rules
+yabai -m rule --add app="^wezterm$"             manage=off
 yabai -m rule --add app="^Mail$"                space=2
 yabai -m rule --add app="^Chrome$"              space=2
 yabai -m rule --add app="^Safari$"              space=3

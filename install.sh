@@ -284,14 +284,15 @@ cd -
 bot " Install Gui Applications"
 # ###########################################################
 
-read -r -p "Do you want install kitty? [y|N] " response
+read -r -p "Do you want install wezterm? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
-  require_cask kitty
+  brew tap wez/wezterm
+  require_cask wez/wezterm/wezterm-nightly
 else
   ok "skipped"
 fi
-running "Configuration kitty settings"
-ln -s $HOME/.dotfiles/config/kitty  $HOME/.config/kitty
+running "Configuration wezterm settings"
+ln -s $HOME/.dotfiles/config/wezterm  $HOME/.config/wezterm
 ok
 
 require_cask licecap
