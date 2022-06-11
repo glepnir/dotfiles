@@ -81,3 +81,5 @@ fif() {
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias luamake=/Users/joyce/Workspace/lua-language-server/3rd/luamake/luamake
