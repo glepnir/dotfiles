@@ -1,10 +1,10 @@
 ;;; core.el -*- lexical-binding: t; -*-
 
-(defconst local-dir (concat user-emacs-director "~/.local/")
-(defconst cache-dir (concat local-dir "cache/")
+(defconst local-dir (concat user-emacs-directory "~/.local/"))
+(defconst cache-dir (concat local-dir "cache/"))
 
 ;;; Native Compilation support (http://akrl.sdf.org/gccemacs.html)
-(when NATIVECOMP
+(when (fboundp 'native-comp-available-p)
   ;; Don't store eln files in ~/.emacs.d/eln-cache (they are likely to be purged
   ;; when upgrading Doom).
   (add-to-list 'native-comp-eln-load-path (concat cache-dir "eln/")))
@@ -23,3 +23,6 @@
 ;; hasn't been determined, but do it there anyway, just in case. This increases
 ;; memory usage, however!
 (setq inhibit-compacting-font-caches t)
+
+(provide 'core)
+;;; core.el ends here
