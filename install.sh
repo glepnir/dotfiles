@@ -279,6 +279,12 @@ running "Install vim plugins"
 cd ~/.config/nvim
 cd -
 
+bot "Install emacs"
+require_brew tap d12frosted/emacs-plus
+require_brew install emacs-plus@28 --with-no-titlebar --with-native-comp --with-modern-doom3-icon
+running "Link emacs config"
+ln -s ~/.dotfiles/config/emacs ~/.config/emacs
+
 
 # ###########################################################
 bot " Install Gui Applications"

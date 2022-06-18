@@ -21,8 +21,12 @@
 ;; Font compacting can be terribly expensive, especially for rendering icon
 ;; fonts on Windows. Whether disabling it has a notable affect on Linux and Mac
 ;; hasn't been determined, but do it there anyway, just in case. This increases
-;; memory usage, however!
+;; memory usage, howeveor
 (setq inhibit-compacting-font-caches t)
+
+;; confi font
+ (set-face-attribute 'default nil
+                     :family "Operator Mono Lig"  :height 150 :weight 'Light)
 
 (provide 'core)
 ;;; core.el ends here
