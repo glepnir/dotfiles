@@ -6,10 +6,6 @@ export LANG=en_US.UTF-8
 #Homebrew's sbin
 export PATH="/usr/local/sbin:$PATH"
 
-# Zig
-export PATH="$HOME/zig/build/bin:$PATH"
-export PATH="$HOME/zls/zig-cache/bin:$PATH"
-
 # Go
 export GOPATH="$HOME/.go"
 export GO111MODULE="on"
