@@ -19,6 +19,10 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # Cland
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
+# neovim
+# export VIM='~/Workspace/neovim'
+# export VIMRUNTIME='~/Workspace/neovim/runtime'
+
 # Editor
 export EDITOR="nvim"
 export GIT_EDITOR="nvim"
