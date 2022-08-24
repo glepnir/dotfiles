@@ -20,8 +20,8 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 # neovim
-#export VIM='~/Workspace/neovim'
-#export VIMRUNTIME='~/Workspace/neovim/runtime'
+#  export VIM='~/Workspace/neovim'
+#  export VIMRUNTIME='~/Workspace/neovim/runtime'
 
 # Editor
 export EDITOR="nvim"

@@ -264,7 +264,7 @@ export GOPATH="$HOME/.go"
 if [[ $UserLocation =~ 1 ]];then
   export GOPROXY=https://goproxy.io
 fi
-go install golang.org/x/tools/gopls@latest
+
 go install github.com/go-delve/delve/cmd/dlv@latest
 go install github.com/segmentio/golines@latest
 
@@ -279,6 +279,14 @@ ok
 running "Install vim plugins"
 cd ~/.config/nvim
 cd -
+
+bot "install lsp server"
+require_brew gopls
+requier_brew rust-analyzer
+require_brew lua-language-server
+require_brew clang-format
+require_brew stylua
+
 
 bot "Install emacs"
 require_brew tap d12frosted/emacs-plus

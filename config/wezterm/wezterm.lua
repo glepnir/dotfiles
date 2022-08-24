@@ -17,4 +17,5 @@ return {
 	window_close_confirmation = "NeverPrompt",
   cursor_blink_ease_in = "Constant",
   cursor_blink_ease_out = "Constant",
+  enable_csi_u_key_encoding = true
 }
