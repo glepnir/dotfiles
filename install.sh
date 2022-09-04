@@ -71,7 +71,7 @@ fi
 brew doctor
 
 ###########################################################
-Git Config
+# Git Config
 ###########################################################
 
 # skip those GUI clients, git command-line all the way
