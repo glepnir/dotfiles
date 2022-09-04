@@ -32,7 +32,7 @@ autoload -Uz _zinit
 #     tmux attach -t work || tmux new -s work
 # fi
 
-zinit ice depth=1 atload"!source ~/.p10k-evilball.zsh" lucid nocd
+zinit ice depth=1 atload"!source ~/.glepnir-p10k.zsh" lucid nocd
 zinit light romkatv/powerlevel10k
 
 # #=== OH-MY-ZSH & PREZTO PLUGINS =======================
