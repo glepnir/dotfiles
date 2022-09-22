@@ -256,6 +256,9 @@ if [[ $UserLocation =~ 1 ]];then
   npm config set registry https://registry.npm.taobao.org
 fi
 
+# zig
+require_brew zig
+# go
 require_brew golang
 mkdir -p ~/.go
 # for chinese user use proxy to get golang package which on google server
@@ -299,7 +302,7 @@ ln -s ~/.dotfiles/config/emacs ~/.config/emacs
 bot " Install Gui Applications"
 # ###########################################################
 
-read -r -p "Do you want install wezterm? [y|N] " response
+read -r -p "Do you want install wezterm? [y|N] " responseinstall
 if [[ $response =~ (y|yes|Y) ]];then
   brew tap wez/wezterm
   require_cask wez/wezterm/wezterm-nightly
