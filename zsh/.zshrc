@@ -95,6 +95,3 @@ alias luamake=/Users/joyce/Workspace/lua-language-server/3rd/luamake/luamake
 # [[ ! -f ~/.p10k-evilball.zsh ]] || source ~/.p10k-evilball.zsh
 
 source /Users/joyce/.config/broot/launcher/bash/br
-
-# To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh/.glepnir-p10k.zsh.
-[[ ! -f ~/.dotfiles/zsh/.glepnir-p10k.zsh ]] || source ~/.dotfiles/zsh/.glepnir-p10k.zsh
