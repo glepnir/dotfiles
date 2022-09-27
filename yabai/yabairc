@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
-sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
 
 # mission-control desktop labels
 yabai -m space 1 --label code
@@ -18,8 +18,8 @@ yabai -m rule --add app="^Chrome$"              web
 yabai -m rule --add app="^Safari$"              web
 
 yabai -m rule --add app="^QQ$"                  manage=off
-yabai -m rule --add app="^WeChat$"              social manage=off
-yabai -m rule --add app="^System Preferences$"  social manage=off
+yabai -m rule --add app="^WeChat$"              manage=off
+yabai -m rule --add app="^System Preferences$"  manage=off
 yabai -m rule --add app="^licecap$"             manage=off
 yabai -m rule --add app="^Finder$"              manage=off
 
