@@ -58,6 +58,13 @@ zinit light zsh-users/zsh-autosuggestions
 zinit ice depth=1 wait"2" lucid light-mode for \
       {'wfxr/forgit','hlissner/zsh-autopair','MichaelAquilina/zsh-you-should-use'}
 
+# create tmux new session with window name
+tn() {
+  tmux new-session -d -s $1
+  tmux rename-window -t $1:1 'main'
+  tmux a -t $1
+}
+
 # open file
 fo() {
   #IFS=$'\n' out=("$(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)")
@@ -84,11 +91,8 @@ co() {
 # find-in-file - usage: fif <searchTerm>
 fif() {
   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
-  rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
+  file=$(rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}")
+  nvim $file
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-alias luamake=/Users/joyce/Workspace/lua-language-server/3rd/luamake/luamake
-
-source /Users/joyce/.config/broot/launcher/bash/br
