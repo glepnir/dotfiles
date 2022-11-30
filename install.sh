@@ -302,10 +302,10 @@ ln -s ~/.dotfiles/config/emacs ~/.config/emacs
 bot " Install Gui Applications"
 # ###########################################################
 
-read -r -p "Do you want install wezterm? [y|N] " responseinstall
+read -r -p "Do you want install kitty? [y|N] " responseinstall
 if [[ $response =~ (y|yes|Y) ]];then
-  brew tap wez/wezterm
-  require_cask wez/wezterm/wezterm-nightly
+  require_cask kitty
+  ln -s ~/.dotfiles/config/kitty ~/.config/kitty
 else
   ok "skipped"
 fi
