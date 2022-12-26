@@ -113,3 +113,4 @@ notes
 *debug*
 /Library/
 /Downloads/
+.luarc.json
