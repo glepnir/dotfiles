@@ -7,14 +7,14 @@ export LANG=en_US.UTF-8
 export PATH="/usr/local/sbin:$PATH"
 
 # Zig
-export PATH=$PATH:$HOME/Workspace/zls/zig-out/bin
+export PATH="$PATH:$HOME/Workspace/zls/zig-out/bin"
 
 # Go
 export GOPATH="$HOME/.go"
 export GO111MODULE="on"
-export PATH=$PATH:$HOME/.go/bin
-export PATH=$PATH:/usr/local/go/bin
-export GOPROXY=https://goproxy.cn
+export PATH="$PATH:$HOME/.go/bin"
+export PATH="$PATH:/usr/local/go/bin"
+export GOPROXY="https://goproxy.cn"
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
