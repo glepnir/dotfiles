@@ -18,6 +18,7 @@ yabai -m rule --add app="^Chrome$"              web
 yabai -m rule --add app="^Safari$"              web
 
 yabai -m rule --add app="^QQ$"                  manage=off
+yabai -m rule --add app="^图片查看器$"          manage=off
 yabai -m rule --add app="^WeChat$"              manage=off
 yabai -m rule --add app="^System Preferences$"  manage=off
 yabai -m rule --add app="^licecap$"             manage=off

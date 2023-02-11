@@ -6,6 +6,9 @@ export LANG=en_US.UTF-8
 #Homebrew's sbin
 export PATH="/usr/local/sbin:$PATH"
 
+# neovim build
+export PATH="$PATH:$HOME/Workspace/neovim/build/bin/"
+
 # Zig
 export PATH="$PATH:$HOME/Workspace/zls/zig-out/bin"
 
@@ -23,8 +26,8 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 # neovim
-# export VIM='~/Workspace/neovim'
-# export VIMRUNTIME='~/Workspace/neovim/runtime'
+export VIM='/Users/joyce/Workspace/neovim'
+export VIMRUNTIME='/Users/joyce/Workspace/neovim/runtime'
 
 # Editor
 export EDITOR="nvim"
