@@ -291,12 +291,8 @@ require_brew clang-format
 require_brew stylua
 
 
-bot "Install emacs"
-require_brew tap d12frosted/emacs-plus
-require_brew install emacs-plus@28 --with-no-titlebar --with-native-comp --with-modern-doom3-icon
-running "Link emacs config"
-ln -s ~/.dotfiles/config/emacs ~/.config/emacs
-
+bot "link clang-format"
+ln -s ~/.dotfiles/.clang-format ~/.clang-format
 
 # ###########################################################
 bot " Install Gui Applications"

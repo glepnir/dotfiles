@@ -55,8 +55,14 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 zinit ice depth=1 wait lucid compile"{src/*.zsh,src/strategies/*.zsh}" atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
 
-zinit ice depth=1 wait"2" lucid light-mode for \
-      {'wfxr/forgit','hlissner/zsh-autopair','MichaelAquilina/zsh-you-should-use'}
+zinit ice depth=1 wait lucid nocd
+zinit light wfxr/forgit
+
+zinit ice depth=1 wait"2" lucid
+zinit light MichaelAquilina/zsh-you-should-use
+
+zinit ice depth=1 wait"2" lucid
+zinit light hlissner/zsh-autopair
 
 # create tmux new session with window name
 tn() {
