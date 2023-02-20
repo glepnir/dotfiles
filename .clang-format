@@ -24,3 +24,14 @@ AlwaysBreakBeforeMultilineStrings: No
 AlwaysBreakTemplateDeclarations: No
 AlignEscapedNewlines: DontAlign
 BinPackArguments: false
+BraceWrapping:
+  AfterClass:      false
+  AfterControlStatement: false
+  AfterEnum:       false
+  AfterFunction:   true
+  AfterObjCDeclaration: false
+  AfterStruct:     false
+  AfterUnion:      false
+  BeforeCatch:     false
+  BeforeElse:      false
+  IndentBraces:    false
