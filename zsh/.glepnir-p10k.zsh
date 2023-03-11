@@ -209,7 +209,7 @@
 
   ##################################[ dir: current directory ]##################################
   # Default current directory color.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=blue
+  typeset -g POWERLEVEL9K_DIR_FOREGROUND=cyan
   # If directory is too long, shorten some of its segments to the shortest possible unique
   # prefix. The shortened directory can be tab-completed to the original.
   # typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
@@ -753,7 +753,7 @@
 
   ##################################[ disk_usage: disk usage ]##################################
   # Colors for different levels of disk usage.
-  typeset -g POWERLEVEL9K_DISK_USAGE_NORMAL_FOREGROUND=35
+  typeset -g POWERLEVEL9K_DISK_USAGE_NORMAL_FOREGROUND=green
   typeset -g POWERLEVEL9K_DISK_USAGE_WARNING_FOREGROUND=220
   typeset -g POWERLEVEL9K_DISK_USAGE_CRITICAL_FOREGROUND=160
   # Thresholds for different levels of disk usage (percentage points).
