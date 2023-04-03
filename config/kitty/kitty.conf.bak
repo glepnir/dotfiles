@@ -121,7 +121,11 @@ map cmd+c        copy_to_clipboard
 map cmd+v        paste_from_clipboard
 
 
+# include current-theme.conf
+theme solarized
+
+
 # BEGIN_KITTY_THEME
-# Solarized8 Dark
+# Solarized Dark - Patched
 include current-theme.conf
 # END_KITTY_THEME
