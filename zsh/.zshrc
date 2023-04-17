@@ -67,9 +67,11 @@ zinit light hlissner/zsh-autopair
 # create tmux new session with window name
 tn() {
   tmux new-session -d -s $1
-  tmux rename-window -t $1:1 'main'
+  tmux rename-window -t $1:1 'dev'
   tmux a -t $1
 }
+
+
 
 # open file
 fo() {

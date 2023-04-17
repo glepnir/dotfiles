@@ -114,3 +114,7 @@ notes
 /Library/
 /Downloads/
 .luarc.json
+
+Xtest-*
+Xtest_*
+Xviminfo
