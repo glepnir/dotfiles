@@ -26,8 +26,8 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 # neovim
-export VIM='/Users/joyce/Workspace/fork/neovim'
-export VIMRUNTIME='/Users/joyce/Workspace/fork/neovim/runtime'
+export VIM='/Users/joyce/Workspace/neovim'
+export VIMRUNTIME='/Users/joyce/Workspace/neovim/runtime'
 
 # Editor
 export EDITOR="nvim"
