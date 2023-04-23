@@ -118,3 +118,4 @@ notes
 Xtest-*
 Xtest_*
 Xviminfo
+$XDG_DATA_*
