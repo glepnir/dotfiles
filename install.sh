@@ -179,9 +179,9 @@ if [ ! -f "ZSHRC" ]; then
     rm -rf $HOME/.zshrc
     rm -rf $HOME/.zshenv
     action "link zsh/.zshrc and zsh/.zshenv"
-    ln -s  $HOME/.dotfiles/zsh/.zshenv $HOME/.zshenv
-    ln -s  $HOME/.dotfiles/zsh/.zshrc $HOME/.zshrc
-    ln -s  $HOME/.dotfiles/zsh/.glepnir-p10k.zsh $HOME/.glepnir-p10k.zsh
+    ln -s  $HOME/.dotfiles/zsh/zshenv $HOME/.zshenv
+    ln -s  $HOME/.dotfiles/zsh/zshrc $HOME/.zshrc
+    ln -s  $HOME/.dotfiles/zsh/p10k.zsh $HOME/.p10k.zsh
   else
     ok "skipped"
   fi
