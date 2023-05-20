@@ -273,6 +273,7 @@ requier_brew rust-analyzer
 require_brew lua-language-server
 require_brew clang-format
 require_brew stylua
+require_brew helix
 npm i -g typescript
 npm i -g typescript-language-server
 npm i -g prettier
@@ -295,9 +296,6 @@ if [[ $response =~ (y|yes|Y) ]];then
 else
   ok "skipped"
 fi
-running "Configuration wezterm settings"
-ln -s $HOME/.dotfiles/config/wezterm  $HOME/.config/wezterm
-ok
 
 require_cask licecap
 
