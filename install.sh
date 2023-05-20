@@ -193,11 +193,7 @@ bot "Install fonts"
 read -r -p "Install fonts? [y|N] " response
 if [[ $response =~ (y|yes|Y) ]];then
   bot "installing fonts"
-  # need fontconfig to install/build fonts
-  require_brew fontconfig
   sh ./fonts/install.sh
-  brew tap homebrew/cask-fonts
-  require_cask font-aurulent-sans-mono-nerd-font
   ok
 fi
 
@@ -206,17 +202,11 @@ bot " Install Develop Tools"
 # ###########################################################
 require_brew ripgrep
 require_brew bat
-require_brew findutils
 require_brew make
-brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 require_brew tmux
-require_brew grip
-require_brew fd
-require_brew tree
 require_brew fzf
 /usr/local/opt/fzf/install
 brew install jesseduffield/lazygit/lazygit
-require_brew lsd
 require_cask docker
 
 ## llvm with cland
@@ -238,6 +228,8 @@ require_brew node
 require_brew yarn
 
 require_brew lua
+require_brew luarocks
+luarocks install vusted
 require_brew ninja
 ok
 
@@ -248,13 +240,13 @@ sudo yabai --install-sa
 sudo yabai --load-sa
 ln -s "${HOME}/.dotfiles/yabai/yabairc" "${HOME}/.yabairc"
 ln -s "${HOME}/.dotfiles/yabai/skhdrc" "${HOME}/.skhdrc"
-brew services start skhd
-brew services start koekeishiya/formulae/yabai
+yabai --start-service
+skhd --start-service
 
-if [[ $UserLocation =~ 1 ]];then
-  running "Config npm use taobao"
-  npm config set registry https://registry.npm.taobao.org
-fi
+# rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain none -y
+rustup default stable
+rustup component add rustfmt
 
 # zig
 require_brew zig
@@ -264,14 +256,9 @@ mkdir -p ~/.go
 # for chinese user use proxy to get golang package which on google server
 export GO111MODULE="on"
 export GOPATH="$HOME/.go"
-if [[ $UserLocation =~ 1 ]];then
-  export GOPROXY=https://goproxy.io
-fi
 
 go install github.com/go-delve/delve/cmd/dlv@latest
 go install github.com/segmentio/golines@latest
-
-require_brew rust
 
 bot "Install neovim"
 require_brew  luajit --HEAD
@@ -279,20 +266,23 @@ require_brew neovim --HEAD
 running "Configruation nvim"
 git clone https://github.com/glepnir/nvim ~/.config/nvim
 ok
-running "Install vim plugins"
-cd ~/.config/nvim
-cd -
 
-bot "install lsp server"
+bot "install develop"
 require_brew gopls
 requier_brew rust-analyzer
 require_brew lua-language-server
 require_brew clang-format
 require_brew stylua
-
+npm i -g typescript
+npm i -g typescript-language-server
+npm i -g prettier
+npm i -g vscode-langservers-extracted
+npm i -g bash-language-server
+npm i -g vite
 
 bot "link clang-format"
 ln -s ~/.dotfiles/.clang-format ~/.clang-format
+
 
 # ###########################################################
 bot " Install Gui Applications"
