@@ -288,6 +288,7 @@ ln -s ~/.dotfiles/.clang-format ~/.clang-format
 # ###########################################################
 bot " Install Gui Applications"
 # ###########################################################
+require_brew raycast
 
 read -r -p "Do you want install kitty? [y|N] " responseinstall
 if [[ $response =~ (y|yes|Y) ]];then
