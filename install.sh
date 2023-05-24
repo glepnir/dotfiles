@@ -18,7 +18,6 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 10
 # ###########################################################
 bot "ensuring build/install tools are available"
 if ! xcode-select --print-path &> /dev/null; then
-
     # Prompt user to install the XCode Command Line Tools
     xcode-select --install &> /dev/null
 
@@ -231,6 +230,7 @@ require_brew lua
 require_brew luarocks
 luarocks install vusted
 require_brew ninja
+require_brew zls
 ok
 
 action "Install yabai and skhd"
