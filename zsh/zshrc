@@ -37,7 +37,7 @@ zinit for \
       OMZL::{'history','completion','git','grep','key-bindings'}.zsh
 
 zinit wait lucid for \
-      OMZP::{'colored-man-pages','extract','fzf','git','sudo','golang'}
+      OMZP::{'colored-man-pages','extract','fzf','git','sudo'}
 
 # Plugins
 zinit ice depth=1 wait lucid
