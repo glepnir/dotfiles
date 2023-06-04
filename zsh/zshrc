@@ -37,7 +37,7 @@ zinit for \
       OMZL::{'history','completion','git','grep','key-bindings'}.zsh
 
 zinit wait lucid for \
-      OMZP::{'colored-man-pages','extract','fzf','git','sudo'}
+      OMZP::{'extract','fzf','git','sudo'}
 
 # Plugins
 zinit ice depth=1 wait lucid
@@ -64,8 +64,6 @@ tn() {
   tmux rename-window -t $1:1 'dev'
   tmux a -t $1
 }
-
-
 
 # open file
 fo() {
