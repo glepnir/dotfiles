@@ -1,38 +1,31 @@
 # Enviroment variables
 
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/var"
 
-#Homebrew's sbin
-export PATH="/usr/local/sbin:$PATH"
+# PATH
+[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+PathAppend() { [ -d "$1" ] && PATH="$PATH:$1"; }
 
-# Go
-export GOPATH="$HOME/.go"
-export GO111MODULE="on"
-export PATH="$PATH:$HOME/.go/bin"
-export PATH="$PATH:/usr/local/go/bin"
-
+## Go
+PathAppend "$XDG_DATA_HOME/go/bin"
+PathAppend "/usr/local/go/bin"
 # Rust
-export PATH="$HOME/.cargo/bin:$PATH"
-
-# Cland
-export PATH="/usr/local/opt/llvm/bin:$PATH"
-
+PathAppend "$XDG_DATA_HOME/cargo/bin"
 # Lua
-export PATH="$HOME/.luarocks/bin:$PATH"
+PathAppend "$XDG_DATA_HOME/.luarocks/bin"
+unset PathAppend
 
-# neovim
-export PATH="$PATH:$HOME/workspace/neovim/build/bin/"
-export VIM="$HOME/workspace/neovim"
-export VIMRUNTIME="$HOME/workspace/neovim/runtime"
+# Env
+export GOPATH="$XDG_DATA_HOME/go"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
 # Editor
 export EDITOR="nvim"
-export GIT_EDITOR="nvim"
-export REACT_EDITOR="nvim"
-
-# Yabai
-export YABAI_CERT=yabai-cert
+export TERMINAL='kitty'
 
 # Bat
 export BAT_THEME="TwoDark"

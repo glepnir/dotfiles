@@ -46,7 +46,7 @@ running "checking homebrew..."
 brew_bin=$(which brew) 2>&1 > /dev/null
 if [[ $? != 0 ]]; then
   action "installing homebrew"
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   if [[ $? != 0 ]]; then
     error "unable to install homebrew, script $0 abort!"
     exit 2
@@ -181,6 +181,7 @@ if [ ! -f "ZSHRC" ]; then
     ln -s  $HOME/.dotfiles/zsh/zshenv $HOME/.zshenv
     ln -s  $HOME/.dotfiles/zsh/zshrc $HOME/.zshrc
     ln -s  $HOME/.dotfiles/zsh/p10k.zsh $HOME/.p10k.zsh
+    source ~/.zshrc
   else
     ok "skipped"
   fi
@@ -252,13 +253,6 @@ rustup component add rustfmt
 require_brew zig
 # go
 require_brew golang
-mkdir -p ~/.go
-# for chinese user use proxy to get golang package which on google server
-export GO111MODULE="on"
-export GOPATH="$HOME/.go"
-
-go install github.com/go-delve/delve/cmd/dlv@latest
-go install github.com/segmentio/golines@latest
 
 bot "Install neovim"
 require_brew  luajit --HEAD
@@ -274,6 +268,7 @@ require_brew lua-language-server
 require_brew clang-format
 require_brew stylua
 require_brew helix
+
 npm i -g typescript
 npm i -g typescript-language-server
 npm i -g prettier
