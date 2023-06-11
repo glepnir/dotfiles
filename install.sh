@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # include my library helpers for colorized echo and require_brew, etc
-source ./bin/utils.sh
+source ./util.sh
 
 UserLocation=0
 read -r -p "Are you a Chinese user? [y|N] " response
