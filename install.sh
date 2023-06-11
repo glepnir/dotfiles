@@ -245,9 +245,8 @@ yabai --start-service
 skhd --start-service
 
 # rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain none -y
-rustup default stable
-rustup component add rustfmt
+require_brew rustup-init
+rustup-init
 
 # zig
 require_brew zig

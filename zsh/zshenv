@@ -5,6 +5,11 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/var"
 
+# Env
+export GOPATH="$XDG_DATA_HOME/go"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+
 # PATH
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
 PathAppend() { [ -d "$1" ] && PATH="$PATH:$1"; }
@@ -13,15 +18,11 @@ PathAppend() { [ -d "$1" ] && PATH="$PATH:$1"; }
 PathAppend "$XDG_DATA_HOME/go/bin"
 PathAppend "/usr/local/go/bin"
 # Rust
-PathAppend "$XDG_DATA_HOME/cargo/bin"
+PathAppend "$CARGO_HOME/bin"
 # Lua
 PathAppend "$XDG_DATA_HOME/.luarocks/bin"
 unset PathAppend
 
-# Env
-export GOPATH="$XDG_DATA_HOME/go"
-export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
 # Editor
 export EDITOR="nvim"
