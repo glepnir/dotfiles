@@ -254,7 +254,6 @@ require_brew zig
 require_brew golang
 
 bot "Install neovim"
-require_brew  luajit --HEAD
 require_brew neovim --HEAD
 running "Configruation nvim"
 git clone https://github.com/glepnir/nvim ~/.config/nvim
@@ -268,6 +267,7 @@ require_brew clang-format
 require_brew stylua
 require_brew helix
 
+npm i -g eslint
 npm i -g typescript
 npm i -g typescript-language-server
 npm i -g prettier
