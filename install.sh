@@ -195,6 +195,8 @@ if [[ $response =~ (y|yes|Y) ]];then
   bot "installing fonts"
   sh ./fonts/install.sh
   ok
+  brew tap homebrew/cask-fonts
+  brew install font-iosevka
 fi
 
 # ###########################################################
