@@ -1,6 +1,6 @@
 import re
 
-replace = '#002b36'
+replace = '#181c27'
 
 def replace_first_hex_color(filename):
     with open(filename, "r") as file:
