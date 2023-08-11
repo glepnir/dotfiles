@@ -6,6 +6,7 @@ ninja
 tree-sitter
 ttf-font-awesome
 ttc-iosevka
+wofi
 go
 rustup
 lua
