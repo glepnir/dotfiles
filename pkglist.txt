@@ -1,0 +1,17 @@
+ly
+i3status
+make
+cmake
+ninja
+tree-sitter
+ttf-font-awesome
+ttc-iosevka
+go
+rustup
+lua
+npm
+gopls
+rust-analyzer
+lua-language-server
+kitty
+google-chrome

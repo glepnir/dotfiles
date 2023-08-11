@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+dotfiles_dir="$HOME/dotfiles"
+fonts_dir="$HOME/fonts"
+
+echo "config sysmtem"
+sudo pacman -S zsh
+chsh -s $(which zsh)
+
+echo "conig sway"
+if [ ! -d "$HOME/.config" ]; then
+  rm -rf "$HOME/.config"
+fi
+ln -s ~/.dotfiles/config "$HOME/.config"
+
+if [ ! -f "$HOME/.bashrc" ]; then
+  rm -rf "$HOME/.bashrc"
+  rm -rf "$HOME/.bash_profile"
+  rm -rf "$HOME/.bash_history"
+fi
+
+sudo pacman -S git base-devel
+cd /opt
+sudo git clone https://aur.archlinux.org/yay.git
+sudo chown -R mw:mw ./yay
+cd ./yay
+export GOPROXY=https://goproxy.cn
+makepkg -si
+
+cd "$dotfiles_dir"
+
+echo "copy font..."
+find "$fonts_dir" -type f \( -name '*.otf' -o -name '*.ttf' \) -exec sudo cp {} /usr/share/fonts/ \;
+echo "refresh font cache..."
+sudo fc-cache -f -v
+echo "font install done"
+
+echo "link config file"
+shopt -s dotglob
+for file in "$HOME/.dotfiles/link"/*; do
+  if [ -f "$file" ]; then
+    filename=$(basename "$file")
+    ln -s "$file" "$HOME/$filename"
+    echo "Created symlink: $HOME/$filename -> $file"
+  fi
+done
+shopt -u dotglob
+echo "link done"
+
+git config --global user.name "glepnir"
+git config --global user.email "glephunter@gmail.com"
+git config --global core.editor "nvim"
+
+echo "running update aur and install package"
+yay -Syu
+yay -S - < "$dotfiles_dir"/pkglist.txt
+
+echo "enable severices"
+systemctl enable ly.service
+
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+echo "install tsserver"
+npm i -g typescript typescript-language-server
