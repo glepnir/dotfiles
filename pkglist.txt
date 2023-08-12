@@ -1,5 +1,4 @@
 ly
-i3status
 make
 cmake
 ninja
