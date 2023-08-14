@@ -51,6 +51,10 @@ git config --global user.name "glepnir"
 git config --global user.email "glephunter@gmail.com"
 git config --global core.editor "nvim"
 
+echo "download neovim config"
+git clone https://github.com/glepnir/nvim "$HOME"/.config/nvim
+echo "done"
+
 echo "running update aur and install package"
 yay -Syu
 yay -S - < "$dotfiles_dir"/pkglist.txt --noconfirm
