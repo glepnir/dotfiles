@@ -14,5 +14,6 @@ gopls
 rust-analyzer
 lua-language-server
 kitty
-google-chrome
 wl-clipboard
+fzf
+noto-fonts-cjk
