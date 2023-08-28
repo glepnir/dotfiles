@@ -6,7 +6,10 @@ powerline_fonts_dir=$( cd "$( dirname "$0" )" && pwd )
 find_command="find \"$powerline_fonts_dir\" \( -name '*.[o,t]tf' -or -name '*.pcf.gz' \) -type f -print0"
 
 # MacOS
-font_dir="$HOME/Library/Fonts"
+#font_dir="$HOME/Library/Fonts"
+
+#linux
+font_dir="$HOME/.fonts"
 
 # Copy all fonts to user fonts directory
 echo "Copying fonts..."

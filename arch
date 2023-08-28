@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-dotfiles_dir="$HOME/dotfiles"
-fonts_dir="$HOME/fonts"
+dotfiles_dir="$HOME/.dotfiles"
+fonts_dir="$dotfiles_dir/fonts"
 
 echo "config sysmtem"
 sudo pacman -S zsh
@@ -20,24 +20,25 @@ if [ ! -f "$HOME/.bashrc" ]; then
 fi
 
 sudo pacman -S git base-devel
-cd /opt
-sudo git clone https://aur.archlinux.org/yay.git
-sudo chown -R mw:mw ./yay
-cd ./yay
-export GOPROXY=https://goproxy.cn
-makepkg -si
-
-cd "$dotfiles_dir"
 
 echo "copy font..."
-find "$fonts_dir" -type f \( -name '*.otf' -o -name '*.ttf' \) -exec sudo cp {} /usr/share/fonts/ \;
-echo "refresh font cache..."
-sudo fc-cache -f -v
+# Set source and target directories
+fonts_dir=$( cd "$( dirname "$0" )" && pwd )
+find_command="find \"$fonts_dir\" \( -name '*.[o,t]tf' -or -name '*.pcf.gz' \) -type f -print0"
+mkdir -p $HOME/.fonts/
+# Copy all fonts to user fonts directory
+echo "Copying fonts..."
+eval $find_command | xargs -0 -I % cp "%" "$HOME/.fonts/"
+# Reset font cache on Linux
+if command -v fc-cache @>/dev/null ; then
+    echo "Resetting font cache, this may take a moment..."
+    fc-cache -f $font_dir
+fi
 echo "font install done"
 
 echo "link config file"
 shopt -s dotglob
-for file in "$HOME/.dotfiles/link"/*; do
+for file in "$dotfiles_dir/link"/*; do
   if [ -f "$file" ]; then
     filename=$(basename "$file")
     ln -s "$file" "$HOME/$filename"
@@ -46,6 +47,28 @@ for file in "$HOME/.dotfiles/link"/*; do
 done
 shopt -u dotglob
 echo "link done"
+
+echo "link config file"
+# Ensure the target directory exists
+mkdir -p $HOME/.config
+
+# Loop through all folders in ~/.dotfiles/config
+for folder in "$dotfiles_dir"/config/*; do
+  if [ -d "$folder" ]; then
+    folder_name="$(basename "$folder")"
+    symlink=$HOME/.config/$folder_name
+
+    # Check if the symlink already exists
+    if [ -e "$symlink" ]; then
+      echo "Symlink already exists for $folder_name"
+    else
+      # Create the symlink
+      ln -s "$folder" "$symlink"
+      echo "Created symlink for $folder_name"
+    fi
+  fi
+done
+echo "Symbolic links created from $dotfiles_dir to $target_dir"
 
 git config --global user.name "glepnir"
 git config --global user.email "glephunter@gmail.com"
