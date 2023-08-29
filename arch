@@ -51,6 +51,9 @@ echo "link done"
 echo "link config file"
 # Ensure the target directory exists
 mkdir -p $HOME/.config
+rm -rf $HOME/.config/kitty
+rm -rf $HOME/.config/hypr
+
 
 # Loop through all folders in ~/.dotfiles/config
 for folder in "$dotfiles_dir"/config/*; do
@@ -82,13 +85,7 @@ echo "running update aur and install package"
 yay -Syu
 yay -S - < "$dotfiles_dir"/pkglist.txt --noconfirm
 
-echo "enable severices"
-systemctl enable ly.service
-
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo "install tsserver"
 npm i -g typescript typescript-language-server
-
-echo "clean"
-yay -R foot

@@ -1,11 +1,9 @@
-ly
 make
 cmake
 ninja
 tree-sitter
 ttf-font-awesome
 ttc-iosevka
-wofi
 go
 rustup
 lua
@@ -17,3 +15,5 @@ kitty
 wl-clipboard
 fzf
 noto-fonts-cjk
+tmux
+waybar

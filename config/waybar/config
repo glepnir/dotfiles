@@ -8,7 +8,7 @@
 
     // Choose the order of the modules
 
-    "modules-left": ["sway/workspaces", "custom/media"],
+    "modules-left": ["wlr/workspaces", "custom/media"],
 
     // Modules configuration
     "modules-right": ["idle_inhibitor",  "custom/updater", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state", "sway/language", "tray", "clock", "custom/power"],
