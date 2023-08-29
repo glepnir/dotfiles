@@ -1,6 +1,7 @@
 make
 cmake
 ninja
+llvm
 tree-sitter
 ttf-font-awesome
 ttc-iosevka
