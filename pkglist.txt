@@ -21,3 +21,4 @@ grim
 swappy
 slurp
 ripgrep
+stylua
