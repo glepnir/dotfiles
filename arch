@@ -76,6 +76,7 @@ echo "Symbolic links created from $dotfiles_dir to $target_dir"
 git config --global user.name "glepnir"
 git config --global user.email "glephunter@gmail.com"
 git config --global core.editor "nvim"
+git config --global credential.helper store
 
 echo "download neovim config"
 git clone https://github.com/glepnir/nvim "$HOME"/.config/nvim
