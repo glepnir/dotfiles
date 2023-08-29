@@ -2,6 +2,7 @@ make
 cmake
 ninja
 llvm
+clang
 tree-sitter
 ttf-font-awesome
 ttc-iosevka
