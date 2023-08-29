@@ -17,3 +17,7 @@ fzf
 noto-fonts-cjk
 tmux
 waybar
+grim
+swappy
+slurp
+ripgrep
