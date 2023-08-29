@@ -22,3 +22,4 @@ swappy
 slurp
 ripgrep
 stylua
+unzip
