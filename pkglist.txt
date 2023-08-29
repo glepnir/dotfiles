@@ -15,6 +15,7 @@ kitty
 wl-clipboard
 fzf
 noto-fonts-cjk
+noto-fonts-emoji
 tmux
 waybar
 grim
