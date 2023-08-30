@@ -17,8 +17,7 @@ kitty
 wl-clipboard
 fzf
 wqy-microhei
-adobe-source-han-sans-cn-fonts
-adobe-source-han-serif-cn-fonts
+adobe-source-han-fonts
 noto-fonts-emoji
 tmux
 waybar
