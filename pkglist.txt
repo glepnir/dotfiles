@@ -33,3 +33,4 @@ fcitx5-chinese-addons
 fcitx5-pinyin-zhwiki
 hyprpaper
 firefox
+nautilus
