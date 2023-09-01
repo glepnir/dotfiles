@@ -34,3 +34,4 @@ fcitx5-pinyin-zhwiki
 hyprpaper
 firefox
 nautilus
+consolas-font
