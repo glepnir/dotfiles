@@ -36,7 +36,7 @@ window#waybar {
 
 #keyboard-state,#tray, #cpu, #memory, #clock, #battery,#temperature, #pulseaudio, #network {
 	background-color: #24283b;
-	padding: 5px 5px;
+	padding: 5px 10px;
 	margin: 5px 0px;
 }
 

@@ -22,10 +22,10 @@
   },
   "custom/power": {
     "format": "󰐥",
-    "on-click": "$HOME/bin/waybar-power.sh"
+    "on-click": "shutdown now"
   },
   "clock": {
-    "format": "󰅐 {:%H:%M}",
+    "format": "󰅐 {:%H:%M} ",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "format-alt": "{:%Y-%m-%d}"
   },
@@ -42,20 +42,20 @@
     "format-icons": ["󱊡", "󱊢", "󱊣"]
   },
  "cpu": {
-    "format": " {usage}% ",
+    "format": "  {usage}%",
     "tooltip": false
   },
   "memory": {
-    "format": " {}% "
+    "format": " {}%"
   },
   "temperature": {
     "critical-threshold": 80,
-    "format": "{temperatureC}°C {icon}",
+    "format": "{icon} {temperatureC}°C",
     "format-icons": ["", "", ""]
   },
   "network": {
     "format-wifi": "  {essid}",
-    "format-ethernet": "{ipaddr} ",
+    "format-ethernet": " {ipaddr}",
     "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "󰤮 Disconnected",
     "format-alt": "{ifname}: {ipaddr}/{cidr}"
@@ -74,7 +74,7 @@
        "spacing": 10
   },
   "pulseaudio": {
-    "format": "{icon}  {volume}%",
+    "format": "{icon} {volume}%",
     "format-muted": "󰖁 Muted",
     "format-icons": {
       "headphone": "",
