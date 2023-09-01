@@ -9,8 +9,10 @@
     "pulseaudio",
     "temperature",
     //"battery",
+    "keyboard-state",
+    "tray",
     "clock",
-    "custom/power"
+    "custom/power",
   ],
   // Modules configuration
   "wlr/workspaces": {
@@ -57,6 +59,19 @@
     "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "󰤮 Disconnected",
     "format-alt": "{ifname}: {ipaddr}/{cidr}"
+  },
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": true,
+    "format": " {name} {icon}",
+    "format-icons": {
+      "locked": "",
+      "unlocked": ""
+    },
+  },
+  "tray": {
+       "icon-size": 20,
+       "spacing": 10
   },
   "pulseaudio": {
     "format": "{icon}  {volume}%",

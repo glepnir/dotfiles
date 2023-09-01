@@ -34,7 +34,7 @@ window#waybar {
 	border-radius: 5px;
 }
 
-#cpu, #memory, #clock, #battery,#temperature, #pulseaudio, #network {
+#keyboard-state,#tray, #cpu, #memory, #clock, #battery,#temperature, #pulseaudio, #network {
 	background-color: #24283b;
 	padding: 5px 5px;
 	margin: 5px 0px;
@@ -54,6 +54,10 @@ window#waybar {
 #cpu {
 	border-radius: 5px 0px 0px 5px;
 	color: #7dcfff;
+}
+
+#keyboard-state {
+  color: #9ece6a;
 }
 
 #memory {
