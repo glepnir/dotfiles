@@ -35,3 +35,4 @@ nautilus
 consolas-font
 neovim-nightly-bin
 wofi
+pavucontrol
