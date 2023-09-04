@@ -49,29 +49,21 @@ shopt -u dotglob
 echo "link done"
 
 echo "link config file"
-# Ensure the target directory exists
-mkdir -p $HOME/.config
-rm -rf $HOME/.config/kitty
-rm -rf $HOME/.config/hypr
-
-
-# Loop through all folders in ~/.dotfiles/config
-for folder in "$dotfiles_dir"/config/*; do
+config_dir="$HOME/.config"
+for folder in "$dotfiles_dir/config"/*; do
   if [ -d "$folder" ]; then
-    folder_name="$(basename "$folder")"
-    symlink=$HOME/.config/$folder_name
+    folder_name=$(basename "$folder")
+    target_folder="$config_dir/$folder_name"
 
-    # Check if the symlink already exists
-    if [ -e "$symlink" ]; then
-      echo "Symlink already exists for $folder_name"
-    else
-      # Create the symlink
-      ln -s "$folder" "$symlink"
-      echo "Created symlink for $folder_name"
+    if [ -d "$target_folder" ]; then
+      rm -rf "$target_folder"
+      echo "remove exist $target_folder"
     fi
+
+    ln -s "$folder" "$target_folder"
+    echo "Created system link $folder to $target_folder"
   fi
 done
-echo "Symbolic links created from $dotfiles_dir to $target_dir"
 
 git config --global user.name "glepnir"
 git config --global user.email "glephunter@gmail.com"
