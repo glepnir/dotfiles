@@ -1,7 +1,6 @@
 {
   "position": "top",
-  "height": 30,
-  "modules-left": ["wlr/workspaces"],
+  "modules-left": ["hyprland/workspaces"],
   "modules-right": [
     "cpu",
     "memory",
@@ -15,10 +14,8 @@
     "custom/power",
   ],
   // Modules configuration
-  "wlr/workspaces": {
-    "disable-scroll": true,
+  "hyprland/workspaces": {
     "all-outputs": true,
-    "format": "{icon}",
     "on-scroll-up": "hyprctl dispatch workspace e+1",
     "on-scroll-down": "hyprctl dispatch workspace e-1"
   },
