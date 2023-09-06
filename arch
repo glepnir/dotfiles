@@ -81,4 +81,18 @@ yay -S - < "$dotfiles_dir"/pkglist.txt --noconfirm
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo "install tsserver"
-npm i -g typescript typescript-language-server
+sudo npm i -g typescript typescript-language-server bash-language-server
+
+# Define the environment variables
+ENV_VARS=(
+  'GTK_IM_MODULE=fcitx'
+  'QT_IM_MODULE=fcitx'
+  'XMODIFIERS=@im=fcitx'
+  'SDL_IM_MODULE=fcitx'
+  'GLFW_IM_MODULE=ibus'
+)
+
+# Loop through the environment variables and add them to /etc/environment
+for var in "${ENV_VARS[@]}"; do
+  echo "$var" | sudo tee -a /etc/environment
+done
