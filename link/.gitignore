@@ -121,3 +121,6 @@ Xtest_*
 Xviminfo
 $XDG_DATA_*
 doc/tags
+.swp
+Xtest_logging
+Xviminfo
