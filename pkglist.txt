@@ -32,7 +32,6 @@ fcitx5-breeze
 hyprpaper
 firefox
 nautilus
-consolas-font
 neovim-nightly-bin
 wofi
 pavucontrol
