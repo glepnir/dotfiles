@@ -36,3 +36,4 @@ neovim-nightly-bin
 wofi
 pavucontrol
 less
+man
