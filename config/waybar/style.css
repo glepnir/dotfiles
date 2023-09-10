@@ -6,13 +6,15 @@
     min-height: 0;
 }
 
+@define-color bg rgb (15, 15, 23);
+
 window#waybar {
     background: transparent;
     color: white;
 }
 
 #workspaces {
-	background-color: #24283b;
+	background-color: @bg;
 	margin: 5px;
 	margin-left: 5px;
 	border-radius: 5px;
@@ -23,25 +25,25 @@ window#waybar {
 }
 
 #workspaces button.active {
-    color: #24283b;
+    color: @bg;
     background-color: #7aa2f7;
     border-radius: 5px;
 }
 
 #workspaces button:hover {
 	background-color: #7dcfff;
-	color: #24283b;
+	color: @bg;
 	border-radius: 5px;
 }
 
 #keyboard-state,#tray, #cpu, #memory, #clock, #battery,#temperature, #pulseaudio, #network {
-	background-color: #24283b;
+	background-color: @bg;
 	padding: 5px 10px;
 	margin: 5px 0px;
 }
 
 #custom-power {
-	color: #24283b;
+	color: @bg;
 	background-color: #db4b4b;
 	border-radius: 5px;
 	margin-right: 10px;
@@ -84,7 +86,7 @@ window#waybar {
 
 #battery.warning:not(.charging) {
     background-color: #f7768e;
-    color: #24283b;
+    color: @bg;
     border-radius: 5px 5px 5px 5px;
 }
 

@@ -1,0 +1,203 @@
+(defwidget bar []
+	(centerbox  :orientation "h"
+				:hexpand true
+			(box    :halign "start"
+					:hexpand true
+					:orientation "h"
+					:space-evenly false
+			(powerbutton))
+			(workspaces
+						:halign "center"
+						:hexpand true
+						:orientation "h")
+			(box    :halign "end"
+					:hexpand true
+					:orientation "h"
+					:space-evenly false
+			(mem :thickness 4 :icon "󰍛")
+			;;(cpu :thickness 4 :icon "")
+			(disk :thickness 4 :icon "")
+			(time))))
+
+(defpoll brightness :interval "999h" :initial 0 `brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}'`)
+(defpoll volume :interval "999h" :initial 0 `pamixer --get-volume`)
+(defpoll micvolume :interval "999h" :initial 0 `pamixer --get-volume --source 1`)
+
+
+
+;; Variables
+(defvar cal false)
+
+
+;; ━━━ MEMORY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(defwidget mem [icon thickness]
+  (box :hexpand "true"
+    (circular-progress  :value {EWW_RAM.used_mem_perc}
+                        :class "membar"
+                        :thickness {thickness}
+                        :start-at 75)
+		(label :text "${round(EWW_RAM.used_mem_perc, 0)}%")))
+
+;; ━━━ CPU ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(defwidget cpu [icon thickness]
+  (box :hexpand "true"
+    (circular-progress  :value {EWW_CPU.avg}
+                        :class "cpubar"
+                        :thickness {thickness}
+                        :start-at 75)
+		(label  :text  "${round(EWW_CPU.avg, 0)}%")))
+
+;; ━━━ DISK ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(defwidget disk [icon thickness]
+  (box  :hexpand "true"
+    (circular-progress  :value {EWW_DISK["/"].used_perc}
+                        :class "diskbar"
+                        :thickness {thickness}
+                        :start-at 75)
+		(label :text "${round(EWW_DISK["/"].used_perc, 0)}%")))
+
+
+;; ━━━ VOLUME ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+(defvar volume-level 50)
+(defvar volume-muted false)
+
+(defwindow volume
+  :monitor 0
+  :geometry (geometry :y "100px" :x "0px" :width "250px" :height "200px" :anchor "center bottom")
+  :windowtype "dock"
+  :wm-ignore true
+  :stacking "fg"
+
+  (box :class "volume-window"
+       :orientation "v"
+       :space-evenly "false"
+    (box :class "volume-widget"
+         :orientation "h"
+         :space-evenly false
+         :spacing 10
+      (label :text {volume-muted ? "" :
+                    volume-level == 0 ? "" :
+                    volume-level < 32 ? "" :
+                    volume-level < 65 ? "" :
+                    ""}
+
+             :class 'volume-icon ${volume-muted ? "volume-icon-muted" : ""}'
+      )
+      (scale :class 'volume-slider ${volume-muted ? "volume-slider-muted" : ""}'
+             :hexpand "true"
+             :min 0
+             :max 100
+             :height 8
+             :marks true
+             :value volume-level
+             :onchange "pamixer --set-volume {}"))))
+
+;; ━━━ TIME ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(defpoll hour :interval "10s" "date +%H")
+(defpoll minute :interval "10s" "date +%M")
+
+(defwidget time []
+	(box
+		:space-evenly false
+		:class "clock"
+		(label  :class "date"
+				:text "${hour}:${minute}")))
+
+
+(defvar bright-level 50)
+(defvar bright-muted false)
+(defwindow brightness
+  :monitor 0
+  :geometry (geometry :y "-60px" :x "60px" :width "300px" :height "150px" :anchor "bottom left")
+  :wm-ignore true
+  :stacking "fg"
+
+  (box :class "volume-window"
+       :orientation "v"
+       :space-evenly "false"
+    (box :class "volume-widget"
+         :orientation "h"
+         :space-evenly false
+         :spacing 10
+      (label :text ""
+             :class 'volume-icon'
+      )
+      (scale :class 'volume-slider'
+             :hexpand "true"
+             :min 0
+             :max 100
+             :height 8
+             :marks true
+             :value bright-level
+             :onchange "brightnessctl set {}%"))))
+
+
+(defwidget powerbutton []
+  (eventbox :cursor "hand"
+  (button		:class "reg-btn powerbutton"
+            :onclick "eww open powermenu --toggle &"	"")))
+
+(defwidget powermenucontent []
+	(box :orientation "h"
+  :class "powermenu-container"
+  (box :class "shutdown-btn-box"
+       :orientation "h"
+    (button :class "btn"
+            :tooltip "Shutdown"
+            :onclick "eww close powermenu && shutdown now"
+      "⏻")
+    )
+  (box :class "reboot-btn-box"
+       :orientation "h"
+    (button :class "btn"
+            :tooltip "Reboot"
+            :onclick "eww close powermenu && reboot"
+      "")
+    )
+  (box :class "exit-btn-box"
+       :orientation "h"
+    (button :class "btn"
+            :tooltip "Suspend"
+            :onclick "systemctl suspend"
+      "")
+    )
+  )
+)
+
+(defwindow powermenu
+  :monitor 0
+  :geometry (geometry :x "0%"
+  :y "0%"
+  :width "30%"
+  :height "15%"
+  :anchor "center center")
+  :wm-ignore true
+  (powermenucontent))
+
+(deflisten workspaces_listen "./scripts/workspace")
+(defwidget workspaces []
+  (literal :content workspaces_listen))
+
+(defwindow dashboard
+  :monitor 0
+  :geometry (geometry 
+  :height "1080px" 
+  :width "350px"
+  :x "48px"
+  :y "0px"
+  :anchor "top left")
+  :stacking "fg"
+  :class "dashboard"
+  (dashboard))
+
+(defwindow bar
+  :monitor 0
+  :exclusive true 
+  :geometry (geometry :height "10px"
+											:width "90%"
+											:x "0%"
+											:y "0%"
+											:anchor "top center")
+  :stacking "fg"
+  (bar))
