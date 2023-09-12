@@ -124,3 +124,4 @@ doc/tags
 .swp
 Xtest_logging
 Xviminfo
+$HOME/.dotfiles/config/tmux/plugins/
