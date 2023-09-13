@@ -125,3 +125,4 @@ doc/tags
 Xtest_logging
 Xviminfo
 $HOME/.dotfiles/config/tmux/plugins/
+$HOME/workspace/neovim/src/nvim/debug.c
