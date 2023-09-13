@@ -124,5 +124,5 @@ doc/tags
 .swp
 Xtest_logging
 Xviminfo
-$HOME/.dotfiles/config/tmux/plugins/
+*/tmux/plugins/*
 $HOME/workspace/neovim/src/nvim/debug.c
