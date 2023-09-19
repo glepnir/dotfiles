@@ -125,5 +125,5 @@ doc/tags
 Xtest_logging
 Xviminfo
 */tmux/plugins/*
-$HOME/workspace/neovim/src/nvim/debug.h
-$HOME/workspace/neovim/src/nvim/log.h
+*/debug.h
+*/neovim/min_repro*
