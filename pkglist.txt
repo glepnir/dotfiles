@@ -31,7 +31,7 @@ fcitx5-pinyin-zhwiki
 fcitx5-breeze
 hyprpaper
 firefox
-nautilus
+nemo
 neovim-nightly-bin
 wofi
 pavucontrol
