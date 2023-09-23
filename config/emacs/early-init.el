@@ -24,4 +24,4 @@
 (when (featurep 'ns)
   (push '(ns-transparent-titlebar . t) default-frame-alist))
 
-(load (concat user-emacs-directory "core/core") nil 'nomessage)
+; (load (concat user-emacs-directory "core/core") nil 'nomessage)
