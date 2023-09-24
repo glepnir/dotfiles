@@ -5,6 +5,7 @@ clang
 tree-sitter
 ttf-font-awesome
 ttc-iosevka
+zig
 go
 rustup
 lua
