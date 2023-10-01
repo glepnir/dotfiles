@@ -36,10 +36,15 @@ window#waybar {
 	border-radius: 5px;
 }
 
-#keyboard-state,#tray, #cpu, #memory, #clock, #battery,#temperature, #pulseaudio, #network {
+#keyboard-state,#tray, #cpu, #memory,  #battery,#temperature, #pulseaudio, #network {
 	background-color: @bg;
 	padding: 5px 10px;
 	margin: 5px 0px;
+}
+
+#tray {
+  border-radius: 0px 5px 5px 0px;
+  margin-right: 10px;
 }
 
 #custom-power {
@@ -71,9 +76,12 @@ window#waybar {
 }
 
 #clock {
-    color: #b48ead;
-    border-radius: 0px 5px 5px 0px;
-    margin-right: 10px;
+  color: #b48ead;
+  border-radius: 5px 5px 5px 5px;
+  margin-right: 10px;
+	background-color: @bg;
+	padding: 5px 10px;
+	margin: 5px 0px;
 }
 
 #battery {

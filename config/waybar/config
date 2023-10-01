@@ -1,6 +1,7 @@
 {
   "position": "top",
   "modules-left": ["hyprland/workspaces"],
+  "modules-center": ["clock"],
   "modules-right": [
     "cpu",
     "memory",
@@ -10,7 +11,6 @@
     //"battery",
     "keyboard-state",
     "tray",
-    "clock",
     "custom/power",
   ],
   // Modules configuration
@@ -24,7 +24,7 @@
     "on-click": "shutdown now"
   },
   "clock": {
-    "format": "{:%H:%M} ",
+    "format": " {:%H:%M} ",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "format-alt": "{:%Y-%m-%d}"
   },
