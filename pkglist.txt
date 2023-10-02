@@ -40,5 +40,4 @@ pavucontrol
 less
 man-db
 gdb
-gf2-debugger-git
 docker
