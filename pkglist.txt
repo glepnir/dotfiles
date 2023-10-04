@@ -41,3 +41,6 @@ less
 man-db
 gdb
 docker
+python-pip
+python-msgpack
+doxygen
