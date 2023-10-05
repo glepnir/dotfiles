@@ -34,6 +34,7 @@ fcitx5-breeze
 hyprpaper
 firefox
 nemo
+nemo-fileroller
 neovim-nightly-bin
 wofi
 pavucontrol

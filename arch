@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+sudo pacman -S git base-devel
+
+echo -e "\n[archlinuxcn]\nServer = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch" | sudo tee -a /etc/pacman.conf
+
+sudo pacman -Syu
+sudo pacman -S archlinuxcn-keyring
+
 dotfiles_dir="$HOME/.dotfiles"
 fonts_dir="$dotfiles_dir/fonts"
 
@@ -18,8 +25,6 @@ if [ ! -f "$HOME/.bashrc" ]; then
   rm -rf "$HOME/.bash_profile"
   rm -rf "$HOME/.bash_history"
 fi
-
-sudo pacman -S git base-devel
 
 echo "copy font..."
 # Set source and target directories
