@@ -2,15 +2,25 @@
     border: none;
     border-radius: 0;
     font-family: Consolas ligaturizedv3,Roboto, Helvetica, Arial, sans-serif;
-    font-size: 15px;
+    font-size: 16px;
     min-height: 0;
 }
 
-@define-color bg rgb (15, 15, 23);
+@define-color bg rgb (22, 19, 32);
 
 window#waybar {
     background: transparent;
     color: white;
+}
+
+#window {
+  color: #c0caf5;
+	background-color: @bg;
+	margin: 5px;
+	margin-left: 5px;
+	border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 #workspaces {
@@ -20,14 +30,16 @@ window#waybar {
 	border-radius: 5px;
 }
 #workspaces button {
-    padding: 5px 8px;
-    color: #c0caf5;
+  padding: 5px 8px;
+  color: #c0caf5;
 }
 
 #workspaces button.active {
     color: @bg;
     background-color: #7aa2f7;
     border-radius: 5px;
+    border-top: 5px solid #ABE9B3;
+    border-bottom: 5px solid #ABE9B3;
 }
 
 #workspaces button:hover {
@@ -51,6 +63,19 @@ window#waybar {
 	margin-bottom: 5px;
 	margin-left: 0px;
 	padding: 5px 10px;
+}
+
+#custom-launcher {
+  font-size: 20px;
+  color: #89DCEB;
+	background-color: @bg;
+	border-radius: 5px;
+	margin-left: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	padding-left: 10px;
+	padding-right: 5px;
 }
 
 #cpu {

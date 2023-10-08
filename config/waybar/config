@@ -1,6 +1,7 @@
 {
   "position": "top",
-  "modules-left": ["hyprland/workspaces"],
+  "modules-left": ["custom/launcher","hyprland/window"],
+  "modules-center": ["hyprland/workspaces"],
   "modules-right": [
     "cpu",
     "memory",
@@ -92,5 +93,14 @@
       "default": ["", "", ""]
     },
     "on-click": "pavucontrol"
-  }
+  },
+  "hyprland/window": {  
+    "format": "{}",
+    "format-stopped": "",
+  },
+  "custom/launcher":{
+    "format": " ",
+    "on-click": "wofi -show run",
+    "on-click-right": "killall wofi"
+  },
 }
