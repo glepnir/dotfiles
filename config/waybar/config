@@ -100,7 +100,7 @@
   },
   "custom/launcher":{
     "format": " ",
-    "on-click": "wofi -show run",
+    "on-click": "wofi --show drun -I -a",
     "on-click-right": "killall wofi"
   },
 }
