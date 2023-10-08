@@ -84,6 +84,8 @@ echo "running update aur and install package"
 yay -Syu
 yay -S - < "$dotfiles_dir"/pkglist.txt --noconfirm
 
+rustup default stable
+
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo "install tsserver"
