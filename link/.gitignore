@@ -127,3 +127,4 @@ Xviminfo
 .tmux/plugins/*
 */debug.h
 */neovim/min_repro*
+.luarc.json
