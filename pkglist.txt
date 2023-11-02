@@ -44,3 +44,5 @@ docker
 python-pip
 python-msgpack
 doxygen
+mpv
+xpdf
