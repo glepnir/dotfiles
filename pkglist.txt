@@ -28,6 +28,7 @@ stylua
 unzip
 fcitx5-im
 fcitx5-rime
+rime-ice
 fcitx5-breeze
 hyprpaper
 firefox
