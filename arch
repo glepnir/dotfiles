@@ -93,7 +93,6 @@ sudo npm i -g typescript typescript-language-server bash-language-server
 
 # Define the environment variables
 ENV_VARS=(
-  'GTK_IM_MODULE=fcitx'
   'QT_IM_MODULE=fcitx'
   'XMODIFIERS=@im=fcitx'
   'SDL_IM_MODULE=fcitx'
