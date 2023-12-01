@@ -1,7 +1,7 @@
 {
   "position": "top",
-  "modules-left": ["custom/launcher","hyprland/window"],
-  "modules-center": ["hyprland/workspaces"],
+  "modules-left": ["custom/launcher","hyprland/workspaces"],
+  //"modules-center": ["hyprland/window"],
   "modules-right": [
     "cpu",
     "memory",
