@@ -6,6 +6,10 @@
     min-height: 0;
 }
 
+window.HDMI-A-2 * {
+	font-size: 26px;
+}
+
 @define-color bg rgb (22, 19, 32);
 
 window#waybar {
