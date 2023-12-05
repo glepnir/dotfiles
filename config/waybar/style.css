@@ -2,12 +2,8 @@
     border: none;
     border-radius: 0;
     font-family: Consolas ligaturizedv3,Roboto, Helvetica, Arial, sans-serif;
-    font-size: 16px;
+    font-size: 13px;
     min-height: 0;
-}
-
-window.HDMI-A-2 * {
-	font-size: 26px;
 }
 
 @define-color bg rgb (22, 19, 32);
