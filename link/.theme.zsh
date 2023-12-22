@@ -40,7 +40,7 @@
   # Prompt colors.
   local grey='242'
   local red='1'
-  local yellow='3'
+  local yellow='11'
   local blue='4'
   local magenta='5'
   local cyan='6'
@@ -49,6 +49,7 @@
   # Left prompt segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
+    in_prefix                    # [in]
     context                   # user@host
     dir                       # current directory
     vcs                       # git status
@@ -119,7 +120,7 @@
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=$magenta
 
   # Grey Git prompt. This makes stale prompts indistinguishable from up-to-date ones.
-  typeset -g POWERLEVEL9K_VCS_FOREGROUND=$yellow
+  typeset -g POWERLEVEL9K_VCS_FOREGROUND=3
 
   # Disable async loading indicator to make directories that aren't Git repositories
   # indistinguishable from large Git repositories without known state.
@@ -193,6 +194,10 @@
 
 # Tell `p10k configure` which file it should overwrite.
 typeset -g POWERLEVEL9K_CONFIG_FILE=${${(%):-%x}:a}
+
+function prompt_in_prefix() {
+  p10k segment -f 2 -t '󰘧'
+}
 
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
 'builtin' 'unset' 'p10k_config_opts'
