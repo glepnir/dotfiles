@@ -1,8 +1,6 @@
 # alias
 alias vi="nvim"
 alias reload="source ~/.zshrc"
-alias proxy="export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087;export ALL_PROXY=socks5://127.0.0.1:1080"
-alias unproxy="unset http_proxy;unset https_proxy;unset ALL_PROXY"
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -45,6 +43,22 @@ zinit light wfxr/forgit
 
 zinit ice depth=1 wait"2" lucid
 zinit light hlissner/zsh-autopair
+
+# set proxy
+function proxy() {
+  export http_proxy=http://127.0.0.1:1087
+  export https_proxy=http://127.0.0.1:1087
+  export ALL_PROXY=socks5://127.0.0.1:1080
+  echo -e "\e[32mProxy has been successfully set.\e[0m"  # 绿色文本
+}
+
+# unset
+function unproxy() {
+  unset http_proxy
+  unset https_proxy
+  unset ALL_PROXY
+  echo -e "\e[31mProxy has been unset.\e[0m"  # 红色文本
+}
 
 # create tmux new session with window name
 tn() {
