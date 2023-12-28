@@ -1,5 +1,7 @@
 {
   "position": "top",
+  // only on right monitor
+  "output": ["DVI-D-1"],
   "modules-left": ["custom/launcher","hyprland/workspaces"],
   //"modules-center": ["hyprland/window"],
   "modules-right": [
