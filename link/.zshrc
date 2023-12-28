@@ -49,7 +49,7 @@ function proxy() {
   export http_proxy=http://127.0.0.1:1087
   export https_proxy=http://127.0.0.1:1087
   export ALL_PROXY=socks5://127.0.0.1:1080
-  echo -e "\e[32mProxy has been successfully set.\e[0m"  # 绿色文本
+  echo -e "\e[32mProxy has been successfully set.\e[0m"
 }
 
 # unset
@@ -57,7 +57,7 @@ function unproxy() {
   unset http_proxy
   unset https_proxy
   unset ALL_PROXY
-  echo -e "\e[31mProxy has been unset.\e[0m"  # 红色文本
+  echo -e "\e[31mProxy has been unset.\e[0m"
 }
 
 # create tmux new session with window name
@@ -68,7 +68,7 @@ tn() {
 }
 
 # open file
-fo() {
+fopen() {
   IFS=$'\n' out=($(fzf --query="$1" --multi))
   key=$(head -1 <<< "$out")
   file=$(head -2 <<< "$out" | tail -1)
@@ -77,20 +77,8 @@ fo() {
   fi
 }
 
-# cd directory and open file can pass word
-fcd() {
-  local dir
-  dir=$(fd --hidden --type d "$1" . $HOME | fzf --preview 'tree -C {}' +m) && cd "$dir"
-}
-
-# cd directory and open file can pass word
-co() {
-  local dir
-  dir=$(fd --hidden --type d "$1" . $HOME | fzf --preview 'tree -C {}' +m) && cd "$dir" && fo
-}
-
 # find-in-file - usage: fif <searchTerm>
-fif() {
+fsearch() {
   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
   file=$(rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}")
   nvim $file
@@ -98,4 +86,4 @@ fif() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [ "$TMUX" = "" ]; then tn work; fi
+# if [ "$TMUX" = "" ]; then tn work; fi
