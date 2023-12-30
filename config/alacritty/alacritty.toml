@@ -1,0 +1,40 @@
+[font]
+size = 13
+glyph_offset = { x = 0, y = 0 }
+offset = { x = 0, y = 0 }
+
+[font.normal]
+family = "Operator Mono"
+style = "Book"
+
+[font.bold]
+family = "Operator Mono"
+style = "Medium"
+
+[font.bold_italic]
+family = "Operator Mono"
+style = "Medium Italic"
+
+[font.italic]
+family = "Operator Mono"
+style = "Italic"
+
+
+[window]
+dynamic_padding = false
+padding = {x = 2, y = 0}
+decorations = "None"
+
+[colors.primary]
+background ="#141821"
+foreground ="#b0b0b0"
+
+[colors.normal]
+black  = "#555555"
+red  = "#ff5f59"
+green = "#9eb336"
+yellow = "#ccad52"
+blue = "#5c95e6"
+cyan = "#31cbd6"
+magenta = "#9884c4"
+white = "#b0b0b0"
