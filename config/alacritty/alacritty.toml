@@ -24,6 +24,9 @@ dynamic_padding = true
 padding = {x = 2, y = 0}
 decorations = "None"
 
+[mouse]
+hide_when_typing = true
+
 [cursor]
 style = { shape ="Beam", blinking = "Off" }
 vi_mode_style = { shape = "Block", blinking = "Off" }
