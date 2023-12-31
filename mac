@@ -119,8 +119,6 @@ rustup-init
 # yabai mac wm
 sudo yabai --install-sa
 sudo yabai --load-sa
-ln -s "${HOME}/.dotfiles/yabai/yabairc" "${HOME}/.yabairc"
-ln -s "${HOME}/.dotfiles/yabai/skhdrc" "${HOME}/.skhdrc"
 yabai --start-service
 skhd --start-service
 
