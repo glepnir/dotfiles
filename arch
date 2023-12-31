@@ -14,11 +14,9 @@ echo "config sysmtem"
 sudo pacman -S zsh
 chsh -s $(which zsh)
 
-echo "conig sway"
 if [ ! -d "$HOME/.config" ]; then
   rm -rf "$HOME/.config"
 fi
-ln -s ~/.dotfiles/config "$HOME/.config"
 
 if [ ! -f "$HOME/.bashrc" ]; then
   rm -rf "$HOME/.bashrc"

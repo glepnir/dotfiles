@@ -4,6 +4,24 @@
 defaults write NSGlobalDomain KeyRepeat -int 1
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
+dotfiles_dir="$HOME/.dotfiles"
+home_config_dir="$HOME/.config"
+
+echo "link config file"
+target_folders=("alacritty" "kitty" "yabai")
+for folder_name in "${target_folders[@]}"; do
+  folder="$dotfiles_dir/config/$folder_name"
+  target_folder="$home_config_dir/$folder_name"
+
+  if [ -d "$target_folder" ]; then
+    rm -rf "$target_folder"
+    echo "Removed existing $target_folder"
+  fi
+
+  ln -s "$folder" "$target_folder"
+  echo "Created symlink from $folder to $target_folder"
+done
+
 # ###########################################################
 # Install non-brew various tools (PRE-BREW Installs)
 # ###########################################################
