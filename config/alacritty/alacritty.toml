@@ -25,8 +25,8 @@ padding = {x = 2, y = 0}
 decorations = "None"
 
 [cursor]
-style = { shape ="Beam" }
-vi_mode_style = { shape = "Block" }
+style = { shape ="Beam", blinking = "Off" }
+vi_mode_style = { shape = "Block", blinking = "Off" }
 
 [keyboard]
 bindings = [
