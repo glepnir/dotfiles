@@ -1,0 +1,145 @@
+#!/usr/bin/env bash
+
+# @see https://apple.stackexchange.com/questions/10467/how-to-increase-keyboard-key-repeat-rate-on-os-x
+defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
+
+# ###########################################################
+# Install non-brew various tools (PRE-BREW Installs)
+# ###########################################################
+echo "ensuring build/install tools are available"
+if ! xcode-select --print-path &> /dev/null; then
+  # Prompt user to install the XCode Command Line Tools
+  xcode-select --install &> /dev/null
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Wait until the XCode Command Line Tools are installed
+  until xcode-select --print-path &> /dev/null; do
+    sleep 5
+  done
+  print_result $? ' XCode Command Line Tools Installed'
+  # Prompt user to agree to the terms of the Xcode license
+  # https://github.com/alrra/dotfiles/issues/10
+  sudo xcodebuild -license
+  print_result $? 'Agree with the XCode Command Line Tools licence'
+fi
+
+# ###########################################################
+# install homebrew (CLI Packages)
+# ###########################################################
+brew_bin=$(which brew) 2>&1 > /dev/null
+if [[ $? != 0 ]]; then
+  echo "installing homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  if [[ $? != 0 ]]; then
+    echo "unable to install homebrew, script $0 abort!"
+    exit 2
+  fi
+fi
+
+###########################################################
+# Git Config
+###########################################################
+shopt -s dotglob
+for file in "$HOME/.dotfiles/link"/*; do
+  if [ -f "$file" ]; then
+    filename=$(basename "$file")
+    ln -s "$file" "$HOME/$filename"
+    echo "Created symlink: $HOME/$filename -> $file"
+  fi
+done
+shopt -u dotglob
+
+echo "installing fonts"
+sh ./fonts/install.sh
+
+echo "install packages"
+packages=(
+  "raycast"
+  "alacritty"
+  "licecap"
+  "google-chrome"
+  "qq"
+  "wechat"
+  "gopls"
+  "rust-analyzer"
+  "lua-language-server"
+  "clang-format"
+  "stylua"
+  "helix"
+  "zig"
+  "golang"
+  "rustup-init"
+  "node"
+  "yarn"
+  "lua"
+  "luarocks"
+  "ninja"
+  "zls"
+  "llvm"
+  "ripgrep"
+  "bat"
+  "make"
+  "tmux"
+  "fzf"
+  "docker"
+  "koekeishiya/formulae/yabai"
+  "koekeishiya/formulae/skhd"
+  "git"
+  "neovim --HEAD"
+)
+
+
+for package in "${packages[@]}"; do
+  # check exist
+  if brew list "$package" &> /dev/null; then
+    echo "Package '$package' is already installed."
+  else
+    brew install "$package"
+    if [ $? -eq 0 ]; then
+      echo "Successfully installed '$package'."
+    else
+      echo "Error installing '$package'."
+      exit 1
+    fi
+  fi
+done
+
+git config --global user.name "glepnir"
+git config --global user.email "glephunter@gmail.com"
+git config --global core.editor "nvim"
+git config --global credential.helper store
+git config --global core.excludesFile $HOME/.gitignore_global 
+
+git clone https://github.com/glepnir/nvim ~/.config/nvim
+
+/usr/local/opt/fzf/install
+luarocks install vusted
+rustup-init
+
+# yabai mac wm
+sudo yabai --install-sa
+sudo yabai --load-sa
+ln -s "${HOME}/.dotfiles/yabai/yabairc" "${HOME}/.yabairc"
+ln -s "${HOME}/.dotfiles/yabai/skhdrc" "${HOME}/.skhdrc"
+yabai --start-service
+skhd --start-service
+
+# npm relate
+pkg=("eslint" "typescript" "typescript-language-server" "prettier" "vscode-langservers-extracted" "bash-language-server" "vite")
+for package in "${pkg[@]}"; do
+  if npm list -g "$package" &> /dev/null; then
+    echo "Package '$package' is already installed globally."
+  else
+    npm install -g "$package"
+    if [ $? -eq 0 ]; then
+      echo "Successfully installed '$package' globally."
+    else
+      echo "Error installing '$package' globally."
+      exit 1
+    fi
+  fi
+done
+
+brew update && brew upgrade && brew cleanup
+
+echo "All done"
