@@ -1,5 +1,5 @@
 [font]
-size = 13
+size = 13.5
 glyph_offset = { x = 0, y = 0 }
 offset = { x = 0, y = 0 }
 
@@ -19,22 +19,37 @@ style = "Medium Italic"
 family = "Operator Mono"
 style = "Italic"
 
-
 [window]
-dynamic_padding = false
+dynamic_padding = true
 padding = {x = 2, y = 0}
 decorations = "None"
+
+[cursor]
+style = { shape ="Beam" }
+vi_mode_style = { shape = "Block" }
+
+[keyboard]
+bindings = [
+  { key = "Enter", mods = "Control|Shift", action = "CreateNewWindow" },
+  { key = "q", mode = "Vi", action = "ToggleViMode" },
+]
 
 [colors.primary]
 background ="#141821"
 foreground ="#b0b0b0"
 
+[colors]
+cursor = { cursor = '#a7c4bc' }
+
 [colors.normal]
 black  = "#555555"
 red  = "#ff5f59"
 green = "#9eb336"
-yellow = "#ccad52"
+yellow = "#cc853d"
 blue = "#5c95e6"
 cyan = "#31cbd6"
 magenta = "#9884c4"
 white = "#b0b0b0"
+
+[colors.bright]
+yellow = "#ccad52"
