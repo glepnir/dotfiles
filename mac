@@ -141,8 +141,8 @@ brew_packages=(
   "tmux"
   "fzf"
   "docker"
-  "koekeishiya/formulae/yabai"
-  "koekeishiya/formulae/skhd"
+  # "koekeishiya/formulae/yabai"
+  # "koekeishiya/formulae/skhd"
   "neovim --HEAD"
 )
 
