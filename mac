@@ -55,7 +55,7 @@ if [[ $? != 0 ]]; then
 fi
 
 ###########################################################
-# Git Config
+# Config
 ###########################################################
 shopt -s dotglob
 for file in "$HOME/.dotfiles/link"/*; do
@@ -70,8 +70,48 @@ shopt -u dotglob
 echo "installing fonts"
 sh ./fonts/install.sh
 
+# Function to install a package with a given package manager
+install_package() {
+  local package_manager="$1"
+  local package="$2"
+  case "$package_manager" in
+    "brew")
+      if brew list "$package" &> /dev/null; then
+        echo "Package '$package' is already installed."
+      else
+        brew install "$package"
+        if [ $? -eq 0 ]; then
+          echo "Successfully installed '$package'."
+        else
+          echo "Error installing '$package'."
+          exit 1
+        fi
+      fi
+      ;;
+
+    "npm")
+      if npm list -g "$package" &> /dev/null; then
+        echo "Package '$package' is already installed globally."
+      else
+        npm install -g "$package"
+        if [ $? -eq 0 ]; then
+          echo "Successfully installed '$package' globally."
+        else
+          echo "Error installing '$package' globally."
+          exit 1
+        fi
+      fi
+      ;;
+      
+    *)
+      echo "Unsupported package manager: $package_manager"
+      exit 1
+      ;;
+  esac
+}
+
 echo "install packages"
-packages=(
+brew_packages=(
   "raycast"
   "alacritty"
   "licecap"
@@ -89,7 +129,7 @@ packages=(
   "rustup-init"
   "node"
   "yarn"
-  "lua"
+  "lua@5.1"
   "luarocks"
   "ninja"
   "zls"
@@ -97,29 +137,18 @@ packages=(
   "ripgrep"
   "bat"
   "make"
+  "cmake"
   "tmux"
   "fzf"
   "docker"
   "koekeishiya/formulae/yabai"
   "koekeishiya/formulae/skhd"
-  "git"
   "neovim --HEAD"
 )
 
-
-for package in "${packages[@]}"; do
-  # check exist
-  if brew list "$package" &> /dev/null; then
-    echo "Package '$package' is already installed."
-  else
-    brew install "$package"
-    if [ $? -eq 0 ]; then
-      echo "Successfully installed '$package'."
-    else
-      echo "Error installing '$package'."
-      exit 1
-    fi
-  fi
+# Install Homebrew packages
+for package in "${brew_packages[@]}"; do
+  install_package "brew" "$package"
 done
 
 git config --global user.name "glepnir"
@@ -128,34 +157,35 @@ git config --global core.editor "nvim"
 git config --global credential.helper store
 git config --global core.excludesFile $HOME/.gitignore_global 
 
+echo "Download neovim config"
 git clone https://github.com/glepnir/nvim ~/.config/nvim
 
 /usr/local/opt/fzf/install
-luarocks install vusted
+luarocks --lua-version=5.1 install vusted
+
+echo $CARGO_HOME $RUSTUP_HOME
 rustup-init
 
 # yabai mac wm
-sudo yabai --install-sa
-sudo yabai --load-sa
-yabai --start-service
-skhd --start-service
+# sudo yabai --install-sa
+# sudo yabai --load-sa
+# yabai --start-service
+# skhd --start-service
 
 # npm relate
-pkg=("eslint" "typescript" "typescript-language-server" "prettier" "vscode-langservers-extracted" "bash-language-server" "vite")
-for package in "${pkg[@]}"; do
-  if npm list -g "$package" &> /dev/null; then
-    echo "Package '$package' is already installed globally."
-  else
-    npm install -g "$package"
-    if [ $? -eq 0 ]; then
-      echo "Successfully installed '$package' globally."
-    else
-      echo "Error installing '$package' globally."
-      exit 1
-    fi
-  fi
+npm_packages=(
+  "eslint"
+  "typescript"
+  "typescript-language-server"
+  "prettier"
+  "vscode-langservers-extracted"
+  "bash-language-server"
+  "vite"
+)
+# Install npm packages globally
+for package in "${npm_packages[@]}"; do
+  install_package "npm" "$package"
 done
 
-brew update && brew upgrade && brew cleanup
-
+brew cleanup
 echo "All done"
