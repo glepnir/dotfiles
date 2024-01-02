@@ -101,3 +101,5 @@ ENV_VARS=(
 for var in "${ENV_VARS[@]}"; do
   echo "$var" | sudo tee -a /etc/environment
 done
+
+echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
