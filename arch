@@ -32,11 +32,26 @@ mkdir $HOME/.local/share/fonts
 # Copy all fonts to user fonts directory
 echo "Copying fonts..."
 eval $find_command | xargs -0 -I % cp "%"  $HOME/.local/share/fonts
-# Reset font cache on Linux
-if command -v fc-cache @>/dev/null ; then
-    echo "Resetting font cache, this may take a moment..."
-    fc-cache -f $font_dir
-fi
+
+echo "Download and install symbol only nerdfont"
+repo_url="https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest"
+download_url="$(curl -s "$repo_url" | grep "browser_download_url.*NerdFontsSymbolsOnly.zip" | cut -d '"' -f 4)"
+latest_version="$(echo $download_url | awk -F'/' '{print $NF}' | sed 's/NerdFontsSymbolsOnly.zip//')"
+tmp_dir="$(mktemp -d)"
+font_zip="$tmp_dir/NerdFontsSymbolsOnly.zip"
+echo "Donwloading Nerd Fonts v$latest_version..."
+curl -L -o "$font_zip" "$download_url"
+echo "unzip symbol only nerd fonts..."
+unzip -qq "$font_zip" -d "$tmp_dir"
+
+echo "Install symbol only nerd fonts..."
+find "$tmp_dir" -name '*.ttf' -exec cp {} ~/.local/share/fonts/ \;
+
+# refresh cache
+fc-cache -f -v
+# clean
+rm -rf "$tmp_dir"
+echo "Nerd Fonts v$latest_version install successed！"
 echo "font install done"
 
 echo "link config file"
