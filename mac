@@ -108,7 +108,9 @@ install_package() {
 }
 
 echo "install packages"
+brew tap v2raya/v2raya
 brew_packages=(
+  "v2raya"
   "raycast"
   "alacritty"
   "licecap"
@@ -144,15 +146,27 @@ brew_packages=(
 
 # Install Homebrew packages
 for package in "${brew_packages[@]}"; do
-  install_package "brew" "$package"
+  install_package "brew install " "$package"
 done
 
+# Enable Proxy
+echo "start v2rayA services"
+brew services start v2raya
+open http://localhost:2017
+
+# Change to zsh
+chsh -s $(which zsh)
+reload
+proxy
+
+# Config git
 git config --global user.name "glepnir"
 git config --global user.email "glephunter@gmail.com"
 git config --global core.editor "nvim"
 git config --global credential.helper store
 git config --global core.excludesFile $HOME/.gitignore_global 
 
+# My neovim config
 echo "Download neovim config"
 git clone https://github.com/glepnir/nvim ~/.config/nvim
 
@@ -162,7 +176,7 @@ luarocks --lua-version=5.1 install vusted
 echo $CARGO_HOME $RUSTUP_HOME
 rustup-init
 
-echo "copy font..."
+echo "Config font"
 # Set source and target directories
 fonts_dir=$( cd "$( dirname "$0" )" && pwd )
 find_command="find \"$fonts_dir\" \( -name '*.[o,t]tf' -or -name '*.pcf.gz' \) -type f -print0"
@@ -202,7 +216,7 @@ npm_packages=(
 )
 # Install npm packages globally
 for package in "${npm_packages[@]}"; do
-  install_package "npm" "$package"
+  install_package "npm install -g " "$package"
 done
 
 brew cleanup
