@@ -114,7 +114,7 @@ brew_packages=(
   "raycast"
   "alacritty"
   "licecap"
-  "google-chrome"
+  "firefox"
   "qq"
   "wechat"
   "gopls"
@@ -141,18 +141,12 @@ brew_packages=(
   "fzf"
   "docker"
   "curl"
-  "neovim --HEAD"
 )
 
 # Install Homebrew packages
 for package in "${brew_packages[@]}"; do
-  install_package "brew install " "$package"
+  install_package "brew" "$package"
 done
-
-# Enable Proxy
-echo "start v2rayA services"
-brew services start v2raya
-open http://localhost:2017
 
 # Change to zsh
 chsh -s $(which zsh)
@@ -180,10 +174,10 @@ echo "Config font"
 # Set source and target directories
 fonts_dir=$( cd "$( dirname "$0" )" && pwd )
 find_command="find \"$fonts_dir\" \( -name '*.[o,t]tf' -or -name '*.pcf.gz' \) -type f -print0"
-mkdir $HOME/.local/share/fonts
+
 # Copy all fonts to user fonts directory
 echo "Copying fonts..."
-eval $find_command | xargs -0 -I % cp "%"  $HOME/.local/share/fonts
+eval $find_command | xargs -0 -I % cp "%"  $HOME/Library/fonts
 echo "Download and install symbol only nerdfont"
 repo_url="https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest"
 download_url="$(curl -s "$repo_url" | grep "browser_download_url.*NerdFontsSymbolsOnly.zip" | cut -d '"' -f 4)"
@@ -195,7 +189,7 @@ curl -L -o "$font_zip" "$download_url"
 echo "unzip symbol only nerd fonts..."
 unzip -qq "$font_zip" -d "$tmp_dir"
 echo "Install symbol only nerd fonts..."
-find "$tmp_dir" -name '*.ttf' -exec cp {} ~/.local/share/fonts/ \;
+find "$tmp_dir" -name '*.ttf' -exec cp {} ~/Library/fonts/ \;
 
 # refresh cache
 fc-cache -f -v
@@ -216,7 +210,7 @@ npm_packages=(
 )
 # Install npm packages globally
 for package in "${npm_packages[@]}"; do
-  install_package "npm install -g " "$package"
+  install_package "npm" "$package"
 done
 
 brew cleanup

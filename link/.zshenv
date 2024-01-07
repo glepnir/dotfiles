@@ -22,6 +22,7 @@ PathAppend "/usr/local/go/bin"
 PathAppend "$CARGO_HOME/bin"
 # Lua
 PathAppend "$XDG_DATA_HOME/.luarocks/bin"
+PathAppend "/opt/homebrew/bin"
 unset PathAppend
 
 
@@ -36,3 +37,4 @@ export BAT_THEME="TwoDark"
 export FZF_COMPLETION_TRIGGER='**'
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 export FZF_DEFAULT_OPTS='--height 90% --layout reverse --border --color "border:#b877db" --preview="bat --color=always {}"'
+. "/Users/mw/.local/share/cargo/env"
