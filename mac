@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
 # @see https://apple.stackexchange.com/questions/10467/how-to-increase-keyboard-key-repeat-rate-on-os-x
-defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
+# thin font
+defaults write -g AppleFontSmoothing -int 0
 
 dotfiles_dir="$HOME/.dotfiles"
 home_config_dir="$HOME/.config"
