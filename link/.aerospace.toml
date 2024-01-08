@@ -152,3 +152,4 @@ esc = 'mode main'
 [workspace-to-monitor-force-assignment]
 1 = 'main'
 3 = 'built-in'
+4 = 'built-in'
