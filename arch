@@ -99,7 +99,7 @@ yay -S - < "$dotfiles_dir"/pkglist.txt --noconfirm
 
 rustup default stable
 
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tpm ~/.local/share/tmux
 
 echo "install tsserver"
 sudo npm i -g typescript typescript-language-server bash-language-server
