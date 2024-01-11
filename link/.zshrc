@@ -86,4 +86,4 @@ fsearch() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# if [ "$TMUX" = "" ]; then tn work; fi
+if [ "$TMUX" = "" ]; then tn work; fi
