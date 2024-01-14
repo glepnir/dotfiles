@@ -10,7 +10,7 @@ dotfiles_dir="$HOME/.dotfiles"
 home_config_dir="$HOME/.config"
 
 echo "link config file"
-target_folders=("alacritty" "kitty")
+target_folders=("tmux" "kitty")
 for folder_name in "${target_folders[@]}"; do
   folder="$dotfiles_dir/config/$folder_name"
   target_folder="$home_config_dir/$folder_name"
@@ -69,6 +69,11 @@ for file in "$HOME/.dotfiles/link"/*; do
 done
 shopt -u dotglob
 
+# Change to zsh
+chsh -s $(which zsh)
+reload
+proxy
+
 # Function to install a package with a given package manager
 install_package() {
   local package_manager="$1"
@@ -115,7 +120,6 @@ brew_packages=(
   "v2raya"
   "kitty"
   "licecap"
-  "google-chrome"
   "qq"
   "wechat"
   "gopls"
@@ -149,12 +153,8 @@ for package in "${brew_packages[@]}"; do
   install_package "brew" "$package"
 done
 
+brew service start v2raya
 brew install neovim --HEAD
-
-# Change to zsh
-chsh -s $(which zsh)
-reload
-proxy
 
 # Config git
 git config --global user.name "glepnir"
@@ -172,6 +172,10 @@ luarocks --lua-version=5.1 install vusted
 
 echo $CARGO_HOME $RUSTUP_HOME
 rustup-init
+rustup default stable
+
+# tmux plugin management
+git clone https://github.com/tmux-plugins/tpm ~/.local/share/tmux/tpm
 
 echo "Config font"
 # Set source and target directories
@@ -194,8 +198,9 @@ unzip -qq "$font_zip" -d "$tmp_dir"
 echo "Install symbol only nerd fonts..."
 find "$tmp_dir" -name '*.ttf' -exec cp {} ~/Library/fonts/ \;
 
-# refresh cache
-fc-cache -f -v
+# refresh font cache
+sudo atsutil databases -remove
+
 # clean
 rm -rf "$tmp_dir"
 echo "Nerd Fonts v$latest_version install successed！"
