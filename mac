@@ -10,7 +10,7 @@ dotfiles_dir="$HOME/.dotfiles"
 home_config_dir="$HOME/.config"
 
 echo "link config file"
-target_folders=("alacritty" "kitty" "yabai")
+target_folders=("alacritty" "kitty")
 for folder_name in "${target_folders[@]}"; do
   folder="$dotfiles_dir/config/$folder_name"
   target_folder="$home_config_dir/$folder_name"
@@ -113,10 +113,9 @@ echo "install packages"
 brew tap v2raya/v2raya
 brew_packages=(
   "v2raya"
-  "raycast"
-  "alacritty"
+  "kitty"
   "licecap"
-  "firefox"
+  "google-chrome"
   "qq"
   "wechat"
   "gopls"
@@ -149,6 +148,8 @@ brew_packages=(
 for package in "${brew_packages[@]}"; do
   install_package "brew" "$package"
 done
+
+brew install neovim --HEAD
 
 # Change to zsh
 chsh -s $(which zsh)
