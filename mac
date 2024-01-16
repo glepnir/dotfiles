@@ -146,6 +146,7 @@ brew_packages=(
   "skim"
   "qq"
   "wechat"
+  "obs"
 )
 
 # Install Homebrew packages
