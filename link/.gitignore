@@ -98,6 +98,7 @@ notes
 .cowsay
 .localized
 .DS_Store
+*/.DS_Store
 .asdf
 .cargo
 .npm
