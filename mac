@@ -4,7 +4,7 @@
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
 # thin font
-defaults write -g AppleFontSmoothing -int 0
+# defaults write -g AppleFontSmoothing -int 0
 
 dotfiles_dir="$HOME/.dotfiles"
 home_config_dir="$HOME/.config"
