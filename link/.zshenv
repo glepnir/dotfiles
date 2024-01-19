@@ -22,7 +22,7 @@ PathAppend "$CARGO_HOME/bin"
 # Lua
 PathAppend "$XDG_DATA_HOME/.luarocks/bin"
 
-if [ "$(uname)" == "Darwin" ]; then
+if [ "$(uname)" = 'Darwin' ]; then
   # Homebrew in mac
   PathAppend "/opt/homebrew/bin"
   # llvm toolchain like lldb-server
