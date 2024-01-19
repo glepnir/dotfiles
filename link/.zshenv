@@ -1,5 +1,4 @@
 # Enviroment variables
-
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -22,9 +21,14 @@ PathAppend "/usr/local/go/bin"
 PathAppend "$CARGO_HOME/bin"
 # Lua
 PathAppend "$XDG_DATA_HOME/.luarocks/bin"
-PathAppend "/opt/homebrew/bin"
-unset PathAppend
 
+if [ "$(uname)" == "Darwin" ]; then
+  # Homebrew in mac
+  PathAppend "/opt/homebrew/bin"
+  # llvm toolchain like lldb-server
+  PathAppend "/opt/homebrew/opt/llvm/bin"
+fi
+unset PathAppend
 
 # Editor
 export EDITOR="nvim"
