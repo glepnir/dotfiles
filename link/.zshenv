@@ -10,8 +10,6 @@ export GOBIN="$XDG_DATA_HOME/go/bin"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
-# PATH
-[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
 PathAppend() { [ -d "$1" ] && PATH="$PATH:$1"; }
 
 ## Go
@@ -22,12 +20,6 @@ PathAppend "$CARGO_HOME/bin"
 # Lua
 PathAppend "$XDG_DATA_HOME/.luarocks/bin"
 
-if [ "$(uname)" = 'Darwin' ]; then
-  # Homebrew in mac
-  PathAppend "/opt/homebrew/bin"
-  # llvm toolchain like lldb-server
-  PathAppend "/opt/homebrew/opt/llvm/bin"
-fi
 unset PathAppend
 
 # Editor
@@ -41,4 +33,3 @@ export BAT_THEME="TwoDark"
 export FZF_COMPLETION_TRIGGER='**'
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 export FZF_DEFAULT_OPTS='--height 90% --layout reverse --border --color "border:#b877db" --preview="bat --color=always {}"'
-. "/Users/mw/.local/share/cargo/env"
