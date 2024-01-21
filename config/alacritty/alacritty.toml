@@ -4,19 +4,19 @@ glyph_offset = { x = 0, y = 0 }
 offset = { x = 0, y = 0 }
 
 [font.normal]
-family = "Operator Mono"
-style = "Book"
+family = "Comic Code"
+style = "Regular"
 
 [font.bold]
-family = "Operator Mono"
-style = "Medium"
+family = "Comic Code"
+style = "Bold"
 
 [font.bold_italic]
-family = "Operator Mono"
-style = "Medium Italic"
+family = "Comic Code"
+style = "Bold Italic"
 
 [font.italic]
-family = "Operator Mono"
+family = "Comic Code"
 style = "Italic"
 
 [window]
