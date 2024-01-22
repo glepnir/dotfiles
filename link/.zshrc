@@ -2,12 +2,6 @@
 alias vi="nvim"
 alias reload="source ~/.zshrc"
 
-# make sure homebrew bin as the beginning of PATH
-# find out why this not work on zshenv.
-if [ "$(uname)" = 'Darwin' ]; then
-  export PATH="/opt/homebrew/bin:/opt/homebrew/opt/llvm/bin:$PATH"
-fi
-
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
 	print -P "%F{33}▓▒░ %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
