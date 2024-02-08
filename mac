@@ -198,14 +198,14 @@ echo "unzip symbol only nerd fonts..."
 unzip -qq "$font_zip" -d "$tmp_dir"
 echo "Install symbol only nerd fonts..."
 find "$tmp_dir" -name '*.ttf' -exec cp {} ~/Library/fonts/ \;
-
-# refresh font cache
-sudo atsutil databases -remove
-
 # clean
 rm -rf "$tmp_dir"
 echo "Nerd Fonts v$latest_version install successed！"
 echo "font install done"
+
+# monaspace
+brew tap homebrew/cask-fonts
+brew install font-monaspace
 
 # npm relate
 npm_packages=(
