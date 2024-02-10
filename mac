@@ -184,28 +184,9 @@ fonts_dir=$( cd "$( dirname "$0" )" && pwd )
 find_command="find \"$fonts_dir\" \( -name '*.[o,t]tf' -or -name '*.pcf.gz' \) -type f -print0"
 
 # Copy all fonts to user fonts directory
-echo "Copying fonts..."
-eval $find_command | xargs -0 -I % cp "%"  $HOME/Library/fonts
-echo "Download and install symbol only nerdfont"
-repo_url="https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest"
-download_url="$(curl -s "$repo_url" | grep "browser_download_url.*NerdFontsSymbolsOnly.zip" | cut -d '"' -f 4)"
-latest_version="$(echo $download_url | awk -F'/' '{print $NF}' | sed 's/NerdFontsSymbolsOnly.zip//')"
-tmp_dir="$(mktemp -d)"
-font_zip="$tmp_dir/NerdFontsSymbolsOnly.zip"
-echo "Donwloading Nerd Fonts v$latest_version..."
-curl -L -o "$font_zip" "$download_url"
-echo "unzip symbol only nerd fonts..."
-unzip -qq "$font_zip" -d "$tmp_dir"
-echo "Install symbol only nerd fonts..."
-find "$tmp_dir" -name '*.ttf' -exec cp {} ~/Library/fonts/ \;
-# clean
-rm -rf "$tmp_dir"
-echo "Nerd Fonts v$latest_version install successed！"
-echo "font install done"
-
-# monaspace
 brew tap homebrew/cask-fonts
-brew install font-monaspace
+brew install font-symbols-only-nerd-font
+brew install font-Iosevka
 
 # npm relate
 npm_packages=(
