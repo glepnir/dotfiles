@@ -10,8 +10,6 @@ export GOBIN="$XDG_DATA_HOME/go/bin"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
-export PATH="/opt/homebrew/bin:$PATH"
-
 PathAppend() { [ -d "$1" ] && PATH="$PATH:$1"; }
 
 ## Go
