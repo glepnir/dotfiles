@@ -151,3 +151,7 @@ esc = 'mode main'
 1 = 'main'
 3 = 'built-in'
 4 = 'built-in'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'licecap'
+run = 'layout floating' 
