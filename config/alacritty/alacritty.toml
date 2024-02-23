@@ -2,21 +2,22 @@
 size = 18
 glyph_offset = { x = 0, y = 0 }
 offset = { x = 0, y = 0 }
+builtin_box_drawing = true
 
 [font.normal]
-family = "Comic Code"
+family = "Iosevka Term"
 style = "Regular"
 
 [font.bold]
-family = "Comic Code"
+family = "Iosevka Term"
 style = "Bold"
 
 [font.bold_italic]
-family = "Comic Code"
+family = "Iosevka Term"
 style = "Bold Italic"
 
 [font.italic]
-family = "Comic Code"
+family = "Iosevka Term"
 style = "Italic"
 
 [window]
