@@ -12,7 +12,11 @@ after-login-command = []
 # You can use it to add commands that run after AeroSpace startup.
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands.html
-after-startup-command = []
+after-startup-command = [
+  'exec-and-forget open -n /Applications/kitty.app',
+  'workspace 3',
+  'exec-and-forget open -n /Applications/chrome.app',
+]
 
 # Start AeroSpace at login
 start-at-login = true
