@@ -13,6 +13,10 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 PathAppend() { [ -d "$1" ] && PATH="$PATH:$1"; }
 export PATH="/opt/homebrew/bin:$PATH"
 
+if [ -d "/opt/homebrew/opt/binutils/bin" ]; then
+  PathAppend "/opt/homebrew/opt/binutils/bin"
+fi
+
 ## Go
 PathAppend "$XDG_DATA_HOME/go/bin"
 PathAppend "/usr/local/go/bin"

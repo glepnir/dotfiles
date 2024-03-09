@@ -147,6 +147,7 @@ brew_packages=(
   "qq"
   "wechat"
   "obs"
+  "binutils"
 )
 
 # Install Homebrew packages
