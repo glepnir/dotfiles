@@ -129,3 +129,4 @@ Xviminfo
 */debug.h
 */neovim/min_repro*
 .luarc.json
+/public/
