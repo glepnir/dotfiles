@@ -17,6 +17,15 @@ if [ -d "/opt/homebrew/opt/binutils/bin" ]; then
   PathAppend "/opt/homebrew/opt/binutils/bin"
 fi
 
+# Dynamically add Python bin directories to PATH
+if [ -d "$HOME/Library/Python" ]; then
+  for dir in $HOME/Library/Python/*; do
+    if [ -d "$dir/bin" ]; then
+      PathAppend "$dir/bin"
+    fi
+  done
+fi
+
 ## Go
 PathAppend "$XDG_DATA_HOME/go/bin"
 PathAppend "/usr/local/go/bin"

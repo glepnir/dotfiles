@@ -46,11 +46,6 @@ gaps.outer.bottom =     5
 gaps.outer.top =        5
 gaps.outer.right =      5
 
-# Visual indent makes it easier to understand that containers of the same orientation are nested.
-# If you have 'enable-normalization-opposite-orientation-for-nested-containers' enabled then
-# there is no way to observe the indent
-indent-for-nested-containers-with-the-same-orientation = 30
-
 # Layout of root containers of non-empty workspaces. The layout is applied only on startup
 # Possible values: smart|tiles|accordion
 # - 'tiles' and 'accordion' are self-describing
