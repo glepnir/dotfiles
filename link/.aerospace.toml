@@ -87,6 +87,9 @@ alt-j = 'focus down'
 alt-k = 'focus up'
 alt-l = 'focus right'
 
+# open finder
+alt-e = 'exec-and-forget open $HOME'
+
 # See: https://nikitabobko.github.io/AeroSpace/commands.html#move-through
 alt-shift-h = 'move-through left'
 alt-shift-j = 'move-through down'
