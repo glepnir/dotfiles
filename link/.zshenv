@@ -17,6 +17,10 @@ if [ -d "/opt/homebrew/opt/binutils/bin" ]; then
   PathAppend "/opt/homebrew/opt/binutils/bin"
 fi
 
+if [ -d "$HOME/.luarocks/bin" ]; then
+  PathAppend "$HOME/.luarocks/bin"
+fi
+
 # Dynamically add Python bin directories to PATH
 if [ -d "$HOME/Library/Python" ]; then
   for dir in $HOME/Library/Python/*; do
