@@ -1,7 +1,7 @@
 BasedOnStyle:  Google
 Language: Cpp
-ColumnLimit: 100
-IndentWidth: 2
+ColumnLimit: 80
+IndentWidth: 4
 TabWidth: 8
 UseTab: Never
 IndentCaseLabels: false
