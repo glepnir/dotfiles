@@ -164,6 +164,7 @@ git config --global user.email "glephunter@gmail.com"
 git config --global core.editor "nvim"
 git config --global credential.helper store
 git config --global core.excludesFile $HOME/.gitignore
+git config --global init.defaultBranch 'main'
 
 # My neovim config
 echo "Download neovim config"
