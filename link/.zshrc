@@ -2,6 +2,11 @@
 alias vi="nvim"
 alias reload="source ~/.zshrc"
 
+# for osx
+if [ -d "/opt/homebrew/bin" ]; then
+  export PATH="/opt/homebrew/bin:$PATH"
+fi
+
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
 	print -P "%F{33}▓▒░ %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"

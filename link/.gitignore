@@ -130,3 +130,5 @@ Xviminfo
 */neovim/min_repro*
 .luarc.json
 /public/
+test.vim
+test.lua

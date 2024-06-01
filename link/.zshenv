@@ -11,7 +11,6 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
 PathAppend() { [ -d "$1" ] && PATH="$PATH:$1"; }
-export PATH="/opt/homebrew/bin:$PATH"
 
 if [ -d "/opt/homebrew/opt/binutils/bin" ]; then
   PathAppend "/opt/homebrew/opt/binutils/bin"
@@ -30,7 +29,7 @@ if [ -d "$HOME/Library/Python" ]; then
   done
 fi
 
-## Go
+## Binary path
 PathAppend "$XDG_DATA_HOME/go/bin"
 PathAppend "/usr/local/go/bin"
 # Rust
@@ -43,9 +42,6 @@ unset PathAppend
 # Editor
 export EDITOR="nvim"
 export TERMINAL='kitty'
-
-# Bat
-export BAT_THEME="TwoDark"
 
 # Fzf
 export FZF_COMPLETION_TRIGGER='**'
