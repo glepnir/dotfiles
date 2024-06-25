@@ -2,7 +2,6 @@
 size = 18
 glyph_offset = { x = 0, y = 0 }
 offset = { x = 0, y = 0 }
-builtin_box_drawing = true
 
 [font.normal]
 family = "Iosevka Term"
@@ -17,7 +16,7 @@ family = "Iosevka Term"
 style = "Bold Italic"
 
 [font.italic]
-family = "IosevkaTerm Nerd Font"
+family = "Iosevka Term"
 style = "Italic"
 
 [window]
