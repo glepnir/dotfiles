@@ -17,7 +17,7 @@ family = "Iosevka Term"
 style = "Bold Italic"
 
 [font.italic]
-family = "Iosevka Term"
+family = "IosevkaTerm Nerd Font"
 style = "Italic"
 
 [window]
@@ -29,17 +29,16 @@ decorations = "None"
 hide_when_typing = true
 
 [cursor]
-style = { shape ="Beam", blinking = "Off" }
-vi_mode_style = { shape = "Block", blinking = "Off" }
+style = { shape ="Beam", blinking = "Never" }
+vi_mode_style = { shape = "Block", blinking = "Never" }
 
 [keyboard]
 bindings = [
-  { key = "Enter", mods = "Control|Shift", action = "CreateNewWindow" },
   { key = "q", mode = "Vi", action = "ToggleViMode" },
 ]
 
 [colors.primary]
-background ="#141821"
+background ="#14161b"
 foreground ="#b0b0b0"
 
 [colors]

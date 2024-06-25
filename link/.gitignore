@@ -132,3 +132,4 @@ Xviminfo
 /public/
 test.vim
 test.lua
+*/vim/src/Makefile

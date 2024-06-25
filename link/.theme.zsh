@@ -86,7 +86,7 @@
   # Red prompt symbol if the last command failed.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS}_FOREGROUND=$red
   # Default prompt symbol.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION=''
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='λ'
   # Prompt symbol in command vi mode.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION='❮'
   # Prompt symbol in visual vi mode is the same as in command mode.
@@ -196,7 +196,7 @@
 typeset -g POWERLEVEL9K_CONFIG_FILE=${${(%):-%x}:a}
 
 function prompt_in_prefix() {
-  p10k segment -f 2 -t '󰘧'
+  p10k segment -f 2 -t 'in'
 }
 
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
