@@ -97,7 +97,8 @@ prompt_info() {
 
   if git rev-parse --is-inside-work-tree &> /dev/null; then
     git_branch=$(git rev-parse --abbrev-ref HEAD)
-    echo "${GREEN}in ${BLUE}$cwd ${YELLOW}$git_branch${RESET}"
+    git_commit=$(git rev-parse --short HEAD)
+    echo "${GREEN}in ${BLUE}$cwd ${YELLOW}$git_branch ${MAGENTA}$git_commit${RESET}"
   else
     echo "${GREEN}in ${BLUE}$cwd${RESET}"
   fi
