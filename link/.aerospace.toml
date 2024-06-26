@@ -13,7 +13,7 @@ after-login-command = []
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands.html
 after-startup-command = [
-  'exec-and-forget open -n /Applications/kitty.app && sleep 1 && aerospace move-node-to-workspace 1 ',
+  'exec-and-forget open -n /Applications/Alacritty.app && sleep 1 && aerospace move-node-to-workspace 1 ',
   'exec-and-forget open -n /Applications/Google\ Chrome.app && sleep 1 && workspace 3',
 ]
 
