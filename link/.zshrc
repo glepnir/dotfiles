@@ -19,10 +19,6 @@ source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-
-zinit ice depth=1 atload"!source ~/.theme.zsh" lucid nocd
-zinit light romkatv/powerlevel10k
-
 # #=== OH-MY-ZSH & PREZTO PLUGINS =======================
 zinit for \
       OMZL::{'history','completion','git','grep','key-bindings'}.zsh
@@ -89,5 +85,39 @@ fsearch() {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ "$TMUX" = "" ]; then tn work; fi
+# enable proxy
 proxy
 
+# Define color codes
+RED="%F{red}"
+GREEN="%F{green}"
+YELLOW="%F{yellow}"
+BLUE="%F{blue}"
+MAGENTA="%F{magenta}"
+CYAN="%F{cyan}"
+RESET="%f"
+
+# Function to get current directory and Git branch
+prompt_info() {
+  local cwd git_branch
+  cwd=$(pwd | sed "s|$HOME|~|")
+
+  if git rev-parse --is-inside-work-tree &> /dev/null; then
+    git_branch=$(git rev-parse --abbrev-ref HEAD)
+    echo "${GREEN}in ${BLUE}$cwd ${YELLOW}$git_branch${RESET}"
+  else
+    echo "${GREEN}in ${BLUE}$cwd${RESET}"
+  fi
+}
+
+# Function to update the prompt asynchronously
+update_prompt() {
+  PROMPT="$(prompt_info)
+${CYAN}λ ${RESET}"
+}
+
+# Initialize prompt
+update_prompt
+
+# Hook the update function to the precmd hook, which runs before each prompt
+precmd_functions+=update_prompt
