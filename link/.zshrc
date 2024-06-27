@@ -81,37 +81,121 @@ if [ "$TMUX" = "" ]; then tn work; fi
 # enable proxy
 proxy
 
-# Define color codes
-RED="%F{red}"
-GREEN="%F{green}"
-YELLOW="%F{yellow}"
-BLUE="%F{blue}"
-MAGENTA="%F{magenta}"
-CYAN="%F{cyan}"
-RESET="%f"
+# Function to get Git status
+prompt_git_status() {
+  git rev-parse --git-dir >&- 2>&- || {
+    echo -n $'\0'
+    return
+  }
 
-# Function to get current directory and Git branch
-prompt_info() {
-  local cwd git_branch
-  cwd=$(pwd | sed "s|$HOME|~|")
+  local -a parts
+  local fd line head ahead behind conflicts staged changed untracked
 
-  if git rev-parse --is-inside-work-tree &> /dev/null; then
-    git_branch=$(git rev-parse --abbrev-ref HEAD)
-    git_commit=$(git rev-parse --short HEAD)
-    echo "${GREEN}in ${BLUE}$cwd ${YELLOW}$git_branch ${MAGENTA}$git_commit${RESET}"
-  else
-    echo "${GREEN}in ${BLUE}$cwd${RESET}"
+  exec {fd}< <(git status --porcelain=v2 --branch)
+
+  while read -A -u $fd line; do
+    case "$line" in
+      '# branch.head'*) # Current branch
+        head="$line[3]"
+        [[ $head == "(detached)" ]] && head=":$(git rev-parse --short HEAD)"
+        ;;
+      '# branch.ab'*) # Divergence from upstream
+        ahead="${line[3]/#+}"
+        behind="${line[4]/#-}"
+        ;;
+      (1|2)*) # Modified or renamed/copied
+        [[ "${${line[2]}[1]}" != "." ]] && ((staged++))
+        [[ "${${line[2]}[2]}" != "." ]] && ((changed++))
+        ;;
+      'u'*) # Unmerged
+        ((conflicts++))
+        ;;
+      '?'*) # Untracked
+        ((untracked++))
+        ;;
+    esac
+  done
+
+  exec {fd}<&-
+
+  parts+="%F{8}$head%f"
+
+  local -a upstream_divergence
+
+  [[ $ahead > 0 ]] && upstream_divergence+="%F{blue}↑$ahead%f"
+  [[ $behind > 0 ]] && upstream_divergence+="%F{blue}↓$behind%f"
+
+  if [[ $#upstream_divergence > 0 ]]; then
+    parts+="${(j::)upstream_divergence}"
   fi
+
+  local -a working_info
+
+  [[ $conflicts > 0 ]] && working_info+="%F{red}×$conflicts%f"
+  [[ $staged > 0 ]] && working_info+="%F{green}●$staged%f"
+  [[ $changed > 0 ]] && working_info+="%F{208}✻$changed%f"
+  [[ $untracked > 0 ]] && working_info+="%F{red}+$untracked%f"
+
+  if [[ $#working_info > 0 ]]; then
+    parts+="${(j::)working_info}"
+  else
+    parts+="%F{green}✔%f"
+  fi
+
+  echo -n "${(j: :)parts}"
 }
 
-# Function to update the prompt
-update_prompt() {
-  PROMPT="$(prompt_info)
-${CYAN}λ ${RESET}"
+# Function to define the prompt
+prompt_git_define_prompt() {
+  setopt localoptions extendedglob
+
+  local -a parts=()
+
+  # Abbreviated current working directory
+  parts+="%F{green}in %F{blue}${${PWD/#$HOME/~}//(#b)([^\/])[^\/][^\/]#\//$match[1]/}%f"
+
+  # Git info (loaded async)
+  if [[ "$1" != $'\0' ]]; then
+    if [[ -n "$1" ]]; then
+      parts+="$1"
+    else
+      parts+="..."
+    fi
+  fi
+
+  # Prompt arrow (red for non-zero status)
+  parts+="%(?.%F{8}.%F{red})
+%F{cyan}λ%f"
+
+  PROMPT="${(j: :)parts} "
 }
 
-# Initialize prompt
-update_prompt
+# Function to handle async response
+prompt_git_response() {
+  typeset -g _prompt_git_fd
 
-# Hook the update function to the precmd hook, which runs before each prompt
-precmd_functions+=update_prompt
+  prompt_git_define_prompt "$(<&$1)"
+  zle reset-prompt
+
+  zle -F $1
+  exec {1}<&-
+  unset _prompt_git_fd
+}
+
+# Function to run before each prompt
+prompt_git_precmd() {
+  typeset -g _prompt_git_fd
+
+  prompt_git_define_prompt
+
+  [[ -n $_prompt_git_fd ]] && {
+    zle -F $_prompt_git_fd
+    exec {_prompt_git_fd}<&-
+  }
+
+  exec {_prompt_git_fd}< <(prompt_git_status)
+  zle -F $_prompt_git_fd prompt_git_response
+}
+
+# Add hook to run before each prompt
+add-zsh-hook precmd prompt_git_precmd
