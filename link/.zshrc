@@ -104,7 +104,7 @@ prompt_info() {
   fi
 }
 
-# Function to update the prompt asynchronously
+# Function to update the prompt
 update_prompt() {
   PROMPT="$(prompt_info)
 ${CYAN}λ ${RESET}"
