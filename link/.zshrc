@@ -119,6 +119,9 @@ prompt_git_status() {
   exec {fd}<&-
 
   parts+="%F{8}$head%f"
+  local commit_hash
+  commit_hash=$(git rev-parse --short HEAD)
+  parts+="%F{magenta}$commit_hash%f"
 
   local -a upstream_divergence
 
