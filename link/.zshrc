@@ -89,15 +89,20 @@ prompt_git_status() {
   }
 
   local -a parts
-  local fd line head ahead behind conflicts staged changed untracked
+  local fd line head ahead behind conflicts staged changed untracked commithash
 
   exec {fd}< <(git status --porcelain=v2 --branch)
 
   while read -A -u $fd line; do
     case "$line" in
+      '# branch.oid'*)
+        if [[ "${line[3]}" != "(initial)" ]]; then
+          commit_hash="${line[3]:0:7}"
+        fi
+        ;;
       '# branch.head'*) # Current branch
         head="$line[3]"
-        [[ $head == "(detached)" ]] && head=":$(git rev-parse --short HEAD)"
+        [[ $head == "(detached)" ]] && head="$(echo ":$(git rev-parse --short HEAD)")"
         ;;
       '# branch.ab'*) # Divergence from upstream
         ahead="${line[3]/#+}"
@@ -119,10 +124,9 @@ prompt_git_status() {
   exec {fd}<&-
 
   parts+="%F{8}$head%f"
-  local commit_hash
-  commit_hash=$(git rev-parse --short HEAD)
-  parts+="%F{magenta}$commit_hash%f"
-
+  if [[ -n "$commit_hash" ]]; then
+    parts+="%F{magenta}$commit_hash%f"
+  fi
   local -a upstream_divergence
 
   [[ $ahead > 0 ]] && upstream_divergence+="%F{blue}↑$ahead%f"
