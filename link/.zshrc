@@ -155,7 +155,8 @@ prompt_git_define_prompt() {
   local -a parts=()
 
   # Abbreviated current working directory
-  parts+="%F{green}in %F{blue}${${PWD/#$HOME/~}//(#b)([^\/])[^\/][^\/]#\//$match[1]/}%f"
+  # parts+="%F{green}in %F{blue}${${PWD/#$HOME/~}//(#b)([^\/])[^\/][^\/]#\//$match[1]/}%f"
+  parts+="%F{green}in %F{blue}${${PWD/#$HOME/~}}%f"
 
   # Git info (loaded async)
   if [[ "$1" != $'\0' ]]; then
