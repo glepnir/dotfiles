@@ -34,14 +34,13 @@ PathAppend "$XDG_DATA_HOME/go/bin"
 PathAppend "/usr/local/go/bin"
 # Rust
 PathAppend "$CARGO_HOME/bin"
-# Lua
-PathAppend "$XDG_DATA_HOME/.luarocks/bin"
+# Vim Debugger Script
+PathAppend "$XDG_DATA_HOME/nvim/bin"
 
 unset PathAppend
 
 # Editor
 export EDITOR="nvim"
-export TERMINAL='kitty'
 
 # Fzf
 export FZF_COMPLETION_TRIGGER='**'

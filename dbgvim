@@ -1,0 +1,80 @@
+#!/bin/bash
+
+# Function to print usage
+print_usage() {
+  echo "Usage: dbgvim [-f filename -l lnum] functionname"
+  exit 1
+}
+
+# Check if at least one argument is passed
+if [ $# -eq 0 ]; then
+  print_usage
+fi
+
+# Variables for function name, filename, and line number
+functionname=""
+filename=""
+lnum=""
+
+# Parse command line arguments
+while getopts "f:l:" opt; do
+  case $opt in
+    f) filename=$OPTARG ;;
+    l) lnum=$OPTARG ;;
+    \?) print_usage ;;
+  esac
+done
+shift $((OPTIND -1))
+
+# Remaining argument should be the function name
+if [ $# -eq 1 ]; then
+  functionname=$1
+elif [ -z "$filename" ] || [ -z "$lnum" ]; then
+  print_usage
+fi
+
+# Determine which debugger to use
+if command -v lldb &> /dev/null; then
+  debugger="lldb"
+elif command -v gdb &> /dev/null; then
+  debugger="gdb"
+else
+  echo "Neither lldb nor gdb is installed"
+  exit 1
+fi
+
+# Function to attach debugger to the process and set a breakpoint
+attach_and_set_breakpoint() {
+  local pid=$1
+  if [ "$debugger" = "lldb" ]; then
+    if [ -n "$functionname" ]; then
+      lldb -p "$pid" -o "breakpoint set -n $functionname" -o "continue"
+    elif [ -n "$filename" ] && [ -n "$lnum" ]; then
+      lldb -p "$pid" -o "breakpoint set -f $filename -l $lnum" -o "continue"
+    else
+      echo "No valid breakpoint information provided"
+      exit 1
+    fi
+  elif [ "$debugger" = "gdb" ]; then
+    if [ -n "$functionname" ]; then
+      gdb -p "$pid" --batch -ex "break $functionname" -ex "continue"
+    elif [ -n "$filename" ] && [ -n "$lnum" ]; then
+      gdb -p "$pid" --batch -ex "break $filename:$lnum" -ex "continue"
+    else
+      echo "No valid breakpoint information provided"
+      exit 1
+    fi
+  fi
+}
+
+# Find and attach to the nvim process
+pid=$(ps aux | grep "[.]\/build\/bin\/nvim --embed" | awk '{print $2}')
+if [ -n "$pid" ]; then
+  attach_and_set_breakpoint "$pid"
+fi
+
+# Find and attach to the vim process
+pid=$(ps aux | grep "[.]\/src\/vim -u test.vim" | awk '{print $2}')
+if [ -n "$pid" ]; then
+  attach_and_set_breakpoint "$pid"
+fi

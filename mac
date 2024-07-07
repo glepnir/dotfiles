@@ -169,6 +169,9 @@ git config --global init.defaultBranch 'main'
 # My neovim config
 echo "Download neovim config"
 git clone https://github.com/glepnir/nvim ~/.config/nvim
+mkdir "$HOME/.local/share/nvim"
+mkdir "$HOME/.local/share/nvim/bin"
+ln -s "$dotfiles/dbgvim" "$HOME/.local/share/nvim/bin/dbgvim"
 
 /usr/local/opt/fzf/install
 luarocks --lua-version=5.1 install vusted
