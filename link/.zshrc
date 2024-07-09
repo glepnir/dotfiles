@@ -166,8 +166,8 @@ prompt_git_define_prompt() {
   if [[ "$1" != $'\0' ]]; then
     if [[ -n "$1" ]]; then
       parts+="$1"
-    else
-      parts+="..."
+    # else
+    #   parts+="..."
     fi
   fi
 
