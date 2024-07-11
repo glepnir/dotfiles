@@ -156,3 +156,8 @@ esc = 'mode main'
 [[on-window-detected]]
 if.app-name-regex-substring = 'licecap'
 run = 'layout floating' 
+
+# mnemonics T - Terminal Emulators
+[[on-window-detected]]
+if.app-id = 'org.alacritty'
+run = 'move-node-to-workspace 1'
