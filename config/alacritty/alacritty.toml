@@ -23,6 +23,7 @@ style = "Italic"
 dynamic_padding = true
 padding = {x = 2, y = 0}
 decorations = "None"
+option_as_alt = "OnlyLeft"
 
 [mouse]
 hide_when_typing = true
