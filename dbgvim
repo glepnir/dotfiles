@@ -3,8 +3,14 @@
 # Function to print usage
 print_usage() {
   echo "Usage: dbgvim [-f filename -l lnum] [functionname]"
+  echo "       dbgvim help"
   exit 1
 }
+
+# Check if help is requested or no arguments are passed
+if [ $# -eq 0 ] || [ "$1" == "help" ]; then
+  print_usage
+fi
 
 # Variables for function name, filename, and line number
 functionname=""
