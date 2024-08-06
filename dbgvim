@@ -2,14 +2,9 @@
 
 # Function to print usage
 print_usage() {
-  echo "Usage: dbgvim [-f filename -l lnum] functionname"
+  echo "Usage: dbgvim [-f filename -l lnum] [functionname]"
   exit 1
 }
-
-# Check if at least one argument is passed
-if [ $# -eq 0 ]; then
-  print_usage
-fi
 
 # Variables for function name, filename, and line number
 functionname=""
@@ -29,8 +24,6 @@ shift $((OPTIND -1))
 # Remaining argument should be the function name
 if [ $# -eq 1 ]; then
   functionname=$1
-elif [ -z "$filename" ] || [ -z "$lnum" ]; then
-  print_usage
 fi
 
 # Determine which debugger to use
@@ -52,8 +45,7 @@ attach_and_set_breakpoint() {
     elif [ -n "$filename" ] && [ -n "$lnum" ]; then
       lldb -p "$pid" -o "breakpoint set -f $filename -l $lnum" -o "continue"
     else
-      echo "No valid breakpoint information provided"
-      exit 1
+      lldb -p "$pid"
     fi
   elif [ "$debugger" = "gdb" ]; then
     if [ -n "$functionname" ]; then
@@ -61,8 +53,7 @@ attach_and_set_breakpoint() {
     elif [ -n "$filename" ] && [ -n "$lnum" ]; then
       gdb -p "$pid" --batch -ex "break $filename:$lnum" -ex "continue"
     else
-      echo "No valid breakpoint information provided"
-      exit 1
+      gdb -p "$pid"
     fi
   fi
 }
