@@ -8,7 +8,7 @@ print_usage() {
 }
 
 # Check if help is requested or no arguments are passed
-if [ $# -eq 0 ] || [ "$1" == "help" ]; then
+if [ "$1" == "help" ]; then
   print_usage
 fi
 
