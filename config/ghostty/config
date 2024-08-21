@@ -1,0 +1,16 @@
+font-family = Iosevka
+font-size = 18
+
+cursor-style = block
+cursor-style-blink = false
+mouse-hide-while-typing = true
+
+macos-non-native-fullscreen = true
+
+window-decoration = false
+
+macos-option-as-alt = true
+confirm-close-surface = false
+
+background = 14161b
+foreground = b0b0b0

@@ -71,7 +71,7 @@ if [ -n "$pid" ]; then
 fi
 
 # Find and attach to the vim process
-pid=$(ps aux | grep "src\/vim" | awk '{print $2}')
+pid=$(ps aux | grep "src\/vim\|\.\/vim" | awk '{print $2}')
 if [ -n "$pid" ]; then
   attach_and_set_breakpoint "$pid"
 fi
