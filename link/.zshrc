@@ -4,6 +4,11 @@ alias reload="source ~/.zshrc"
 
 # for osx
 if [ -d "/opt/homebrew/bin" ]; then
+  LLVM_DIR="/opt/homebrew/Cellar/llvm"
+  if [ -d "$LLVM_DIR" ]; then
+      LATEST_VERSION=$(ls -v "$LLVM_DIR" | tail -n 1)
+      export PATH="$LLVM_DIR/$LATEST_VERSION/bin:$PATH"
+  fi
   export PATH="/opt/homebrew/bin:$PATH"
 fi
 
