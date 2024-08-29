@@ -148,6 +148,7 @@ brew_packages=(
   "wechat"
   "obs"
   "binutils"
+  "cmake-language-server"
 )
 
 # Install Homebrew packages

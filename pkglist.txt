@@ -46,3 +46,4 @@ python-msgpack
 doxygen
 mpv
 xournalpp
+cmake-language-server
