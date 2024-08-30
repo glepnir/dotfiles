@@ -2,7 +2,7 @@ BasedOnStyle:  Google
 Language: Cpp
 ColumnLimit: 80
 IndentWidth: 4
-TabWidth: 8
+TabWidth: 4
 UseTab: Never
 IndentCaseLabels: false
 BreakBeforeBraces: Custom
@@ -17,7 +17,7 @@ AllowShortLoopsOnASingleLine: false
 BinPackParameters: false
 BreakBeforeBinaryOperators: true
 BreakBeforeTernaryOperators: true
-ContinuationIndentWidth: 2
+ContinuationIndentWidth: 4
 AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: No
