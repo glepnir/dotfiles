@@ -2,7 +2,7 @@
 
 # Function to print usage
 print_usage() {
-  echo "Usage: dbgvim [-f filename -l lnum] [functionname]"
+  echo "Usage: dbgvim [-f filename -l lnum] [-t testfile] [functionname]"
   echo "       dbgvim help"
   exit 1
 }
@@ -12,16 +12,18 @@ if [ "$1" == "help" ]; then
   print_usage
 fi
 
-# Variables for function name, filename, and line number
+# Variables for function name, filename, line number, and test file
 functionname=""
 filename=""
 lnum=""
+testfile=""
 
 # Parse command line arguments
-while getopts "f:l:" opt; do
+while getopts "f:l:t:" opt; do
   case $opt in
     f) filename=$OPTARG ;;
     l) lnum=$OPTARG ;;
+    t) testfile=$OPTARG ;;
     \?) print_usage ;;
   esac
 done
@@ -63,6 +65,24 @@ attach_and_set_breakpoint() {
     fi
   fi
 }
+
+# Determine if we are in a Neovim or Vim directory
+if [ -n "$testfile" ]; then
+  if [[ "$testfile" == *.lua || "$testfile" == *.vim ]]; then
+    if [ -f "./build/bin/nvim" ]; then
+      ./build/bin/nvim --clean -u "$testfile"
+    elif [ -f "./src/vim" ]; then
+      ./src/vim --clean -u "$testfile"
+    else
+      echo "Neither Neovim nor Vim binary found in the current directory."
+      exit 1
+    fi
+  else
+    echo "Test file must be a .lua or .vim file."
+    exit 1
+  fi
+  exit 0
+fi
 
 # Find and attach to the nvim process
 pid=$(ps aux | grep "[.]\/build\/bin\/nvim --embed" | awk '{print $2}')
