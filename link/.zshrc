@@ -3,16 +3,16 @@ alias vi="nvim"
 alias reload="source ~/.zshrc"
 
 # for osx
-if [ -d "/opt/homebrew/bin" ]; then
-  LLVM_DIR="/opt/homebrew/Cellar/llvm"
-  if [ -d "$LLVM_DIR" ]; then
-      LATEST_VERSION=$(ls -v "$LLVM_DIR" | tail -n 1)
-      export PATH="$LLVM_DIR/$LATEST_VERSION/bin:$PATH"
-      # export CXX="$LLVM_DIR/$LATEST_VERSION/bin/clang++"
-      # export CC="$LLVM_DIR/$LATEST_VERSION/bin/clang"
-  fi
-  export PATH="/opt/homebrew/bin:$PATH"
-fi
+# if [ -d "/opt/homebrew/bin" ]; then
+#   LLVM_DIR="/opt/homebrew/Cellar/llvm"
+#   if [ -d "$LLVM_DIR" ]; then
+#       LATEST_VERSION=$(ls -v "$LLVM_DIR" | tail -n 1)
+#       export PATH="$LLVM_DIR/$LATEST_VERSION/bin:$PATH"
+#       export CXX="$LLVM_DIR/$LATEST_VERSION/bin/clang++"
+#       export CC="$LLVM_DIR/$LATEST_VERSION/bin/clang"
+#   fi
+#   export PATH="/opt/homebrew/bin:$PATH"
+# fi
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
