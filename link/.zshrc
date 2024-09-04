@@ -7,6 +7,12 @@ if [ -d "/opt/homebrew/opt/llvm" ]; then
   export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
   export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
   export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+  export CXX="/opt/homebrew/opt/llvm/bin/clang++"
+  export CC="/opt/homebrew/opt/llvm/bin/clang"
+  alias g++=$CXX
+  alias gcc=$CC
+  # remove duplicate /opt/llvm/bin
+  export PATH=$(echo "$PATH" | sed 's|:/opt/homebrew/opt/llvm/bin||')
 fi
 
 ### Added by Zinit's installer
