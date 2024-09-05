@@ -85,7 +85,7 @@ done
 
 git config --global user.name "glepnir"
 git config --global user.email "glephunter@gmail.com"
-git config --global core.editor "nvim"
+git config --global core.editor "vim"
 git config --global credential.helper store
 git config --global core.excludesFile $HOME/.gitignore
 git config --global init.defaultBranch 'main'
