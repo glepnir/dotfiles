@@ -5,6 +5,7 @@ IndentWidth: 4
 TabWidth: 4
 UseTab: Never
 IndentCaseLabels: false
+NamespaceIndentation: All
 AccessModifierOffset: -4
 BreakBeforeBraces: Custom
 AlignEscapedNewlinesLeft: false
