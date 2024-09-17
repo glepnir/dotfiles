@@ -48,7 +48,7 @@ cursor = { cursor = '#a7c4bc' }
 black  = "#555555"
 red  = "#ff5f59"
 green = "#8ca800"
-yellow = "#cc853d"
+yellow = "#b58900"
 blue = "#268bd2"
 cyan = "#2aa198"
 magenta = "#9884c4"
