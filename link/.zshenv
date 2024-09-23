@@ -9,6 +9,7 @@ export GOPATH="$XDG_DATA_HOME/go"
 export GOBIN="$XDG_DATA_HOME/go/bin"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export LC_ALL=en_US.UTF-8
 
 PathAppend() { [ -d "$1" ] && PATH="$PATH:$1"; }
 
