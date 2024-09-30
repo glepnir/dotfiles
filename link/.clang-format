@@ -4,6 +4,9 @@ ColumnLimit: 80
 IndentWidth: 4
 TabWidth: 4
 UseTab: Never
+DerivePointerAlignment: false
+PointerAlignment: Right
+ReferenceAlignment: Left
 IndentCaseLabels: false
 NamespaceIndentation: All
 AccessModifierOffset: -4
