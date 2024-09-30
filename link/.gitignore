@@ -133,3 +133,6 @@ Xviminfo
 test.vim
 test.lua
 */vim/src/Makefile
+backup.*
+*test*.lua
+*test*.vim
