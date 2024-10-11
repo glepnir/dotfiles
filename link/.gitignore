@@ -134,5 +134,7 @@ test.vim
 test.lua
 */vim/src/Makefile
 backup.*
-*test*.lua
+*test*.*
 *test*.vim
+*bench*.*
+a.out

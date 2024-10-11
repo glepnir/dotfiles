@@ -7,8 +7,9 @@ echo -e "\n[archlinuxcn]\nServer = https://mirrors.ustc.edu.cn/archlinuxcn/\$arc
 sudo pacman -Syu
 sudo pacman -S archlinuxcn-keyring
 
-dotfiles_dir="$HOME/.dotfiles"
 fonts_dir="$dotfiles_dir/fonts"
+home_config_dir="$HOME/.config"
+dotfiles_dir= "$home_config_dir/dotfiles"
 
 echo "config sysmtem"
 sudo pacman -S zsh
