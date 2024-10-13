@@ -17,14 +17,6 @@ if [ -d "$HOME/.luarocks/bin" ]; then
   PathAppend "$HOME/.luarocks/bin"
 fi
 
-# Dynamically add Python bin directories to PATH
-if [ -d "$HOME/Library/Python" ]; then
-  for dir in $HOME/Library/Python/*; do
-    if [ -d "$dir/bin" ]; then
-      PathAppend "$dir/bin"
-    fi
-  done
-fi
 
 ## Binary path
 PathAppend "$XDG_DATA_HOME/go/bin"

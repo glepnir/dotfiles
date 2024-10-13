@@ -11,9 +11,9 @@ if [ -d "/opt/homebrew/opt/llvm" ]; then
   export CC="/opt/homebrew/opt/llvm/bin/clang"
   alias g++=$CXX
   alias gcc=$CC
-  # remove duplicate /opt/llvm/bin
-  export PATH=$(echo "$PATH" | sed 's|:/opt/homebrew/opt/llvm/bin||')
   export PATH="/opt/homebrew/bin:$PATH"
+  # remove duplicate item in PATH
+  export PATH=$(echo "$PATH" | awk -v RS=: '!seen[$0]++' | paste -sd: -)
 fi
 
 autoload -U add-zsh-hook
