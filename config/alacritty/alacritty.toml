@@ -38,7 +38,7 @@ bindings = [
 ]
 
 [colors.primary]
-background ="#002a36"
+background ="#002936"
 foreground ="#b6b6b6"
 
 [colors]

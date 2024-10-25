@@ -138,3 +138,4 @@ backup.*
 *test*.vim
 *bench*.*
 a.out
+*log*
