@@ -20,6 +20,7 @@ family = "Iosevka Term"
 style = "Italic"
 
 [window]
+# opacity = 0.9
 dynamic_padding = true
 padding = {x = 2, y = 0}
 decorations = "None"
@@ -47,7 +48,7 @@ cursor = { cursor = '#a7c4bc' }
 [colors.normal]
 black  = "#555555"
 red  = "#ff5f59"
-green = "#8ca800"
+green = "#84a800"
 yellow = "#b58900"
 blue = "#268bd2"
 cyan = "#2aa198"
