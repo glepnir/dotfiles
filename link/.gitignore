@@ -116,6 +116,7 @@ notes
 /Library/
 /Downloads/
 .luarc.json
+a.out
 
 Xtest-*
 Xtest_*
@@ -133,9 +134,3 @@ Xviminfo
 test.vim
 test.lua
 */vim/src/Makefile
-backup.*
-*test*.*
-*test*.vim
-*bench*.*
-a.out
-*log*

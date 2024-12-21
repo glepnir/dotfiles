@@ -4,19 +4,19 @@ glyph_offset = { x = 0, y = 0 }
 offset = { x = 0, y = 0 }
 
 [font.normal]
-family = "Iosevka Term"
+family = "Lambda"
 style = "Regular"
 
 [font.bold]
-family = "Iosevka Term"
+family = "Solaire"
 style = "Bold"
 
 [font.bold_italic]
-family = "Iosevka Term"
+family = "Solaire"
 style = "Bold Italic"
 
 [font.italic]
-family = "Iosevka Term"
+family = "Solaire"
 style = "Italic"
 
 [window]
@@ -39,7 +39,7 @@ bindings = [
 ]
 
 [colors.primary]
-background ="#002936"
+background ="#002837"
 foreground ="#b6b6b6"
 
 [colors]
