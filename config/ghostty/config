@@ -29,8 +29,7 @@ selection-foreground = #FFFFFF
 selection-background = #373737
 
 # Cursor colors
-#cursor-color = #ffffff
 # this is a mid point between 2 themes while toggling dark/light mode is
 # not supported https://meyerweb.com/eric/tools/color-blend/#643F61:CCFF66:10:hex
-cursor-color = #939663
+cursor-color = #a7c4bc
 cursor-text = #1e1e1e
