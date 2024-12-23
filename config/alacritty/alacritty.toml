@@ -8,15 +8,15 @@ family = "Lambda"
 style = "Regular"
 
 [font.bold]
-family = "Solaire"
+family = "Lambda"
 style = "Bold"
 
 [font.bold_italic]
-family = "Solaire"
+family = "Lambda"
 style = "Bold Italic"
 
 [font.italic]
-family = "Solaire"
+family = "Lambda"
 style = "Italic"
 
 [window]
