@@ -19,6 +19,9 @@ if [ -d "$HOME/.luarocks/bin" ]; then
   PathAppend "$HOME/.luarocks/bin"
 fi
 
+if [ -d "/opt/homebrew/opt/rustup" ]; then
+  PathAppend "/opt/homebrew/opt/rustup/bin"
+fi
 
 ## Binary path
 PathAppend "$XDG_DATA_HOME/go/bin"
