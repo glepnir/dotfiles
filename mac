@@ -149,6 +149,7 @@ brew_packages=(
   "obs"
   "binutils"
   "cmake-language-server"
+  "fd"
 )
 
 # Install Homebrew packages

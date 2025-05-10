@@ -5,11 +5,9 @@ tree-sitter
 ttf-font-awesome
 ttc-iosevka
 zig
-go
 rustup
 lua
 npm
-gopls
 zls
 rust-analyzer
 lua-language-server
@@ -47,3 +45,4 @@ doxygen
 mpv
 xournalpp
 cmake-language-server
+fd
