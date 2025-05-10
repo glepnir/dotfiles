@@ -210,10 +210,16 @@ zinit light hlissner/zsh-autopair
 
 # fzf relate config
 export FZF_DEFAULT_COMMAND='fd --type file --follow'
-export FZF_DEFAULT_OPTS="--height 60% \
-                        --border sharp \
-                        --layout reverse \
-                        --prompt '∷ ' \
-                        --marker ⇒"
+export FZF_DEFAULT_OPTS='
+  --height 60%
+  --border sharp
+  --layout reverse
+  --prompt "∷ "
+  --marker ⇒
+  --color=fg:#839496,bg:#002937,hl:#268bd2
+  --color=fg+:#93a1a1,bg+:#073642,hl+:#b58900
+  --color=info:#2aa198,prompt:#859900,pointer:#d33682
+  --color=marker:#cb4b16,spinner:#6c71c4,header:#268bd2
+'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
