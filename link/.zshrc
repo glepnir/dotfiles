@@ -222,4 +222,23 @@ export FZF_DEFAULT_OPTS='
   --color=marker:#cb4b16,spinner:#6c71c4,header:#268bd2
 '
 
+fo() {
+  IFS=$'\n' out=($(fzf --query="$1" --multi))
+  key=$(head -1 <<< "$out")
+  file=$(head -2 <<< "$out" | tail -1)
+  if [ -n "$file" ]; then
+    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-nvim} "$file"
+  fi
+}
+
+# find-in-file - usage: fif <searchTerm>
+fif() {
+  if [ ! "$#" -gt 0 ]; then
+    echo "Need a string to search for!"
+    return 1
+  fi
+  file=$(rg --files-with-matches --no-messages "$1" | fzf --preview "bat --color=always {} | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1'  {}")
+  nvim $file
+}
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
