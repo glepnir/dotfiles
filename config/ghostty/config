@@ -1,11 +1,11 @@
 font-family = Lambda
 font-size = 19
-font-feature = -calt
-font-feature = -liga
-font-feature = -dlig
+font-feature = "-calt, -liga, -dlig"
+shell-integration = none
 
 cursor-style = block
-cursor-style-blink = false
+custom-shader = ./cursor_fade.glsl
+custom-shader-animation = true
 mouse-hide-while-typing = true
 
 macos-titlebar-style = native
