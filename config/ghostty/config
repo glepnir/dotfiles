@@ -1,3 +1,5 @@
+# vim: filetype=config
+
 font-family = Lambda
 font-size = 19
 font-feature = "-calt, -liga, -dlig"

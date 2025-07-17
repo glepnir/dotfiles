@@ -20,7 +20,7 @@ family = "Lambda"
 style = "Italic"
 
 [window]
-# opacity = 0.9
+# opacity = 0.8
 dynamic_padding = true
 padding = {x = 2, y = 0}
 decorations = "None"

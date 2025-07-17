@@ -11,12 +11,12 @@ IndentCaseLabels: false
 NamespaceIndentation: All
 AccessModifierOffset: -4
 AlignEscapedNewlinesLeft: false
-AllowShortFunctionsOnASingleLine: false
 AlignTrailingComments: true
 SpacesBeforeTrailingComments: 2
 PenaltyReturnTypeOnItsOwnLine: 200
 PenaltyBreakAssignment: 20
 PenaltyBreakBeforeFirstCallParameter: 0
+AllowShortFunctionsOnASingleLine: false
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
