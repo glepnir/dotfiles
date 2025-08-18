@@ -43,7 +43,7 @@ background ="#002837"
 foreground ="#b6b6b6"
 
 [colors]
-cursor = { cursor = '#a7c4bc' }
+cursor = { cursor = '#a6e22e' }
 
 [colors.normal]
 black  = "#555555"
