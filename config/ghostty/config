@@ -15,6 +15,13 @@ macos-non-native-fullscreen = true
 window-decoration = false
 confirm-close-surface = false
 
+fullscreen = true
+maximize = true
+
+window-padding-balance = true
+window-padding-x = 0
+window-padding-y = 0
+
 background = #002837
 foreground = #b6b6b6
 
