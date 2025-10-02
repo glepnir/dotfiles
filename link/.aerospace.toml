@@ -73,8 +73,8 @@ non-empty-workspaces-root-containers-layout-on-startup = 'smart'
 
 # You can uncomment this line to open up terminal with alt + enter shortcut
 # See: https://nikitabobko.github.io/AeroSpace/commands.html#exec-and-forget
-# alt-enter = 'exec-and-forget open -n /Applications/Alacritty.app'
-alt-enter = 'exec-and-forget open -n /Applications/Ghostty.app'
+alt-enter = 'exec-and-forget open -n /Applications/Alacritty.app'
+# alt-enter = 'exec-and-forget open -n /Applications/Ghostty.app'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands.html#layout
 alt-slash = 'layout tiles horizontal vertical'

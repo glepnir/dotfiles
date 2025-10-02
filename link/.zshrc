@@ -1,3 +1,5 @@
+autoload -Uz compinit && compinit
+
 # alias
 alias vi="nvim"
 alias reload="source ~/.zshrc"

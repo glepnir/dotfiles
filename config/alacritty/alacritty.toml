@@ -27,7 +27,7 @@ decorations = "None"
 option_as_alt = "OnlyLeft"
 
 [mouse]
-hide_when_typing = true
+# hide_when_typing = true
 
 [cursor]
 style = { shape ="Beam", blinking = "Never" }
