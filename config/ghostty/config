@@ -5,7 +5,7 @@ font-size = 19
 font-feature = "-calt, -liga, -dlig"
 shell-integration = none
 
-cursor-style = bar
+cursor-style = block
 # custom-shader = ./cursor_fade.glsl
 custom-shader-animation = true
 mouse-hide-while-typing = true

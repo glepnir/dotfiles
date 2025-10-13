@@ -4,20 +4,6 @@ autoload -Uz compinit && compinit
 alias vi="nvim"
 alias reload="source ~/.zshrc"
 
-# for osx
-if [ -d "/opt/homebrew/opt/llvm" ]; then
-  export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-  export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
-  export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
-  export CXX="/opt/homebrew/opt/llvm/bin/clang++"
-  export CC="/opt/homebrew/opt/llvm/bin/clang"
-  alias g++=$CXX
-  alias gcc=$CC
-  export PATH="/opt/homebrew/bin:$PATH"
-  # remove duplicate item in PATH
-  export PATH=$(echo "$PATH" | awk -v RS=: '!seen[$0]++' | paste -sd: -)
-fi
-
 autoload -U add-zsh-hook
 # Function to get Git status
 prompt_git_status() {
