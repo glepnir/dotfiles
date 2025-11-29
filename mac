@@ -150,6 +150,8 @@ brew_packages=(
   "binutils"
   "cmake-language-server"
   "fd"
+  "tree-sitter"
+  "tree-sitter-cli"
 )
 
 # Install Homebrew packages

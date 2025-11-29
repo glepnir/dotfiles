@@ -24,5 +24,6 @@ fi
 PathAppend "$CARGO_HOME/bin"
 # Vim Debugger Script
 PathAppend "$XDG_DATA_HOME/nvim/bin"
+PathAppend "$XDG_CONFIG_HOME/dotfiles/bin"
 
 unset PathAppend

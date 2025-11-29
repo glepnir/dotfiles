@@ -85,7 +85,7 @@ if [ -n "$testfile" ]; then
 fi
 
 # Find and attach to the nvim process
-pid=$(ps aux | grep "[.]\/build\/bin\/nvim --embed" | awk '{print $2}')
+pid=$(ps aux | grep "[.]*/build\/bin\/nvim --embed" | awk '{print $2}')
 if [ -n "$pid" ]; then
   attach_and_set_breakpoint "$pid"
 fi

@@ -135,3 +135,4 @@ Xviminfo
 /test*.lua
 */vim/src/Makefile
 big.txt
+.env
