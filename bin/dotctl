@@ -3,6 +3,7 @@
 import os
 import subprocess
 import re
+import argparse
 
 def get_nvim_normal_bg():
     cmd = ["nvim", "--headless", "-c", "hi Normal | quit"]
@@ -13,8 +14,8 @@ def get_nvim_normal_bg():
         return m.group(0).split("=")[1]
     return None
 
-def update_tmux_conf(hexcode):
-    tmux_conf_path = os.path.expanduser("~/.config/.dotfiles/config/tmux/tmux.conf")
+def update_tmux_conf(hexcode: str):
+    tmux_conf_path = os.path.expanduser("~/.config/dotfiles/config/tmux/tmux.conf")
 
     with open(tmux_conf_path, "r") as f:
         lines = f.readlines()
@@ -22,12 +23,12 @@ def update_tmux_conf(hexcode):
     with open(tmux_conf_path, "w") as f:
         for line in lines:
             if line.strip().startswith("set -g background"):
-                f.write(f"set -g background {hexcode}\n")
+                _ = f.write(f"set -g background {hexcode}\n")
             else:
-                f.write(line)
+                _ = f.write(line)
 
-def update_alacritty_conf(hexcode):
-    alacritty_conf_path = os.path.expanduser("~/.dotfiles/config/alacritty/alacritty.toml")
+def update_alacritty_conf(hexcode: str):
+    alacritty_conf_path = os.path.expanduser("~/.config/dotfiles/config/alacritty/alacritty.toml")
 
     with open(alacritty_conf_path, "r") as f:
         lines = f.readlines()
@@ -39,21 +40,29 @@ def update_alacritty_conf(hexcode):
             stripped = line.strip()
             if stripped == "[colors.primary]":
                 inside_colors_primary = True
-                f.write(line)
+                _ = f.write(line)
                 continue
 
             if inside_colors_primary and stripped.startswith("[") and stripped.endswith("]"):
                 inside_colors_primary = False
 
             if inside_colors_primary and stripped.startswith("background"):
-                f.write(f'background = "{hexcode}"\n')
+                _ = f.write(f'background = "{hexcode}"\n')
             else:
-                f.write(line)
+                _ = f.write(line)
 
+def parse_args():
+    parser = argparse.ArgumentParser()
+    _ = parser.add_argument("-u", "--update", help="update target", choices=["bg"])
+    return parser.parse_args()
 
 if __name__ == "__main__":
-    bg = get_nvim_normal_bg()
-    update_tmux_conf(bg)
-    update_alacritty_conf(bg)
-
-    print("config file updated！")
+    args = parse_args()
+    if args.update == "bg":  # pyright: ignore[reportAny]
+        bg = get_nvim_normal_bg()
+        if bg is not None:
+            update_tmux_conf(bg)
+            update_alacritty_conf(bg)
+            print("background updated!")
+        else:
+            print("get neovim background color failed")
