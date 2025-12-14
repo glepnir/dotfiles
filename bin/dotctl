@@ -7,81 +7,117 @@ import argparse
 from datetime import datetime
 
 DOTFILES_DIR = os.path.expanduser("~/.config/dotfiles")
+NVIM_DIR = os.path.expanduser("~/.config/nvim")
 
 def get_nvim_normal_color(kind: str):
     cmd = ["nvim", "--headless", "-c", "hi Normal | quit"]
-    result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    result = subprocess.run(
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+    )
     output = result.stdout.strip() + result.stderr.strip()
 
-    m = re.search(r"guibg=#[0-9A-Fa-f]{6}" if kind == "bg" else r"guifg=#[0-9A-Fa-f]{6}", output)
+    m = re.search(
+        r"guibg=#[0-9A-Fa-f]{6}" if kind == "bg" else r"guifg=#[0-9A-Fa-f]{6}", output
+    )
     return m.group(0).split("=")[1] if m else None
+
 
 def update_tmux_conf(hexcode: str):
     tmux_conf_path = os.path.join(DOTFILES_DIR, "config/tmux/tmux.conf")
-    with open(tmux_conf_path, "r") as f:
+
+    with open(tmux_conf_path, "r+") as f:
         lines = f.readlines()
-    with open(tmux_conf_path, "w") as f:
-        for line in lines:
+
+        # Check if the current tmux background color is different
+        for i, line in enumerate(lines):
             if line.strip().startswith("set -g background"):
-                _ = f.write(f"set -g background {hexcode}\n")
-            else:
-                _ = f.write(line)
+                current_bg = line.strip().split()[3]
+                if current_bg == hexcode:
+                    print("Tmux background color is already up-to-date.")
+                    return  # No need to update if the color is the same
+                lines[i] = f"set -g background {hexcode}\n"  # Replace with new color
+                break
+
+        # Write the updated content back to the file
+        f.seek(0)  # Move file pointer to the beginning
+        f.writelines(lines)
+        f.truncate()  # Ensure the file size matches the content
+    print("Tmux background updated!")
+
 
 def update_alacritty_conf(kind: str, hexcode: str):
     alacritty_conf_path = os.path.join(DOTFILES_DIR, "config/alacritty/alacritty.toml")
-    with open(alacritty_conf_path, "r") as f:
+
+    with open(alacritty_conf_path, "r+") as f:
         lines = f.readlines()
 
-    inside_colors_primary = False
-    key = "background" if kind == "bg" else "foreground"
-    
-    with open(alacritty_conf_path, "w") as f:
-        for line in lines:
+        inside_colors_primary = False
+        key = "background" if kind == "bg" else "foreground"
+        updated = False
+
+        # Check if the current alacritty color is different
+        for i, line in enumerate(lines):
             stripped = line.strip()
             if stripped == "[colors.primary]":
                 inside_colors_primary = True
             elif inside_colors_primary and stripped.startswith("["):
                 inside_colors_primary = False
             if inside_colors_primary and stripped.startswith(key):
-                _ = f.write(f'{key} = "{hexcode}"\n')
-            else:
-                _ = f.write(line)
+                current_color = stripped.split("=")[1].strip().strip('"')
+                if current_color == hexcode:
+                    print(f"Alacritty {kind} color is already up-to-date.")
+                    return  # No need to update if the color is the same
+                lines[i] = f'{key} = "{hexcode}"\n'  # Replace with new color
+                updated = True
+                break
+
+        # Write the updated content back to the file if necessary
+        if updated:
+            _ = f.seek(0)  # Move file pointer to the beginning
+            f.writelines(lines)
+            _ = f.truncate()
+            print(f"Alacritty {kind} updated!")
+        else:
+            print(f"Alacritty {kind} color is already up-to-date.")
+
 
 def get_current_timestamp():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-def git_commit_and_push():
+
+def git_commit_and_push(path: str):
     timestamp = get_current_timestamp()
     commit_msg = f"Update: {timestamp}"
-    _ = subprocess.run(["git", "add", "."], check=True)
-    _ = subprocess.run(["git", "commit", "-m", commit_msg], check=True)
-    _ = subprocess.run(["git", "push"], check=True)
-    print(f"Changes committed and pushed with message: '{commit_msg}'")
+    _ = subprocess.run(["git", "add", "."], cwd=path, check=True)
+    _ = subprocess.run(["git", "commit", "-m", commit_msg], cwd=path, check=True)
+    _ = subprocess.run(["git", "push"], cwd=path, check=True)
+    print(f"Changes committed and pushed for {path} with message: '{commit_msg}'")
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
     _ = parser.add_argument("command", choices=["update"], help="dotctl command")
-    _ = parser.add_argument("-u", "--update", choices=["bg", "fg"], help="update target")
+    _ = parser.add_argument(
+        "--nvim", action="store_true", help="Only update Neovim configuration"
+    )
     return parser.parse_args()
+
 
 if __name__ == "__main__":
     args = parse_args()
     if args.command == "update":
-        if args.update == "bg":
-            color = get_nvim_normal_color("bg")
-            if color:
-                update_tmux_conf(color)
-                update_alacritty_conf(args.update, color)
-                print("Background updated!")
-            else:
-                print("Failed to get Neovim background color")
-        elif args.update == "fg":
-            color = get_nvim_normal_color("fg")
-            if color:
-                update_alacritty_conf(args.update, color)
-                print("Foreground updated!")
-            else:
-                print("Failed to get Neovim foreground color")
+        fg = get_nvim_normal_color("fg")
+        bg = get_nvim_normal_color("bg")
 
-        # Commit and push after update
-        git_commit_and_push()
+        # Update fg and bg only if different from current settings
+        if fg:
+            update_alacritty_conf("fg", fg)
+
+        if bg:
+            update_tmux_conf(bg)
+            update_alacritty_conf("bg", bg)
+
+        git_commit_and_push(DOTFILES_DIR)
+
+        if args.nvim:
+            git_commit_and_push(NVIM_DIR)
