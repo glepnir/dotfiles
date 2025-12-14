@@ -6,7 +6,6 @@ import re
 import argparse
 from datetime import datetime
 
-# Define dotfiles directory
 DOTFILES_DIR = os.path.expanduser("~/.config/dotfiles")
 
 def get_nvim_normal_color(kind: str):
@@ -24,9 +23,9 @@ def update_tmux_conf(hexcode: str):
     with open(tmux_conf_path, "w") as f:
         for line in lines:
             if line.strip().startswith("set -g background"):
-                f.write(f"set -g background {hexcode}\n")
+                _ = f.write(f"set -g background {hexcode}\n")
             else:
-                f.write(line)
+                _ = f.write(line)
 
 def update_alacritty_conf(kind: str, hexcode: str):
     alacritty_conf_path = os.path.join(DOTFILES_DIR, "config/alacritty/alacritty.toml")
@@ -44,9 +43,9 @@ def update_alacritty_conf(kind: str, hexcode: str):
             elif inside_colors_primary and stripped.startswith("["):
                 inside_colors_primary = False
             if inside_colors_primary and stripped.startswith(key):
-                f.write(f'{key} = "{hexcode}"\n')
+                _ = f.write(f'{key} = "{hexcode}"\n')
             else:
-                f.write(line)
+                _ = f.write(line)
 
 def get_current_timestamp():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -54,21 +53,19 @@ def get_current_timestamp():
 def git_commit_and_push():
     timestamp = get_current_timestamp()
     commit_msg = f"Update: {timestamp}"
-    subprocess.run(["git", "add", "."], check=True)
-    subprocess.run(["git", "commit", "-m", commit_msg], check=True)
-    subprocess.run(["git", "push"], check=True)
+    _ = subprocess.run(["git", "add", "."], check=True)
+    _ = subprocess.run(["git", "commit", "-m", commit_msg], check=True)
+    _ = subprocess.run(["git", "push"], check=True)
     print(f"Changes committed and pushed with message: '{commit_msg}'")
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["update"], help="dotctl command")
-    parser.add_argument("-u", "--update", choices=["bg", "fg"], help="update target")
+    _ = parser.add_argument("command", choices=["update"], help="dotctl command")
+    _ = parser.add_argument("-u", "--update", choices=["bg", "fg"], help="update target")
     return parser.parse_args()
 
 if __name__ == "__main__":
     args = parse_args()
-
-    # Handle 'update' command
     if args.command == "update":
         if args.update == "bg":
             color = get_nvim_normal_color("bg")
@@ -78,7 +75,6 @@ if __name__ == "__main__":
                 print("Background updated!")
             else:
                 print("Failed to get Neovim background color")
-        
         elif args.update == "fg":
             color = get_nvim_normal_color("fg")
             if color:
@@ -86,6 +82,6 @@ if __name__ == "__main__":
                 print("Foreground updated!")
             else:
                 print("Failed to get Neovim foreground color")
-        
+
         # Commit and push after update
         git_commit_and_push()
