@@ -70,6 +70,7 @@ def sync_colors():
     if fg:
         changed |= update_alacritty("fg", fg)
     return changed
+
 def parse():
     p = argparse.ArgumentParser()
     p.add_argument("-s", action="store_true")
