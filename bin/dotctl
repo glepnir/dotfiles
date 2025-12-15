@@ -1,123 +1,125 @@
 #!/usr/bin/env python3
-
-import os
-import subprocess
-import re
-import argparse
+import os, re, argparse, subprocess
 from datetime import datetime
 
-DOTFILES_DIR = os.path.expanduser("~/.config/dotfiles")
-NVIM_DIR = os.path.expanduser("~/.config/nvim")
+DOTFILES = os.path.expanduser("~/.config/dotfiles")
+NVIM = os.path.expanduser("~/.config/nvim")
+TMUX = os.path.join(DOTFILES, "config/tmux/tmux.conf")
+ALACRITTY = os.path.join(DOTFILES, "config/alacritty/alacritty.toml")
 
-def get_nvim_normal_color(kind: str):
-    cmd = ["nvim", "--headless", "-c", "hi Normal | quit"]
-    result = subprocess.run(
-        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+def ts():
+    return datetime.now().strftime("%Y%m%d-%H%M%S")
+
+def git_push(path: str):
+    _ = subprocess.run(["git", "add", "."], cwd=path, check=True)
+    _ = subprocess.run(["git", "commit", "-m", ts()], cwd=path, check=True)
+    _ = subprocess.run(["git", "push"], cwd=path, check=True)
+
+def nvim_color(kind: str):
+    p = subprocess.run(
+        ["nvim", "--headless", "-c", "hi Normal | qa"],
+        capture_output=True, text=True
     )
-    output = result.stdout.strip() + result.stderr.strip()
-
     m = re.search(
-        r"guibg=#[0-9A-Fa-f]{6}" if kind == "bg" else r"guifg=#[0-9A-Fa-f]{6}", output
+        r"guibg=#[0-9A-Fa-f]{6}" if kind == "bg" else r"guifg=#[0-9A-Fa-f]{6}",
+        p.stdout + p.stderr
     )
     return m.group(0).split("=")[1] if m else None
 
-
-def update_tmux_conf(hexcode: str):
-    tmux_conf_path = os.path.join(DOTFILES_DIR, "config/tmux/tmux.conf")
-
-    with open(tmux_conf_path, "r+") as f:
+# ---------- sync ----------
+def update_tmux(bg: str):
+    with open(TMUX, "r+") as f:
         lines = f.readlines()
+        for i, l in enumerate(lines):
+            if l.strip().startswith("set -g background"):
+                cur = l.split()[-1]
+                if cur == bg:
+                    return False
+                lines[i] = f"set -g background {bg}\n"
+                f.seek(0); f.writelines(lines); f.truncate()
+                return True
+    return False
 
-        # Check if the current tmux background color is different
-        for i, line in enumerate(lines):
-            if line.strip().startswith("set -g background"):
-                current_bg = line.strip().split()[3]
-                if current_bg == hexcode:
-                    print("Tmux background color is already up-to-date.")
-                    return  # No need to update if the color is the same
-                lines[i] = f"set -g background {hexcode}\n"  # Replace with new color
-                break
-
-        # Write the updated content back to the file
-        f.seek(0)  # Move file pointer to the beginning
-        f.writelines(lines)
-        f.truncate()  # Ensure the file size matches the content
-    print("Tmux background updated!")
-
-
-def update_alacritty_conf(kind: str, hexcode: str):
-    alacritty_conf_path = os.path.join(DOTFILES_DIR, "config/alacritty/alacritty.toml")
-
-    with open(alacritty_conf_path, "r+") as f:
+def update_alacritty(kind: str, color: str):
+    key = "background" if kind == "bg" else "foreground"
+    with open(ALACRITTY, "r+") as f:
         lines = f.readlines()
+        inside = False
+        for i, l in enumerate(lines):
+            s = l.strip()
+            if s == "[colors.primary]":
+                inside = True
+            elif inside and s.startswith("["):
+                inside = False
+            elif inside and s.startswith(key):
+                cur = s.split("=")[1].strip().strip('"')
+                if cur == color:
+                    return False
+                lines[i] = f'{key} = "{color}"\n'
+                f.seek(0); f.writelines(lines); f.truncate()
+                return True
+    return False
 
-        inside_colors_primary = False
-        key = "background" if kind == "bg" else "foreground"
-        updated = False
+def sync_colors():
+    changed = False
+    bg = nvim_color("bg")
+    fg = nvim_color("fg")
+    if bg:
+        changed |= update_tmux(bg)
+        changed |= update_alacritty("bg", bg)
+    if fg:
+        changed |= update_alacritty("fg", fg)
+    return changed
+def parse():
+    p = argparse.ArgumentParser()
+    p.add_argument("-s", action="store_true")
+    p.add_argument("-u", action="store_true")
+    args, rest = p.parse_known_args()
+    cmd = None
+    target = None
 
-        # Check if the current alacritty color is different
-        for i, line in enumerate(lines):
-            stripped = line.strip()
-            if stripped == "[colors.primary]":
-                inside_colors_primary = True
-            elif inside_colors_primary and stripped.startswith("["):
-                inside_colors_primary = False
-            if inside_colors_primary and stripped.startswith(key):
-                current_color = stripped.split("=")[1].strip().strip('"')
-                if current_color == hexcode:
-                    print(f"Alacritty {kind} color is already up-to-date.")
-                    return  # No need to update if the color is the same
-                lines[i] = f'{key} = "{hexcode}"\n'  # Replace with new color
-                updated = True
-                break
-
-        # Write the updated content back to the file if necessary
-        if updated:
-            _ = f.seek(0)  # Move file pointer to the beginning
-            f.writelines(lines)
-            _ = f.truncate()
-            print(f"Alacritty {kind} updated!")
+    for x in rest:
+        if x in ("sync", "syncu", "update"):
+            cmd = x
+        elif x in ("nvim", "dotfiles"):
+            target = x
         else:
-            print(f"Alacritty {kind} color is already up-to-date.")
+            p.error(f"unknown argument: {x}")
 
+    if cmd is None:
+        if args.s and args.u:
+            cmd = "syncu"
+        elif args.u:
+            cmd = "update"
+        elif args.s:
+            cmd = "sync"
+        else:
+            cmd = "sync"
 
-def get_current_timestamp():
-    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    args.cmd = cmd
+    args.target = target
+    return args
 
+def main():
+    a = parse()
 
-def git_commit_and_push(path: str):
-    timestamp = get_current_timestamp()
-    commit_msg = f"Update: {timestamp}"
-    _ = subprocess.run(["git", "add", "."], cwd=path, check=True)
-    _ = subprocess.run(["git", "commit", "-m", commit_msg], cwd=path, check=True)
-    _ = subprocess.run(["git", "push"], cwd=path, check=True)
-    print(f"Changes committed and pushed for {path} with message: '{commit_msg}'")
+    if a.cmd == "sync":
+        sync_colors()
+        return
 
+    if a.cmd == "syncu":
+        if sync_colors():
+            git_push(DOTFILES)
+        return
 
-def parse_args():
-    parser = argparse.ArgumentParser()
-    _ = parser.add_argument("command", choices=["update"], help="dotctl command")
-    _ = parser.add_argument(
-        "--nvim", action="store_true", help="Only update Neovim configuration"
-    )
-    return parser.parse_args()
-
+    # update
+    if a.target == "nvim":
+        git_push(NVIM)
+    elif a.target == "dotfiles":
+        git_push(DOTFILES)
+    else:
+        git_push(DOTFILES)
+        git_push(NVIM)
 
 if __name__ == "__main__":
-    args = parse_args()
-    if args.command == "update":
-        fg = get_nvim_normal_color("fg")
-        bg = get_nvim_normal_color("bg")
-
-        # Update fg and bg only if different from current settings
-        if fg:
-            update_alacritty_conf("fg", fg)
-
-        if bg:
-            update_tmux_conf(bg)
-            update_alacritty_conf("bg", bg)
-
-        git_commit_and_push(DOTFILES_DIR)
-
-        if args.nvim:
-            git_commit_and_push(NVIM_DIR)
+    main()
