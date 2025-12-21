@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-import os, re, argparse, subprocess
+
+import os
+import re
+import argparse
+import subprocess
 from datetime import datetime
 
 DOTFILES = os.path.expanduser("~/.config/dotfiles")
@@ -7,33 +11,38 @@ NVIM = os.path.expanduser("~/.config/nvim")
 TMUX = os.path.join(DOTFILES, "config/tmux/tmux.conf")
 ALACRITTY = os.path.join(DOTFILES, "config/alacritty/alacritty.toml")
 
+
 def ts():
     return datetime.now().strftime("%Y%m%d-%H%M%S")
+
 
 def git_push(path: str):
     status = subprocess.run(
         ["git", "status", "--porcelain"],
-        cwd=path, capture_output=True, text=True, check=True
+        cwd=path,
+        capture_output=True,
+        text=True,
+        check=True,
     )
     if not status.stdout.strip():
         return
-    subprocess.run(["git", "add", "."], cwd=path, check=True)
-    subprocess.run(["git", "commit", "-m", ts()], cwd=path, check=True)
-    subprocess.run(["git", "push"], cwd=path, check=True)
+    _ = subprocess.run(["git", "add", "."], cwd=path, check=True)
+    _ = subprocess.run(["git", "commit", "-m", ts()], cwd=path, check=True)
+    _ = subprocess.run(["git", "push"], cwd=path, check=True)
+
 
 def nvim_color(kind: str):
     p = subprocess.run(
         ["nvim", "--headless", "-c", "hi Normal | qa"],
-        capture_output=True, text=True
+        capture_output=True,
+        text=True,
     )
-    m = re.search(
-        r"guibg=#[0-9A-Fa-f]{6}" if kind == "bg" else r"guifg=#[0-9A-Fa-f]{6}",
-        p.stdout + p.stderr
-    )
+    pat = r"guibg=#[0-9A-Fa-f]{6}" if kind == "bg" else r"guifg=#[0-9A-Fa-f]{6}"
+    m = re.search(pat, p.stdout + p.stderr)
     return m.group(0).split("=")[1] if m else None
 
-# ---------- sync ----------
-def update_tmux(bg: str):
+
+def update_tmux(bg: str) -> bool:
     with open(TMUX, "r+") as f:
         lines = f.readlines()
         for i, l in enumerate(lines):
@@ -42,11 +51,14 @@ def update_tmux(bg: str):
                 if cur == bg:
                     return False
                 lines[i] = f"set -g background {bg}\n"
-                f.seek(0); f.writelines(lines); f.truncate()
+                f.seek(0)
+                f.writelines(lines)
+                f.truncate()
                 return True
     return False
 
-def update_alacritty(kind: str, color: str):
+
+def update_alacritty(kind: str, color: str) -> bool:
     key = "background" if kind == "bg" else "foreground"
     with open(ALACRITTY, "r+") as f:
         lines = f.readlines()
@@ -62,71 +74,67 @@ def update_alacritty(kind: str, color: str):
                 if cur == color:
                     return False
                 lines[i] = f'{key} = "{color}"\n'
-                f.seek(0); f.writelines(lines); f.truncate()
+                f.seek(0)
+                f.writelines(lines)
+                f.truncate()
                 return True
     return False
 
-def sync_colors():
+
+def sync_colors(scope: str | None) -> bool:
     changed = False
-    bg = nvim_color("bg")
-    fg = nvim_color("fg")
-    if bg:
-        changed |= update_tmux(bg)
-        changed |= update_alacritty("bg", bg)
-    if fg:
-        changed |= update_alacritty("fg", fg)
+
+    if scope in (None, "bg"):
+        bg = nvim_color("bg")
+        if bg:
+            changed |= update_tmux(bg)
+            changed |= update_alacritty("bg", bg)
+
+    if scope in (None, "fg"):
+        fg = nvim_color("fg")
+        if fg:
+            changed |= update_alacritty("fg", fg)
+
     return changed
 
+
 def parse():
-    p = argparse.ArgumentParser()
-    p.add_argument("-s", action="store_true")
-    p.add_argument("-u", action="store_true")
-    args, rest = p.parse_known_args()
-    cmd = None
-    target = None
+    p = argparse.ArgumentParser(prog="dotctl")
+    sub = p.add_subparsers(dest="cmd", required=True)
 
-    for x in rest:
-        if x in ("sync", "syncu", "update"):
-            cmd = x
-        elif x in ("nvim", "dotfiles"):
-            target = x
-        else:
-            p.error(f"unknown argument: {x}")
+    ps = sub.add_parser("sync", help="sync colors from nvim")
+    _ = ps.add_argument("scope", nargs="?", choices=("fg", "bg"))
 
-    if cmd is None:
-        if args.s and args.u:
-            cmd = "syncu"
-        elif args.u:
-            cmd = "update"
-        elif args.s:
-            cmd = "sync"
-        else:
-            cmd = "sync"
+    psu = sub.add_parser("syncu", help="sync colors and push dotfiles")
+    _ = psu.add_argument("scope", nargs="?", choices=("fg", "bg"))
 
-    args.cmd = cmd
-    args.target = target
-    return args
+    pu = sub.add_parser("update", help="git push configs")
+    _ = pu.add_argument("target", nargs="?", choices=("nvim", "dotfiles"))
+
+    return p.parse_args()
+
 
 def main():
     a = parse()
 
     if a.cmd == "sync":
-        sync_colors()
+        sync_colors(a.scope)
         return
 
     if a.cmd == "syncu":
-        if sync_colors():
+        if sync_colors(a.scope):
             git_push(DOTFILES)
         return
 
-    # update
-    if a.target == "nvim":
-        git_push(NVIM)
-    elif a.target == "dotfiles":
-        git_push(DOTFILES)
-    else:
-        git_push(DOTFILES)
-        git_push(NVIM)
+    if a.cmd == "update":
+        if a.target == "nvim":
+            git_push(NVIM)
+        elif a.target == "dotfiles":
+            git_push(DOTFILES)
+        else:
+            git_push(DOTFILES)
+            git_push(NVIM)
+
 
 if __name__ == "__main__":
     main()
