@@ -65,7 +65,7 @@ prompt_git_status() {
   [[ $conflicts > 0 ]] && working_info+="%F{red}×$conflicts%f"
   [[ $staged > 0 ]] && working_info+="%F{green}●$staged%f"
   [[ $changed > 0 ]] && working_info+="%F{208}✻$changed%f"
-  [[ $untracked > 0 ]] && working_info+="%F{red}+$untracked%f"
+  [[ $untracked > 0 ]] && working_info+="%F{yellow}+$untracked%f"
 
   if [[ $#working_info > 0 ]]; then
     parts+="${(j::)working_info}"
@@ -84,7 +84,7 @@ prompt_git_define_prompt() {
 
   # Abbreviated current working directory
   # parts+="%F{green}in %F{blue}${${PWD/#$HOME/~}//(#b)([^\/])[^\/][^\/]#\//$match[1]/}%f"
-  parts+="%F{green}in %F{blue}${${PWD/#$HOME/~}}%f"
+  parts+="%F{8}in %F{cyan}${${PWD/#$HOME/~}}%f"
 
   # Git info (loaded async)
   if [[ "$1" != $'\0' ]]; then
@@ -97,7 +97,7 @@ prompt_git_define_prompt() {
 
   # Prompt arrow (red for non-zero status)
   parts+="%(?.%F{8}.%F{red})
-%F{cyan}λ%f"
+%F{green}λ%f"
 
   PROMPT="${(j: :)parts} "
 }
@@ -186,9 +186,6 @@ zinit light Aloxaf/fzf-tab
 
 zinit ice depth=1 wait blockf lucid atpull"zinit creinstall -q ."
 zinit light clarketm/zsh-completions
-
-zinit ice depth=1 wait lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
-zinit light zdharma-continuum/fast-syntax-highlighting
 
 zinit ice depth=1 wait lucid compile"{src/*.zsh,src/strategies/*.zsh}" atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
