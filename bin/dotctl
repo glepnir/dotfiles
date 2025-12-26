@@ -1,22 +1,35 @@
 #!/usr/bin/env python3
-
+"""dotctl - Sync colors from Neovim to Alacritty/Tmux"""
 import os
 import re
 import argparse
 import subprocess
 from datetime import datetime
+from typing import cast
 
 DOTFILES = os.path.expanduser("~/.config/dotfiles")
 NVIM = os.path.expanduser("~/.config/nvim")
 TMUX = os.path.join(DOTFILES, "config/tmux/tmux.conf")
 ALACRITTY = os.path.join(DOTFILES, "config/alacritty/alacritty.toml")
 
+# Mapping: Alacritty color name → Neovim highlight group
+NVIM_TO_ALACRITTY: dict[str, str] = {
+    "red": "DiagnosticError",
+    "green": "String",
+    "yellow": "Type",
+    "blue": "Function",
+    "cyan": "Constant",
+    "magenta": "Number",
+    "white": "Normal",
+    "black": "Comment",
+}
 
-def ts():
+
+def ts() -> str:
     return datetime.now().strftime("%Y%m%d-%H%M%S")
 
 
-def git_push(path: str):
+def git_push(path: str) -> None:
     status = subprocess.run(
         ["git", "status", "--porcelain"],
         cwd=path,
@@ -31,40 +44,78 @@ def git_push(path: str):
     _ = subprocess.run(["git", "push"], cwd=path, check=True)
 
 
-def nvim_color(kind: str):
+def get_nvim_colors() -> dict[str, str]:
+    """Extract all colors from Neovim."""
+    colors: dict[str, str] = {}
+
+    # Get bg and fg from Normal in single call
     p = subprocess.run(
         ["nvim", "--headless", "-c", "hi Normal | qa"],
         capture_output=True,
         text=True,
     )
-    pat = r"guibg=#[0-9A-Fa-f]{6}" if kind == "bg" else r"guifg=#[0-9A-Fa-f]{6}"
-    m = re.search(pat, p.stdout + p.stderr)
+    output = p.stdout + p.stderr
+    
+    bg_match = re.search(r"guibg=#[0-9A-Fa-f]{6}", output)
+    if bg_match:
+        colors["bg"] = bg_match.group(0).split("=")[1]
+    
+    fg_match = re.search(r"guifg=#[0-9A-Fa-f]{6}", output)
+    if fg_match:
+        colors["fg"] = fg_match.group(0).split("=")[1]
+
+    # Get other colors
+    for alacritty_name, nvim_group in NVIM_TO_ALACRITTY.items():
+        color = nvim_color(nvim_group)
+        if color:
+            colors[alacritty_name] = color
+
+    return colors
+
+
+def nvim_color(group: str) -> str | None:
+    """Get guifg color from Neovim highlight group."""
+    p = subprocess.run(
+        ["nvim", "--headless", "-c", f"hi {group} | qa"],
+        capture_output=True,
+        text=True,
+    )
+    output = p.stdout + p.stderr
+    m = re.search(r"guifg=#[0-9A-Fa-f]{6}", output)
     return m.group(0).split("=")[1] if m else None
 
 
 def update_tmux(bg: str) -> bool:
+    """Update tmux background color."""
+    if not os.path.exists(TMUX):
+        return False
+
     with open(TMUX, "r+") as f:
         lines = f.readlines()
-        for i, l in enumerate(lines):
-            if l.strip().startswith("set -g background"):
-                cur = l.split()[-1]
+        for i, line in enumerate(lines):
+            if line.strip().startswith("set -g background"):
+                cur = line.split()[-1]
                 if cur == bg:
                     return False
                 lines[i] = f"set -g background {bg}\n"
-                f.seek(0)
-                f.writelines(lines)
-                f.truncate()
+                _ = f.seek(0)
+                _ = f.writelines(lines)
+                _ = f.truncate()
                 return True
     return False
 
 
-def update_alacritty(kind: str, color: str) -> bool:
+def update_alacritty_primary(kind: str, color: str) -> bool:
+    """Update primary colors in alacritty.toml."""
+    if not os.path.exists(ALACRITTY):
+        return False
+
     key = "background" if kind == "bg" else "foreground"
     with open(ALACRITTY, "r+") as f:
         lines = f.readlines()
         inside = False
-        for i, l in enumerate(lines):
-            s = l.strip()
+        for i, line in enumerate(lines):
+            s = line.strip()
             if s == "[colors.primary]":
                 inside = True
             elif inside and s.startswith("["):
@@ -74,66 +125,120 @@ def update_alacritty(kind: str, color: str) -> bool:
                 if cur == color:
                     return False
                 lines[i] = f'{key} = "{color}"\n'
-                f.seek(0)
-                f.writelines(lines)
-                f.truncate()
+                _ = f.seek(0)
+                _ = f.writelines(lines)
+                _ = f.truncate()
                 return True
     return False
 
 
-def sync_colors(scope: str | None) -> bool:
+def update_alacritty_normal(colors: dict[str, str]) -> bool:
+    """Update colors.normal section in alacritty.toml."""
+    if not os.path.exists(ALACRITTY):
+        return False
+
+    with open(ALACRITTY, "r") as f:
+        lines = f.readlines()
+
     changed = False
+    inside_normal = False
+    new_lines: list[str] = []
 
-    if scope in (None, "bg"):
-        bg = nvim_color("bg")
-        if bg:
-            changed |= update_tmux(bg)
-            changed |= update_alacritty("bg", bg)
+    for line in lines:
+        stripped = line.strip()
 
-    if scope in (None, "fg"):
-        fg = nvim_color("fg")
-        if fg:
-            changed |= update_alacritty("fg", fg)
+        if stripped == "[colors.normal]":
+            inside_normal = True
+            _ = new_lines.append(line)
+            continue
+
+        if inside_normal and stripped.startswith("[") and stripped != "[colors.normal]":
+            inside_normal = False
+
+        if inside_normal and "=" in stripped:
+            key = stripped.split("=")[0].strip()
+
+            if key in colors:
+                current_val = stripped.split("=")[1].strip().strip('"')
+                new_val = colors[key]
+
+                if current_val != new_val:
+                    indent = len(line) - len(line.lstrip())
+                    _ = new_lines.append(" " * indent + f'{key} = "{new_val}"\n')
+                    changed = True
+                    continue
+
+        _ = new_lines.append(line)
+
+    if changed:
+        with open(ALACRITTY, "w") as f:
+            _ = f.writelines(new_lines)
 
     return changed
 
 
-def parse():
-    p = argparse.ArgumentParser(prog="dotctl")
+def sync_colors() -> bool:
+    """Sync all colors from Neovim to terminal configs."""
+    changed = False
+    nvim_colors = get_nvim_colors()
+
+    # Sync bg/fg
+    if "bg" in nvim_colors:
+        changed |= update_tmux(nvim_colors["bg"])
+        changed |= update_alacritty_primary("bg", nvim_colors["bg"])
+    if "fg" in nvim_colors:
+        changed |= update_alacritty_primary("fg", nvim_colors["fg"])
+
+    # Sync normal colors
+    normal_colors = {k: v for k, v in nvim_colors.items() if k not in ["bg", "fg"]}
+    if normal_colors:
+        changed |= update_alacritty_normal(normal_colors)
+
+    return changed
+
+
+def parse_args() -> argparse.Namespace:
+    p = argparse.ArgumentParser(prog="dotctl", description="Sync colors from Neovim")
     sub = p.add_subparsers(dest="cmd", required=True)
 
-    ps = sub.add_parser("sync", help="sync colors from nvim")
-    _ = ps.add_argument("scope", nargs="?", choices=("fg", "bg"))
-
-    psu = sub.add_parser("syncu", help="sync colors and push dotfiles")
-    _ = psu.add_argument("scope", nargs="?", choices=("fg", "bg"))
+    _ = sub.add_parser("sync", help="sync colors from nvim")
+    _ = sub.add_parser("syncu", help="sync colors and push dotfiles")
 
     pu = sub.add_parser("update", help="git push configs")
-    _ = pu.add_argument("target", nargs="?", choices=("nvim", "dotfiles"))
+    _ = pu.add_argument("target", nargs="?", choices=["nvim", "dotfiles"])
 
     return p.parse_args()
 
 
-def main():
-    a = parse()
+def main() -> None:
+    args = parse_args()
+    cmd = cast(str, args.cmd)
 
-    if a.cmd == "sync":
-        sync_colors(a.scope)
-        return
+    if cmd == "sync":
+        changed = sync_colors()
+        if changed:
+            print("✓ Colors synced")
+        else:
+            print("✓ Colors already in sync")
 
-    if a.cmd == "syncu":
-        if sync_colors(a.scope):
+    elif cmd == "syncu":
+        changed = sync_colors()
+        if changed:
             git_push(DOTFILES)
-        return
+            print("✓ Colors synced and pushed")
+        else:
+            print("✓ Colors already in sync")
 
-    if a.cmd == "update":
-        if a.target == "nvim":
+    elif cmd == "update":
+        target = cast(str | None, args.target)
+        if target == "nvim":
             git_push(NVIM)
-        elif a.target == "dotfiles":
+        elif target == "dotfiles":
             git_push(DOTFILES)
         else:
             git_push(DOTFILES)
             git_push(NVIM)
+        print("✓ Configs pushed")
 
 
 if __name__ == "__main__":
