@@ -188,6 +188,9 @@ zinit light zsh-users/zsh-autosuggestions
 zinit ice depth=1 wait"2" lucid
 zinit light hlissner/zsh-autopair
 
+zinit ice depth=1 wait lucid
+zinit light wfxr/forgit
+
 autoload -Uz compinit
 compinit
 
