@@ -193,6 +193,8 @@ zinit light zsh-users/zsh-autosuggestions
 zinit ice depth=1 wait"2" lucid
 zinit light hlissner/zsh-autopair
 
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
 # fzf relate config
 export FZF_DEFAULT_COMMAND='fd --type file --follow'
 export FZF_DEFAULT_OPTS='
