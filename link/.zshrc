@@ -1,5 +1,3 @@
-autoload -Uz compinit && compinit
-
 # alias
 alias vi="nvim"
 alias reload="source ~/.zshrc"
@@ -175,17 +173,14 @@ autoload -Uz _zinit
 
 # #=== OH-MY-ZSH & PREZTO PLUGINS =======================
 zinit for \
-      OMZL::{'history','completion','git','grep','key-bindings'}.zsh
+      OMZL::{'history','completion','grep','key-bindings'}.zsh
 
 zinit wait lucid for \
-      OMZP::{'extract','fzf','git','sudo'}
+      OMZP::{'extract'}
 
 # Plugins
 zinit ice depth=1 wait lucid
 zinit light Aloxaf/fzf-tab
-
-zinit ice depth=1 wait blockf lucid atpull"zinit creinstall -q ."
-zinit light clarketm/zsh-completions
 
 zinit ice depth=1 wait lucid compile"{src/*.zsh,src/strategies/*.zsh}" atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
@@ -193,7 +188,12 @@ zinit light zsh-users/zsh-autosuggestions
 zinit ice depth=1 wait"2" lucid
 zinit light hlissner/zsh-autopair
 
+autoload -Uz compinit
+compinit
+
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # fzf relate config
 export FZF_DEFAULT_COMMAND='fd --type file --follow'
@@ -223,5 +223,3 @@ fif() {
   file=$(rg --files-with-matches --no-messages "$1" | fzf --preview "bat --color=always {} | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1'  {}")
   nvim $file
 }
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
