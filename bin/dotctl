@@ -15,11 +15,11 @@ ALACRITTY = os.path.join(DOTFILES, "config/alacritty/alacritty.toml")
 # Mapping: Alacritty color name → Neovim highlight group
 NVIM_TO_ALACRITTY: dict[str, str] = {
     "red": "DiagnosticError",
-    "green": "String",
+    "green": "Keyword",
     "yellow": "Type",
     "blue": "Function",
     "cyan": "Constant",
-    "magenta": "Number",
+    "magenta": "Magenta",
     "white": "Normal",
     "black": "Comment",
 }
@@ -55,11 +55,11 @@ def get_nvim_colors() -> dict[str, str]:
         text=True,
     )
     output = p.stdout + p.stderr
-    
+
     bg_match = re.search(r"guibg=#[0-9A-Fa-f]{6}", output)
     if bg_match:
         colors["bg"] = bg_match.group(0).split("=")[1]
-    
+
     fg_match = re.search(r"guifg=#[0-9A-Fa-f]{6}", output)
     if fg_match:
         colors["fg"] = fg_match.group(0).split("=")[1]

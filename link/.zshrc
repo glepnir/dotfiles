@@ -48,7 +48,7 @@ prompt_git_status() {
 
   parts+="%F{8}$head%f"
   if [[ -n "$commit_hash" ]]; then
-    parts+="%F{magenta}$commit_hash%f"
+    parts+="%F{cyan}$commit_hash%f"
   fi
   local -a upstream_divergence
 
@@ -83,7 +83,7 @@ prompt_git_define_prompt() {
 
   # Abbreviated current working directory
   # parts+="%F{green}in %F{blue}${${PWD/#$HOME/~}//(#b)([^\/])[^\/][^\/]#\//$match[1]/}%f"
-  parts+="%F{8}in %F{cyan}${${PWD/#$HOME/~}}%f"
+  parts+="%F{240}in %F{blue}${${PWD/#$HOME/~}}%f"
 
   # Git info (loaded async)
   if [[ "$1" != $'\0' ]]; then
