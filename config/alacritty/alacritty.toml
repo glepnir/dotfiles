@@ -39,7 +39,7 @@ bindings = [
 
 [colors.primary]
 background = "#002b36"
-foreground = "#94a5a7"
+foreground = "#92a3a5"
 
 [colors]
 cursor = { cursor = '#a6e22e' }
@@ -52,7 +52,7 @@ yellow = "#b58900"
 blue = "#268bd2"
 cyan = "#2aa198"
 magenta = "#d33682"
-white = "#94a5a7"
+white = "#92a3a5"
 
 [colors.bright]
 yellow = "#ccad52"
