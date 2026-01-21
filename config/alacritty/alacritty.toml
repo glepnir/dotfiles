@@ -47,11 +47,11 @@ cursor = { cursor = '#a6e22e' }
 [colors.normal]
 black = "#586e75"
 red = "#c3948e"
-green = "#8ab98f"
+green = "#84b289"
 yellow = "#c6aa70"
-blue = "#8c9fbe"
+blue = "#8b9fbe"
 cyan = "#88b1b1"
-magenta = "#ac96b0"
+magenta = "#a995b7"
 white = "#8fa6ab"
 
 [colors.bright]
