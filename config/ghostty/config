@@ -19,17 +19,8 @@ window-padding-balance = true
 window-padding-x = 0
 window-padding-y = 0
 
-background = #002837
-foreground = #b6b6b6
-
-palette    = 0=#555555
-palette    = 1=#ff5f59
-palette    = 2=#84a800
-palette    = 3=#b58900
-palette    = 4=#268bd2
-palette    = 5=#9884c4
-palette    = 6=#2aa198
-palette    = 7=#b6b6b6
+background = "#22221c"
+foreground = "#b8b8b1"
 
 selection-foreground = #FFFFFF
 selection-background = #373737
@@ -39,3 +30,12 @@ selection-background = #373737
 # not supported https://meyerweb.com/eric/tools/color-blend/#643F61:CCFF66:10:hex
 cursor-color = green
 cursor-text = #1e1e1e
+
+palette = 0=#0f0f0f
+palette = 1=#c3948e
+palette = 2=#84b289
+palette = 3=#c6aa70
+palette = 4=#8b9fbe
+palette = 5=#a995b7
+palette = 6=#88b1b1
+palette = 7=#b8b8b1

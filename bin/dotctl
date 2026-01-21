@@ -11,6 +11,8 @@ DOTFILES = os.path.expanduser("~/.config/dotfiles")
 NVIM = os.path.expanduser("~/.config/nvim")
 TMUX = os.path.join(DOTFILES, "config/tmux/tmux.conf")
 ALACRITTY = os.path.join(DOTFILES, "config/alacritty/alacritty.toml")
+GHOSTTY = os.path.join(DOTFILES, "config/ghostty/config")
+TERMINAL_BLACK = "#0f0f0f"
 
 def ts() -> str:
     return datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -140,6 +142,82 @@ def update_alacritty_normal(colors: dict[str, str]) -> bool:
 
     return changed
 
+def update_ghostty_primary(kind: str, color: str) -> bool:
+    if not os.path.exists(GHOSTTY):
+        return False
+
+    key = "background" if kind == "bg" else "foreground"
+    changed = False
+
+    with open(GHOSTTY, "r+") as f:
+        lines = f.readlines()
+        for i, line in enumerate(lines):
+            if line.strip().startswith(f"{key} ="):
+                cur = line.split("=", 1)[1].strip().strip('"')
+                if cur != color:
+                    lines[i] = f'{key} = "{color}"\n'
+                    changed = True
+
+        if changed:
+            _ = f.seek(0)
+            f.writelines(lines)
+            _ = f.truncate()
+
+    return changed
+
+def update_ghostty_palette(nvim_colors: dict[str, str]) -> bool:
+    if not os.path.exists(GHOSTTY):
+        return False
+
+    required = ["red", "green", "yellow", "blue", "magenta", "cyan", "fg"]
+    if any(k not in nvim_colors for k in required):
+        return False
+
+    palette_map: dict[int, str] = {
+        0: TERMINAL_BLACK,
+        1: nvim_colors["red"],
+        2: nvim_colors["green"],
+        3: nvim_colors["yellow"],
+        4: nvim_colors["blue"],
+        5: nvim_colors["magenta"],
+        6: nvim_colors["cyan"],
+        7: nvim_colors["fg"],       # white = fg
+    }
+
+    with open(GHOSTTY, "r") as f:
+        lines = f.readlines()
+
+    changed = False
+    seen: set[int] = set()
+    new_lines: list[str] = []
+
+    for line in lines:
+        m = re.match(r"\s*palette\s*=\s*(\d+)\s*=\s*(#[0-9A-Fa-f]{6})", line)
+        if m:
+            idx = int(m.group(1))
+            if idx in palette_map:
+                val = palette_map[idx]
+                seen.add(idx)
+                new_line = f"palette = {idx}={val}\n"
+                if line != new_line:
+                    new_lines.append(new_line)
+                    changed = True
+                else:
+                    new_lines.append(line)
+                continue
+
+        new_lines.append(line)
+
+    for idx, val in palette_map.items():
+        if idx not in seen:
+            new_lines.append(f"palette = {idx}={val}\n")
+            changed = True
+
+    if changed:
+        with open(GHOSTTY, "w") as f:
+            f.writelines(new_lines)
+
+    return changed
 
 def sync_colors() -> bool:
     """Sync all colors from Neovim to terminal configs."""
@@ -150,14 +228,19 @@ def sync_colors() -> bool:
     if "bg" in nvim_colors:
         changed |= update_tmux(nvim_colors["bg"])
         changed |= update_alacritty_primary("bg", nvim_colors["bg"])
+        changed |= update_ghostty_primary("bg", nvim_colors["bg"])
     if "fg" in nvim_colors:
         changed |= update_alacritty_primary("fg", nvim_colors["fg"])
+        changed |= update_ghostty_primary("fg", nvim_colors["fg"])
 
     # Sync normal colors (red, green, yellow, blue, magenta, cyan, white, black)
     normal_keys = ["red", "green", "yellow", "blue", "magenta", "cyan", "white", "black"]
     normal_colors = {k: v for k, v in nvim_colors.items() if k in normal_keys}
     if normal_colors:
         changed |= update_alacritty_normal(normal_colors)
+
+    if GHOSTTY:
+        changed |= update_ghostty_palette(nvim_colors)
 
     return changed
 
