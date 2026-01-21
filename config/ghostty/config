@@ -2,10 +2,11 @@
 
 font-family = Lambda
 font-size = 19
-font-feature = "-calt, -liga, -dlig"
+font-feature = -calt, -liga, -dlig
 shell-integration = none
 
 cursor-style = block
+adjust-cursor-thickness = 2
 # custom-shader = ./cursor_fade.glsl
 custom-shader-animation = true
 mouse-hide-while-typing = true
@@ -18,6 +19,8 @@ confirm-close-surface = false
 window-padding-balance = true
 window-padding-x = 0
 window-padding-y = 0
+
+link-previews = osc8
 
 background = "#22221c"
 foreground = "#b8b8b1"
