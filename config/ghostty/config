@@ -22,8 +22,8 @@ window-padding-y = 0
 
 link-previews = osc8
 
-background = "#22221c"
-foreground = "#b8b8b1"
+background = "#23211b"
+foreground = "#b9b7b1"
 
 selection-foreground = #FFFFFF
 selection-background = #373737
@@ -35,10 +35,10 @@ cursor-color = green
 cursor-text = #1e1e1e
 
 palette = 0=#0f0f0f
-palette = 1=#c3948e
-palette = 2=#84b289
-palette = 3=#c6aa70
-palette = 4=#8b9fbe
-palette = 5=#a995b7
-palette = 6=#88b1b1
-palette = 7=#b8b8b1
+palette = 1=#bf968a
+palette = 2=#96a673
+palette = 3=#c1aa88
+palette = 4=#949fae
+palette = 5=#af94aa
+palette = 6=#80b3ac
+palette = 7=#b9b7b1
