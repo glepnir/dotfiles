@@ -22,7 +22,7 @@ window-padding-y = 0
 
 link-previews = osc8
 
-background = "#23221e"
+background = "#22211c"
 foreground = "#b9b7b1"
 
 selection-foreground = #FFFFFF
