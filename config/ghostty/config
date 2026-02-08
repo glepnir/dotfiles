@@ -22,6 +22,8 @@ window-padding-y = 0
 
 link-previews = osc8
 
+# command=tmux new -t terminal -s "terminal-$(tmux list-clients | rg terminal- | wc -l)" -A
+
 background = "#24241e"
 foreground = "#b7b4ad"
 
