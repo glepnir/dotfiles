@@ -3,6 +3,7 @@ alias vi="nvim"
 alias reload="source ~/.zshrc"
 alias gcmsg="git commit -m"
 alias gl="git pull"
+alias gp="git push --force"
 
 autoload -U add-zsh-hook
 # Function to get Git status
