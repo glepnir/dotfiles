@@ -25,7 +25,7 @@ link-previews = osc8
 # command=tmux new -t terminal -s "terminal-$(tmux list-clients | rg terminal- | wc -l)" -A
 
 background = "#002b36"
-foreground = "#97a9a8"
+foreground = "#94a2a3"
 
 selection-foreground = #FFFFFF
 selection-background = #373737
@@ -43,4 +43,4 @@ palette = 3=#b58900
 palette = 4=#498fc8
 palette = 5=#b95e83
 palette = 6=#4c9f8c
-palette = 7=#97a9a8
+palette = 7=#94a2a3

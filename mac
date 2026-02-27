@@ -4,7 +4,7 @@
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
 # thin font
-# defaults write -g AppleFontSmoothing -int 0
+defaults write -g AppleFontSmoothing -int 0
 
 home_config_dir="$HOME/.config"
 dotfiles_dir="$HOME/.config/dotfiles"
@@ -109,7 +109,7 @@ install_package() {
         fi
       fi
       ;;
-      
+
     *)
       echo "Unsupported package manager: $package_manager"
       exit 1
