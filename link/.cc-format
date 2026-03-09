@@ -8,7 +8,7 @@ DerivePointerAlignment: false
 PointerAlignment: Left
 ReferenceAlignment: Left
 IndentCaseLabels: false
-NamespaceIndentation: All
+NamespaceIndentation: None
 AccessModifierOffset: -4
 AlignEscapedNewlinesLeft: false
 AlignTrailingComments: true
