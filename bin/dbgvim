@@ -1,97 +1,149 @@
 #!/bin/bash
+set -euo pipefail
 
-# Function to print usage
 print_usage() {
-  echo "Usage: dbgvim [-f filename -l lnum] [-t testfile] [functionname]"
-  echo "       dbgvim help"
-  exit 1
+  cat <<EOF
+Usage: dbgvim [options] [functionname]
+Options:
+  -f <file>       Source file for breakpoint (used with -l)
+  -l <line>       Line number for breakpoint (used with -f)
+  -t <testfile>   Test file path (e.g. test/functional/ui/float_spec.lua)
+  -F <filter>     TEST_FILTER pattern for specific test case
+  -T <timeout>    Timeout in seconds waiting for nvim process (default: 30)
+  -h              Show this help
+Examples:
+  dbgvim -t test/functional/ui/float_spec.lua win_redr
+  dbgvim -t test/functional/ui/float_spec.lua -F "floating window" -f window.c -l 1234
+  dbgvim -t test/functional/ui/float_spec.lua    # attach only, no breakpoint
+  dbgvim win_redr                                 # no test launch, just wait & attach
+EOF
+  exit 0
 }
 
-# Check if help is requested or no arguments are passed
-if [ "$1" == "help" ]; then
-  print_usage
-fi
-
-# Variables for function name, filename, line number, and test file
+# --- Parse args ---
 functionname=""
 filename=""
 lnum=""
 testfile=""
+test_filter=""
+timeout=30
 
-# Parse command line arguments
-while getopts "f:l:t:" opt; do
+while getopts "f:l:t:F:T:h" opt; do
   case $opt in
     f) filename=$OPTARG ;;
     l) lnum=$OPTARG ;;
     t) testfile=$OPTARG ;;
+    F) test_filter=$OPTARG ;;
+    T) timeout=$OPTARG ;;
+    h) print_usage ;;
     \?) print_usage ;;
   esac
 done
-shift $((OPTIND -1))
+shift $((OPTIND - 1))
+[[ $# -eq 1 ]] && functionname=$1
 
-# Remaining argument should be the function name
-if [ $# -eq 1 ]; then
-  functionname=$1
-fi
-
-# Determine which debugger to use
-if command -v lldb &> /dev/null; then
+# --- Detect debugger ---
+if command -v lldb &>/dev/null; then
   debugger="lldb"
-elif command -v gdb &> /dev/null; then
+elif command -v gdb &>/dev/null; then
   debugger="gdb"
 else
-  echo "Neither lldb nor gdb is installed"
+  echo "error: neither lldb nor gdb found"
   exit 1
 fi
 
-# Function to attach debugger to the process and set a breakpoint
-attach_and_set_breakpoint() {
+# --- Get binary path from pid ---
+get_bin_from_pid() {
   local pid=$1
-  if [ "$debugger" = "lldb" ]; then
-    if [ -n "$functionname" ]; then
-      lldb -p "$pid" -o "breakpoint set -n $functionname" -o "continue"
-    elif [ -n "$filename" ] && [ -n "$lnum" ]; then
-      lldb -p "$pid" -o "breakpoint set -f $filename -l $lnum" -o "continue"
-    else
-      lldb -p "$pid"
-    fi
-  elif [ "$debugger" = "gdb" ]; then
-    if [ -n "$functionname" ]; then
-      gdb -p "$pid" --batch -ex "break $functionname" -ex "continue"
-    elif [ -n "$filename" ] && [ -n "$lnum" ]; then
-      gdb -p "$pid" --batch -ex "break $filename:$lnum" -ex "continue"
-    else
-      gdb -p "$pid"
-    fi
+  if [[ -e "/proc/$pid/exe" ]]; then
+    readlink "/proc/$pid/exe" 2>/dev/null
+  else
+    # macOS: ps -o comm= gives the executable path
+    ps -o comm= -p "$pid" 2>/dev/null
   fi
 }
 
-# Determine if we are in a Neovim or Vim directory
-if [ -n "$testfile" ]; then
-  if [[ "$testfile" == *.lua || "$testfile" == *.vim ]]; then
-    if [ -f "./build/bin/nvim" ]; then
-      ./build/bin/nvim --clean -u "$testfile"
-    elif [ -f "./src/vim" ]; then
-      ./src/vim --clean -u "$testfile"
-    else
-      echo "Neither Neovim nor Vim binary found in the current directory."
-      exit 1
+# --- Build debugger attach command ---
+build_dbg_cmd() {
+  local pid=$1
+  if [[ "$debugger" == "lldb" ]]; then
+    local cmd="lldb -p $pid"
+    if [[ -n "$functionname" ]]; then
+      cmd+=" -o 'breakpoint set -n $functionname' -o continue"
+    elif [[ -n "$filename" && -n "$lnum" ]]; then
+      cmd+=" -o 'breakpoint set -f $filename -l $lnum' -o continue"
     fi
+    echo "$cmd"
   else
-    echo "Test file must be a .lua or .vim file."
-    exit 1
+    local cmd="gdb -p $pid"
+    if [[ -n "$functionname" ]]; then
+      cmd+=" -ex 'break $functionname' -ex continue"
+    elif [[ -n "$filename" && -n "$lnum" ]]; then
+      cmd+=" -ex 'break $filename:$lnum' -ex continue"
+    fi
+    echo "$cmd"
   fi
-  exit 0
+}
+
+# --- Wait for nvim --embed process to appear ---
+wait_for_embed() {
+  local iter=0
+  local max_iter=$(( timeout * 5 ))
+  local pid=""
+  echo "waiting for nvim --embed (timeout: ${timeout}s) ..." >&2
+  while (( iter < max_iter )); do
+    if [[ -n "$test_pid" ]]; then
+      pid=$(pgrep -P "$test_pid" -f "build/bin/nvim.*--embed" 2>/dev/null | head -1) || true
+      if [[ -z "$pid" ]]; then
+        pid=$(pgrep -f "build/bin/nvim.*--embed" 2>/dev/null | while read p; do
+          local pp=$p
+          while [[ "$pp" -gt 1 ]] 2>/dev/null; do
+            [[ "$pp" == "$test_pid" ]] && { echo "$p"; break; }
+            pp=$(ps -o ppid= -p "$pp" 2>/dev/null | tr -d ' ') || break
+          done
+        done | head -1) || true
+      fi
+    else
+      pid=$(pgrep -f "build/bin/nvim.*--embed" 2>/dev/null | head -1) || true
+    fi
+    if [[ -n "$pid" ]] && kill -0 "$pid" 2>/dev/null; then
+      local bin
+      bin=$(get_bin_from_pid "$pid") || bin="unknown"
+      echo "found nvim --embed  pid=$pid  bin=$bin" >&2
+      echo "$pid"
+      return 0
+    fi
+    sleep 0.2
+    iter=$((iter + 1))
+    (( iter % 5 == 0 )) && printf "." >&2
+  done
+  echo "" >&2
+  echo "error: timed out waiting for nvim --embed" >&2
+  return 1
+}
+
+# --- Launch test in background if -t given ---
+test_pid=""
+if [[ -n "$testfile" ]]; then
+  make_cmd="make functionaltest TEST_FILE=$testfile"
+  [[ -n "$test_filter" ]] && make_cmd+=" TEST_FILTER='$test_filter'"
+  echo "starting: $make_cmd"
+  eval "$make_cmd" &
+  test_pid=$!
+  sleep 1
 fi
 
-# Find and attach to the nvim process
-pid=$(ps aux | grep "[.]*/build\/bin\/nvim --embed" | awk '{print $2}')
-if [ -n "$pid" ]; then
-  attach_and_set_breakpoint "$pid"
-fi
+# --- Wait for --embed process and attach ---
+embed_pid=$(wait_for_embed) || {
+  [[ -n "$test_pid" ]] && kill "$test_pid" 2>/dev/null
+  exit 1
+}
 
-# Find and attach to the vim process
-pid=$(ps aux | grep "src\/vim\|\.\/vim" | awk '{print $2}')
-if [ -n "$pid" ]; then
-  attach_and_set_breakpoint "$pid"
+dbg_cmd=$(build_dbg_cmd "$embed_pid")
+echo "attaching: $dbg_cmd"
+eval "$dbg_cmd"
+
+# --- Cleanup ---
+if [[ -n "$test_pid" ]]; then
+  wait "$test_pid" 2>/dev/null || true
 fi
