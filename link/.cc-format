@@ -31,6 +31,7 @@ AlwaysBreakBeforeMultilineStrings: No
 AlwaysBreakTemplateDeclarations: Yes
 AlignEscapedNewlines: DontAlign
 BreakBeforeBraces: Custom
+BreakAfterReturnType: RTBS_Automatic
 BraceWrapping:
   AfterClass:      false
   AfterControlStatement: false

@@ -35,6 +35,7 @@ style = { shape ="Block", blinking = "Never" }
 [keyboard]
 bindings = [
   { key = "q", mode = "Vi", action = "ToggleViMode" },
+  { key = "Return", mods = "Shift", chars = "\u001b[13;2u" },
 ]
 
 [colors.primary]
