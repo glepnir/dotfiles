@@ -39,20 +39,20 @@ bindings = [
 ]
 
 [colors.primary]
-background = "#002b36"
-foreground = "#94a2a3"
+background = "#1b1b1b"
+foreground = "#b1b1b1"
 
 [colors]
 cursor = { cursor = '#a6e22e' }
 
 [colors.normal]
 black = "#586e75"
-red = "#c1626c"
-green = "#879a1d"
-yellow = "#b58900"
-blue = "#498fc8"
-cyan = "#2aa198"
-magenta = "#b95e83"
+red = "#9a6a6a"
+green = "#6a9a6a"
+yellow = "#9a9a6a"
+blue = "#7a8a9a"
+cyan = "#6a9a9a"
+magenta = "#9a6a9a"
 white = "#8fa6ab"
 
 [colors.bright]
