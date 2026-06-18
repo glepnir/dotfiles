@@ -16,6 +16,7 @@ if [ -d "$HOME/.luarocks/bin" ]; then
 fi
 
 if [ -d "/opt/homebrew/opt/rustup" ]; then
+  export TERMINFO_DIRS="$(brew --prefix ncurses)/share/terminfo:"
   PathAppend "/opt/homebrew/opt/rustup/bin"
 fi
 
