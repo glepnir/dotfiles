@@ -1,6 +1,11 @@
 # Place a copy of this config to ~/.aerospace.toml
 # After that, you can edit ~/.aerospace.toml to your liking
 
+# Config version for compatibility and deprecations
+# See: https://nikitabobko.github.io/AeroSpace/guide#config-version
+# Fallback value (if you omit the key): config-version = 1
+config-version = 2
+
 # Feel free to omit keys that you don't use in your config.
 # If the key is absent in your config the default value is taken from this config
 
@@ -156,7 +161,7 @@ esc = 'mode main'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'licecap'
-run = 'layout floating' 
+run = 'layout floating'
 
 # mnemonics T - Terminal Emulators
 [[on-window-detected]]

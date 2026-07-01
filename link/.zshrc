@@ -135,9 +135,9 @@ add-zsh-hook precmd prompt_git_precmd
 
 # set proxy
 function proxy() {
-  export http_proxy=http://127.0.0.1:1087
-  export https_proxy=http://127.0.0.1:1087
-  export ALL_PROXY=socks5://127.0.0.1:1080
+  export http_proxy=http://127.0.0.1:7890
+  export https_proxy=http://127.0.0.1:7890
+  export ALL_PROXY=socks5://127.0.0.1:7890
   # echo -e "\e[32mProxy has been successfully set.\e[0m"
 }
 
