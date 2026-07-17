@@ -3,7 +3,7 @@ alias vi="nvim"
 alias reload="source ~/.zshrc"
 alias gcmsg="git commit -m"
 alias gl="git pull"
-alias gp="git push --force"
+alias gp="git push --force-with-lease"
 
 autoload -U add-zsh-hook
 # Function to get Git status
@@ -14,7 +14,7 @@ prompt_git_status() {
   }
 
   local -a parts
-  local fd line head ahead behind conflicts staged changed untracked commithash
+  local fd line head ahead behind conflicts staged changed untracked commit_hash
 
   exec {fd}< <(git status --porcelain=v2 --branch)
 
@@ -27,7 +27,7 @@ prompt_git_status() {
         ;;
       '# branch.head'*) # Current branch
         head="$line[3]"
-        [[ $head == "(detached)" ]] && head="$(echo ":$(git rev-parse --short HEAD)")"
+        [[ $head == "(detached)" ]] && head=":$(git rev-parse --short HEAD)"
         ;;
       '# branch.ab'*) # Divergence from upstream
         ahead="${line[3]/#+}"
@@ -54,21 +54,21 @@ prompt_git_status() {
   fi
   local -a upstream_divergence
 
-  [[ $ahead > 0 ]] && upstream_divergence+="%F{blue}↑$ahead%f"
-  [[ $behind > 0 ]] && upstream_divergence+="%F{blue}↓$behind%f"
+  (( ahead > 0 )) && upstream_divergence+="%F{blue}↑$ahead%f"
+  (( behind > 0 )) && upstream_divergence+="%F{blue}↓$behind%f"
 
-  if [[ $#upstream_divergence > 0 ]]; then
+  if (( $#upstream_divergence > 0 )); then
     parts+="${(j::)upstream_divergence}"
   fi
 
   local -a working_info
 
-  [[ $conflicts > 0 ]] && working_info+="%F{red}×$conflicts%f"
-  [[ $staged > 0 ]] && working_info+="%F{green}●$staged%f"
-  [[ $changed > 0 ]] && working_info+="%F{208}✻$changed%f"
-  [[ $untracked > 0 ]] && working_info+="%F{yellow}+$untracked%f"
+  (( conflicts > 0 )) && working_info+="%F{red}×$conflicts%f"
+  (( staged > 0 )) && working_info+="%F{green}●$staged%f"
+  (( changed > 0 )) && working_info+="%F{208}✻$changed%f"
+  (( untracked > 0 )) && working_info+="%F{yellow}+$untracked%f"
 
-  if [[ $#working_info > 0 ]]; then
+  if (( $#working_info > 0 )); then
     parts+="${(j::)working_info}"
   else
     parts+="%F{green}✔%f"
@@ -97,8 +97,8 @@ prompt_git_define_prompt() {
   fi
 
   # Prompt arrow (red for non-zero status)
-  parts+="%(?.%F{8}.%F{red})
-%F{green}λ%f"
+  parts+="
+%(?.%F{green}.%F{red})λ%f"
 
   PROMPT="${(j: :)parts} "
 }
@@ -211,12 +211,19 @@ export FZF_DEFAULT_OPTS='
   --marker ⇒
 '
 
+# fuzzy open - enter to edit, ctrl-o to open
 fo() {
-  IFS=$'\n' out=($(fzf --query="$1" --multi))
-  key=$(head -1 <<< "$out")
-  file=$(head -2 <<< "$out" | tail -1)
-  if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-nvim} "$file"
+  local IFS=$'\n'
+  local -a out
+  out=($(fzf --query="$1" --multi --expect=ctrl-o))
+  local key="$out[1]"
+  shift 1 out
+  if (( $#out > 0 )); then
+    if [[ "$key" == ctrl-o ]]; then
+      open "${out[@]}"
+    else
+      ${EDITOR:-nvim} "${out[@]}"
+    fi
   fi
 }
 
@@ -226,6 +233,7 @@ fif() {
     echo "Need a string to search for!"
     return 1
   fi
+  local file
   file=$(rg --files-with-matches --no-messages "$1" | fzf --preview "bat --color=always {} | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1'  {}")
-  nvim $file
+  [ -n "$file" ] && nvim "$file"
 }
