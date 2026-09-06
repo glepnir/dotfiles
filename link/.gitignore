@@ -136,3 +136,4 @@ Xviminfo
 */vim/src/Makefile
 big.txt
 .env
+replace.sh
