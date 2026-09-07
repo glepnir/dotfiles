@@ -4,6 +4,7 @@ alias reload="source ~/.zshrc"
 alias gcmsg="git commit -m"
 alias gl="git pull"
 alias gp="git push --force-with-lease"
+alias vv="VIMRUNTIME=~/workspace/neovim ~/workspace/build/bin/nvim"
 
 autoload -U add-zsh-hook
 # Function to get Git status
