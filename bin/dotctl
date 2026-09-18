@@ -170,7 +170,11 @@ def update_ghostty_palette(nvim_colors: dict[str, str]) -> bool:
     if not os.path.exists(GHOSTTY):
         return False
 
-    required = ["red", "green", "yellow", "blue", "magenta", "cyan", "fg"]
+    fg = nvim_colors.get("fg") or nvim_colors.get("foreground") or nvim_colors.get("white")
+    if fg is None:
+        return False
+
+    required = ["red", "green", "yellow", "blue", "magenta", "cyan"]
     if any(k not in nvim_colors for k in required):
         return False
 
@@ -182,7 +186,7 @@ def update_ghostty_palette(nvim_colors: dict[str, str]) -> bool:
         4: nvim_colors["blue"],
         5: nvim_colors["magenta"],
         6: nvim_colors["cyan"],
-        7: nvim_colors["fg"],       # white = fg
+        7: fg,       # white = fg
     }
 
     with open(GHOSTTY, "r") as f:
@@ -220,23 +224,50 @@ def update_ghostty_palette(nvim_colors: dict[str, str]) -> bool:
 
     return changed
 
-def update_kitty_primary(kind: str, color: str) -> bool:
-    """Update background/foreground in kitty.conf."""
-    if not os.path.exists(KITTY):
-        return False
+def _pick(nvim_colors: dict[str, str], *keys: str) -> str | None:
+    """Return the first matching color key (handles fg/foreground naming variants)."""
+    for k in keys:
+        if k in nvim_colors:
+            return nvim_colors[k]
+    return None
 
+
+def _kitty_ensure_file() -> bool:
+    """Create kitty.conf if it doesn't exist yet. Returns True if created."""
+    if os.path.exists(KITTY):
+        return False
+    os.makedirs(os.path.dirname(KITTY), exist_ok=True)
+    with open(KITTY, "w"):
+        pass
+    return True
+
+
+def update_kitty_primary(kind: str, color: str) -> bool:
+    """Update background/foreground in kitty.conf (creates the line if missing)."""
     key = "background" if kind == "bg" else "foreground"
     changed = False
+    found = False
+
+    if _kitty_ensure_file():
+        with open(KITTY, "w") as f:
+            _ = f.write(f"{key} {color}\n")
+        return True
 
     with open(KITTY, "r+") as f:
         lines = f.readlines()
         for i, line in enumerate(lines):
             stripped = line.strip()
             if re.match(rf"^{key}\s+#", stripped):
+                found = True
                 cur = stripped.split()[-1]
                 if cur != color:
-                    lines[i] = f"{key} {color}\n"
+                    lines[i] = re.sub(r"#[0-9A-Fa-f]{6}", color, line, count=1)
                     changed = True
+        if not found:
+            if lines and not lines[-1].endswith("\n"):
+                lines[-1] += "\n"
+            lines.append(f"{key} {color}\n")
+            changed = True
 
         if changed:
             _ = f.seek(0)
@@ -247,30 +278,53 @@ def update_kitty_primary(kind: str, color: str) -> bool:
 
 
 def update_kitty_palette(nvim_colors: dict[str, str]) -> bool:
-    """Update color0-color15 palette in kitty.conf."""
-    if not os.path.exists(KITTY):
-        return False
+    """Update color0-color15 palette, cursor and selection colors in kitty.conf.
 
-    required = ["red", "green", "yellow", "blue", "magenta", "cyan", "fg"]
-    if any(k not in nvim_colors for k in required):
-        return False
+    Writes every entry even if the config has no color lines at all,
+    and tolerates ColorOutPut naming variants (fg/foreground, bright_red/...).
+    """
+    created = _kitty_ensure_file()
 
-    palette_map: dict[int, str] = {
-        0: TERMINAL_BLACK,
-        1: nvim_colors["red"],
-        2: nvim_colors["green"],
-        3: nvim_colors["yellow"],
-        4: nvim_colors["blue"],
-        5: nvim_colors["magenta"],
-        6: nvim_colors["cyan"],
-        7: nvim_colors["fg"],  # white = fg
+    fg = _pick(nvim_colors, "fg", "foreground", "white")
+    bg = _pick(nvim_colors, "bg", "background")
+
+    entries: dict[int, str | None] = {
+        0: _pick(nvim_colors, "black") or TERMINAL_BLACK,
+        1: _pick(nvim_colors, "red"),
+        2: _pick(nvim_colors, "green"),
+        3: _pick(nvim_colors, "yellow"),
+        4: _pick(nvim_colors, "blue"),
+        5: _pick(nvim_colors, "magenta"),
+        6: _pick(nvim_colors, "cyan"),
+        7: fg,
+        8: _pick(nvim_colors, "bright_black", "black_bright", "gray") or TERMINAL_BLACK,
+        9: _pick(nvim_colors, "bright_red", "red_bright") or _pick(nvim_colors, "red"),
+        10: _pick(nvim_colors, "bright_green", "green_bright") or _pick(nvim_colors, "green"),
+        11: _pick(nvim_colors, "bright_yellow", "yellow_bright") or _pick(nvim_colors, "yellow"),
+        12: _pick(nvim_colors, "bright_blue", "blue_bright") or _pick(nvim_colors, "blue"),
+        13: _pick(nvim_colors, "bright_magenta", "magenta_bright") or _pick(nvim_colors, "magenta"),
+        14: _pick(nvim_colors, "bright_cyan", "cyan_bright") or _pick(nvim_colors, "cyan"),
+        15: _pick(nvim_colors, "bright_white", "white_bright", "white") or fg,
     }
+    palette_map: dict[int, str] = {k: v for k, v in entries.items() if v is not None}
+
+    extra_entries: list[tuple[str, str]] = []
+    cursor = _pick(nvim_colors, "cursor", "cursor_color", "cursor_fg")
+    if cursor:
+        extra_entries.append(("cursor", cursor))
+    sel_bg = _pick(nvim_colors, "selection_background", "selection_bg", "visual_bg")
+    if sel_bg:
+        extra_entries.append(("selection_background", sel_bg))
+    sel_fg = _pick(nvim_colors, "selection_foreground", "selection_fg", "visual_fg") or bg
+    if sel_fg:
+        extra_entries.append(("selection_foreground", sel_fg))
 
     with open(KITTY, "r") as f:
         lines = f.readlines()
 
-    changed = False
-    seen: set[int] = set()
+    changed = bool(created)
+    seen_colors: set[int] = set()
+    seen_extras: set[str] = set()
     new_lines: list[str] = []
 
     for line in lines:
@@ -279,8 +333,22 @@ def update_kitty_palette(nvim_colors: dict[str, str]) -> bool:
             idx = int(m.group(1))
             if idx in palette_map:
                 val = palette_map[idx]
-                seen.add(idx)
-                new_line = f"color{idx} {val}\n"
+                seen_colors.add(idx)
+                new_line = re.sub(r"#[0-9A-Fa-f]{6}", val, line, count=1)
+                if line != new_line:
+                    new_lines.append(new_line)
+                    changed = True
+                else:
+                    new_lines.append(line)
+                continue
+
+        m = re.match(r"\s*(cursor|selection_background|selection_foreground)\s+(#[0-9A-Fa-f]{6})", line)
+        if m:
+            key = m.group(1)
+            target = dict(extra_entries).get(key)
+            if target:
+                seen_extras.add(key)
+                new_line = re.sub(r"#[0-9A-Fa-f]{6}", target, line, count=1)
                 if line != new_line:
                     new_lines.append(new_line)
                     changed = True
@@ -290,9 +358,16 @@ def update_kitty_palette(nvim_colors: dict[str, str]) -> bool:
 
         new_lines.append(line)
 
-    for idx, val in palette_map.items():
-        if idx not in seen:
-            new_lines.append(f"color{idx} {val}\n")
+    # 文件里缺失的条目全部补到末尾（没有 color 配置时也能完整写入）
+    if lines and not new_lines[-1].endswith("\n"):
+        new_lines[-1] += "\n"
+    for idx in sorted(palette_map):
+        if idx not in seen_colors:
+            new_lines.append(f"color{idx} {palette_map[idx]}\n")
+            changed = True
+    for key, val in extra_entries:
+        if key not in seen_extras:
+            new_lines.append(f"{key} {val}\n")
             changed = True
 
     if changed:
@@ -324,10 +399,9 @@ def sync_colors() -> bool:
     if normal_colors:
         changed |= update_alacritty_normal(normal_colors)
 
-    if GHOSTTY:
+    if os.path.exists(GHOSTTY):
         changed |= update_ghostty_palette(nvim_colors)
-    if KITTY:
-        changed |= update_kitty_palette(nvim_colors)
+    changed |= update_kitty_palette(nvim_colors)
 
     return changed
 

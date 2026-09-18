@@ -1,0 +1,19 @@
+[app]
+# Examples of application-to-input-source mappings
+# Format: Application Name = "InputSourceID"
+#
+# Terminal = "com.apple.keylayout.US"
+# Safari = "com.apple.inputmethod.TCIM.Pinyin"
+WeChat = "com.apple.inputmethod.SCIM.ITABC"
+QQ = "com.apple.inputmethod.SCIM.ITABC"
+Alacritty = "com.apple.keylayout.ABC"
+Ghostty = "com.apple.keylayout.ABC"
+Kitty = "com.apple.keylayout.ABC"
+
+[debug]
+# Enable debugging
+enabled = false
+# Log level: trace, debug, info, warn, error
+level = "info"
+# Log file path
+file = "~/.config/iswitch/iswitch.log"
