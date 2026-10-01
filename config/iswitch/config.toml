@@ -8,7 +8,7 @@ WeChat = "com.apple.inputmethod.SCIM.ITABC"
 QQ = "com.apple.inputmethod.SCIM.ITABC"
 Alacritty = "com.apple.keylayout.ABC"
 Ghostty = "com.apple.keylayout.ABC"
-Kitty = "com.apple.keylayout.ABC"
+kitty = "com.apple.keylayout.ABC"
 
 [debug]
 # Enable debugging
