@@ -127,9 +127,9 @@ add-zsh-hook precmd prompt_git_precmd
 
 # set proxy
 proxy() {
-  export http_proxy=http://127.0.0.1:7890
-  export https_proxy=http://127.0.0.1:7890
-  export all_proxy=socks5://127.0.0.1:7891
+  export http_proxy=http://127.0.0.1:20172
+  export https_proxy=http://127.0.0.1:20172
+  export all_proxy=socks5://127.0.0.1:20170
   export no_proxy="localhost,127.0.0.1,::1"
 
   export HTTP_PROXY=$http_proxy
