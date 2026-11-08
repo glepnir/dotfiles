@@ -159,7 +159,7 @@ for package in "${brew_packages[@]}"; do
   install_package "brew" "$package"
 done
 
-brew service start v2raya
+sudo HOMEBREW_NO_REQUIRE_TAP_TRUST=1 brew services start v2raya
 brew install neovim --HEAD
 
 # Config git

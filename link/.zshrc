@@ -10,7 +10,7 @@ alias vi="nvim"
 alias reload="exec zsh"
 alias gcmsg="git commit -m"
 alias gl="git pull"
-alias gp="git push"
+alias gp="git push --force"
 alias gpf="git push --force-with-lease --force-if-includes"
 alias vv="VIMRUNTIME=~/workspace/neovim ~/workspace/build/bin/nvim"
 
