@@ -15,6 +15,8 @@ GHOSTTY = os.path.join(DOTFILES, "config/ghostty/config")
 KITTY = os.path.join(DOTFILES, "config/kitty/kitty.conf")
 TERMINAL_BLACK = "#0f0f0f"
 TERMINAL_GRAY = "#666666"
+# Used when the nvim colorscheme does not export these ANSI names
+ANSI_FALLBACK = {"yellow": "#E6DB74", "magenta": "#9a6a9a", "cyan": "#A1EFE4"}
 
 def ts() -> str:
     return datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -107,7 +109,7 @@ def build_palette(nvim_colors: dict[str, str]) -> dict[int, str]:
     fg = _pick(nvim_colors, "fg", "foreground", "white")
 
     def normal(name: str) -> str | None:
-        return _pick(nvim_colors, name)
+        return _pick(nvim_colors, name) or ANSI_FALLBACK.get(name)
 
     def bright(name: str) -> str | None:
         return _pick(nvim_colors, f"bright_{name}", f"{name}_bright") or normal(name)
