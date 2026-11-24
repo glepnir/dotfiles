@@ -14,6 +14,7 @@ ALACRITTY = os.path.join(DOTFILES, "config/alacritty/alacritty.toml")
 GHOSTTY = os.path.join(DOTFILES, "config/ghostty/config")
 KITTY = os.path.join(DOTFILES, "config/kitty/kitty.conf")
 TERMINAL_BLACK = "#0f0f0f"
+TERMINAL_GRAY = "#666666"
 
 def ts() -> str:
     return datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -120,7 +121,7 @@ def build_palette(nvim_colors: dict[str, str]) -> dict[int, str]:
         5: normal("magenta"),
         6: normal("cyan"),
         7: fg,
-        8: _pick(nvim_colors, "bright_black", "black_bright", "gray") or TERMINAL_BLACK,
+        8: _pick(nvim_colors, "bright_black", "black_bright", "gray") or TERMINAL_GRAY,
         9: bright("red"),
         10: bright("green"),
         11: bright("yellow"),
