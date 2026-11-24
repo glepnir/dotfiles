@@ -121,7 +121,7 @@ def build_palette(nvim_colors: dict[str, str]) -> dict[int, str]:
         5: normal("magenta"),
         6: normal("cyan"),
         7: fg,
-        8: _pick(nvim_colors, "bright_black", "black_bright", "gray") or TERMINAL_GRAY,
+        8: _pick(nvim_colors, "bright_black", "black_bright", "gray", "comment", "blue6") or TERMINAL_GRAY,
         9: bright("red"),
         10: bright("green"),
         11: bright("yellow"),
