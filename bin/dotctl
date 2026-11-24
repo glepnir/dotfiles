@@ -14,6 +14,9 @@ ALACRITTY = os.path.join(DOTFILES, "config/alacritty/alacritty.toml")
 GHOSTTY = os.path.join(DOTFILES, "config/ghostty/config")
 KITTY = os.path.join(DOTFILES, "config/kitty/kitty.conf")
 TERMINAL_BLACK = "#0f0f0f"
+TERMINAL_GRAY = "#666666"
+# Used when the nvim colorscheme does not export these ANSI names
+ANSI_FALLBACK = {"yellow": "#E6DB74", "magenta": "#9a6a9a", "cyan": "#A1EFE4"}
 
 def ts() -> str:
     return datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -101,47 +104,85 @@ def update_alacritty_primary(kind: str, color: str) -> bool:
     return changed
 
 
-def update_alacritty_normal(colors: dict[str, str]) -> bool:
-    """Update colors.normal section in alacritty.toml."""
+def build_palette(nvim_colors: dict[str, str]) -> dict[int, str]:
+    """Build the shared 16-color terminal palette (single source for all terminals)."""
+    fg = _pick(nvim_colors, "fg", "foreground", "white")
+
+    def normal(name: str) -> str | None:
+        return _pick(nvim_colors, name) or ANSI_FALLBACK.get(name)
+
+    def bright(name: str) -> str | None:
+        return _pick(nvim_colors, f"bright_{name}", f"{name}_bright") or normal(name)
+
+    entries: dict[int, str | None] = {
+        0: normal("black") or TERMINAL_BLACK,
+        1: normal("red"),
+        2: normal("green"),
+        3: normal("yellow"),
+        4: normal("blue"),
+        5: normal("magenta"),
+        6: normal("cyan"),
+        7: fg,
+        8: _pick(nvim_colors, "bright_black", "black_bright") or TERMINAL_GRAY,
+        9: bright("red"),
+        10: bright("green"),
+        11: bright("yellow"),
+        12: bright("blue"),
+        13: bright("magenta"),
+        14: bright("cyan"),
+        15: bright("white") or fg,
+    }
+    return {k: v for k, v in entries.items() if v is not None}
+
+
+ANSI_NAMES = ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white"]
+
+
+def update_alacritty_palette(palette: dict[int, str]) -> bool:
+    """Rewrite [colors.normal] and [colors.bright] in alacritty.toml from the palette."""
     if not os.path.exists(ALACRITTY):
         return False
 
     with open(ALACRITTY, "r") as f:
         lines = f.readlines()
 
-    changed = False
-    inside_normal = False
+    sections = {
+        "[colors.normal]": {n: palette[i] for i, n in enumerate(ANSI_NAMES) if i in palette},
+        "[colors.bright]": {n: palette[i + 8] for i, n in enumerate(ANSI_NAMES) if i + 8 in palette},
+    }
+
     new_lines: list[str] = []
-
+    skipping = False
+    seen: set[str] = set()
     for line in lines:
-        stripped = line.strip()
-
-        if stripped == "[colors.normal]":
-            inside_normal = True
+        header = line.strip()
+        if header.startswith("["):
+            if skipping:
+                new_lines.append("\n")
+            skipping = header in sections
+            if skipping:
+                seen.add(header)
+                new_lines.append(line)
+                new_lines.extend(f'{k} = "{v}"\n' for k, v in sections[header].items())
+                continue
+        if not skipping:
             new_lines.append(line)
-            continue
 
-        if inside_normal and stripped.startswith("[") and stripped != "[colors.normal]":
-            inside_normal = False
+    if skipping:
+        new_lines.append("\n")
+    if new_lines and not new_lines[-1].endswith("\n"):
+        new_lines[-1] += "\n"
+    for header, colors in sections.items():
+        if header not in seen:
+            new_lines.append(f"\n{header}\n")
+            new_lines.extend(f'{k} = "{v}"\n' for k, v in colors.items())
 
-        if inside_normal and "=" in stripped:
-            key = stripped.split("=")[0].strip()
-            if key in colors:
-                current_val = stripped.split("=")[1].strip().strip('"')
-                new_val = colors[key]
-                if current_val != new_val:
-                    indent = len(line) - len(line.lstrip())
-                    new_lines.append(" " * indent + f'{key} = "{new_val}"\n')
-                    changed = True
-                    continue
+    if new_lines == lines:
+        return False
+    with open(ALACRITTY, "w") as f:
+        f.writelines(new_lines)
+    return True
 
-        new_lines.append(line)
-
-    if changed:
-        with open(ALACRITTY, "w") as f:
-            f.writelines(new_lines)
-
-    return changed
 
 def update_ghostty_primary(kind: str, color: str) -> bool:
     if not os.path.exists(GHOSTTY):
@@ -285,28 +326,8 @@ def update_kitty_palette(nvim_colors: dict[str, str]) -> bool:
     """
     created = _kitty_ensure_file()
 
-    fg = _pick(nvim_colors, "fg", "foreground", "white")
     bg = _pick(nvim_colors, "bg", "background")
-
-    entries: dict[int, str | None] = {
-        0: _pick(nvim_colors, "black") or TERMINAL_BLACK,
-        1: _pick(nvim_colors, "red"),
-        2: _pick(nvim_colors, "green"),
-        3: _pick(nvim_colors, "yellow"),
-        4: _pick(nvim_colors, "blue"),
-        5: _pick(nvim_colors, "magenta"),
-        6: _pick(nvim_colors, "cyan"),
-        7: fg,
-        8: _pick(nvim_colors, "bright_black", "black_bright", "gray") or TERMINAL_BLACK,
-        9: _pick(nvim_colors, "bright_red", "red_bright") or _pick(nvim_colors, "red"),
-        10: _pick(nvim_colors, "bright_green", "green_bright") or _pick(nvim_colors, "green"),
-        11: _pick(nvim_colors, "bright_yellow", "yellow_bright") or _pick(nvim_colors, "yellow"),
-        12: _pick(nvim_colors, "bright_blue", "blue_bright") or _pick(nvim_colors, "blue"),
-        13: _pick(nvim_colors, "bright_magenta", "magenta_bright") or _pick(nvim_colors, "magenta"),
-        14: _pick(nvim_colors, "bright_cyan", "cyan_bright") or _pick(nvim_colors, "cyan"),
-        15: _pick(nvim_colors, "bright_white", "white_bright", "white") or fg,
-    }
-    palette_map: dict[int, str] = {k: v for k, v in entries.items() if v is not None}
+    palette_map = build_palette(nvim_colors)
 
     extra_entries: list[tuple[str, str]] = []
     cursor = _pick(nvim_colors, "cursor", "cursor_color", "cursor_fg")
@@ -393,11 +414,7 @@ def sync_colors() -> bool:
         changed |= update_ghostty_primary("fg", nvim_colors["fg"])
         changed |= update_kitty_primary("fg", nvim_colors["fg"])
 
-    # Sync normal colors (red, green, yellow, blue, magenta, cyan, white, black)
-    normal_keys = ["red", "green", "yellow", "blue", "magenta", "cyan", "white", "black"]
-    normal_colors = {k: v for k, v in nvim_colors.items() if k in normal_keys}
-    if normal_colors:
-        changed |= update_alacritty_normal(normal_colors)
+    changed |= update_alacritty_palette(build_palette(nvim_colors))
 
     if os.path.exists(GHOSTTY):
         changed |= update_ghostty_palette(nvim_colors)
