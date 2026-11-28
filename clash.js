@@ -85,7 +85,12 @@ function main(config) {
 
   // 静态出口使用 TCP，拒绝 AI 域名的 UDP（如 QUIC），让它回落到 TCP
   const rejectUdp = (kind, domain) => "AND,((NETWORK,UDP),(" + kind + "," + domain + ")),REJECT";
+  const stunRules = [
+    "AND,((NETWORK,UDP),(DST-PORT,3478)),REJECT",
+    "AND,((NETWORK,UDP),(DST-PORT,19302)),REJECT",
+  ];
   const aiRules = [
+    ...stunRules,
     ...staticDomains.map(domain => rejectUdp("DOMAIN-SUFFIX", domain)),
     ...staticExact.map(domain => rejectUdp("DOMAIN", domain)),
     ...staticDomains.map(domain => "DOMAIN-SUFFIX," + domain + "," + staticGroup),
@@ -101,17 +106,27 @@ function main(config) {
   config.rules = [...new Set([...aiRules, ...original])];
 
   // AI 域名用静态组解析，国内域名用国内 DNS，其余 DNS 设置保持订阅原样
-  const doh = ["https://1.1.1.1/dns-query#" + staticGroup, "https://8.8.8.8/dns-query#" + staticGroup];
+  // 默认 DNS 通过订阅的主选择组解析，避免用国内运营商 DNS 解析海外域名
+  const dnsGroup = (groups.find(group => group.name === "节点选择") || groups[0])?.name;
+  const viaStatic = ["https://1.1.1.1/dns-query#" + staticGroup, "https://8.8.8.8/dns-query#" + staticGroup];
+  const viaMain = dnsGroup
+    ? ["https://1.1.1.1/dns-query#" + dnsGroup, "https://8.8.8.8/dns-query#" + dnsGroup]
+    : config.dns?.nameserver;
   const policy = { ...config.dns?.["nameserver-policy"] };
-  staticDomains.forEach(domain => { policy["+." + domain] = doh; });
-  staticExact.forEach(domain => { policy[domain] = doh; });
-  if (!policy["geosite:cn"]) policy["geosite:cn"] = ["https://223.5.5.5/dns-query"];
+  staticDomains.forEach(domain => { policy["+." + domain] = viaStatic; });
+  staticExact.forEach(domain => { policy[domain] = viaStatic; });
+  policy["geosite:cn"] = ["https://223.5.5.5/dns-query"];
   config.dns = {
     ...config.dns,
     enable: true,
+    ipv6: false,
+    nameserver: viaMain,
     "nameserver-policy": policy,
     "proxy-server-nameserver": ["https://223.5.5.5/dns-query#DIRECT"],
-    "default-nameserver": config.dns?.["default-nameserver"] ?? ["https://223.5.5.5/dns-query"],
+    "default-nameserver": ["223.5.5.5", "119.29.29.29"],
+    "prefer-h3": false,
+    fallback: [],
   };
+  delete config.dns["fallback-filter"];
   return config;
 }
